@@ -1,0 +1,7 @@
+
+<h2>Rooms</h2>
+{{~it.rooms :room}}
+<div class="room" data-id="{{=room.roomId}}">
+    <a href="/room.html?roomId={{=room.roomId}}">Room: {{=room.roomId}}</a>
+</div>
+{{~}}

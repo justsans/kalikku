@@ -1,0 +1,11 @@
+{
+    "name": "trump",
+    "description": "Trump game also called as Twenty Eight",
+    "version": "0.0.1",
+    "private": true,
+    "dependencies": {
+        "express.io": "1.1.13",
+        "dot": "1.0.1",
+        "consolidate": "0.10.0"
+    }
+}

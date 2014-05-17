@@ -1,0 +1,54 @@
+.table {
+    width: 600px;
+    height: 600px;
+    background-color: darkgreen;
+}
+
+.roomDiv {
+    width: 600px;
+    float: left;
+}
+
+.messagesDiv {
+    width: 200px;
+    float: right;
+}
+
+.middleRow {
+    width: 100%;
+    float: left;
+    border: solid #000000 1px;
+}
+
+.playerslot {
+    width: 130px;
+    height: 130px;
+    float: left;
+    border: solid #000000 1px;
+}
+
+.playerslot.center {
+    margin-left: 40%;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.playerslot.vmiddle {
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 15%;
+}
+
+.centerTable {
+    width: 300px;
+    height: 300px;
+    float: left;
+    border: solid #000000 1px;
+}
+
+.mydeck {
+    float: left;
+    width: 100%;
+    border: solid black 1px;
+}
+

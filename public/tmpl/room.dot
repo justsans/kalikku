@@ -1,0 +1,35 @@
+
+<div class="room" data-id="{{=it.roomId}}">
+    Room: {{=it.roomId}}
+    Status: {{=it.room.state.message}}
+</div>
+
+
+{{? it.room.state.id == '1' }}
+    <input type="button" id="startButton" value="Start Game"/>
+{{?? it.room.state.id == '2'}}
+
+  <div class="table" id="table">
+    <div class="playerslot center"></div>
+    <div class="middleRow">
+        <div class="playerslot vmiddle"></div>
+        <div class="centerTable"></div>
+        <div class="playerslot vmiddle"></div>
+    </div>
+
+    <div class="mydeck">
+        <ul class="hand">
+            {{~it.room.players[0].cards :value:index}}
+
+                <li>
+                    <img class="card" src="/images/classic-cards/{{=value.rank}}{{=value.suit}}.png"/>
+                </li>
+
+            {{~}}
+        </ul>
+    </div>
+  </div>
+{{??}}
+       State not handled
+{{?}}
+
