@@ -1,28 +1,47 @@
 
 <div class="room" data-id="{{=it.roomId}}">
-    Room: {{=it.roomId}}
-    Status: {{=it.room.state.message}}
+    <b>Room: {{=it.roomId}}
+    &nbsp;&nbsp;&nbsp;Status: {{=it.room.state.message}} </b>
 </div>
 
 
-{{? it.room.state.id == '1' }}
+{{? it.room.state.id === 1 }}
     <input type="button" id="startButton" value="Start Game"/>
-{{?? it.room.state.id == '2'}}
+{{?? it.room.state.id >= 2 }}
 
   <div class="table" id="table">
     <div class="playerslot center"></div>
     <div class="middleRow">
         <div class="playerslot vmiddle"></div>
-        <div class="centerTable"></div>
+        <div class="centerTable">
+            {{? it.room.state.id == 7 }}
+                <div class="slot2"></div>
+                <div class="slot3"></div>
+                <div class="slot1"></div>
+                <div class="slot0"></div>
+            {{?? it.room.state.id >= 2 }}
+                {{ for(var val = 14; val <= 28; val++) { }}
+                    {{? it.room.nextAllowedCallValue <= val }}
+                        <button type="submit" class="callButton" value="{{=val}}">{{=val}}</button>
+                    {{?}}
+
+                {{ } }}
+
+                <button type="submit" class="callButton" value="0">Pass</button>
+            {{??}}
+                   State not handled
+
+            {{?}}
+        </div>
         <div class="playerslot vmiddle"></div>
     </div>
 
     <div class="mydeck">
         <ul class="hand">
-            {{~it.room.players[0].cards :value:index}}
+            {{~it.room.players[it.room.currentSlot].cards :value:index}}
 
                 <li>
-                    <img class="card" src="/images/classic-cards/{{=value.rank}}{{=value.suit}}.png"/>
+                    <img class="card" index="{{=index}}"  suit="{{=value.suit}}" rank="{{=value.rank}}" src="/images/classic-cards/{{=value.rank}}{{=value.suit}}.png"/>
                 </li>
 
             {{~}}

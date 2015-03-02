@@ -2,20 +2,28 @@ var Card = require('./card');
 var Deck  = require('./deck');
 var Game =   require('./game');
 var Player = require('./player');
+var STATES = require('./states');
 
-var Room = function Room(roomId) {
+var Room = function Room(roomId, isDefaultAddPlayer) {
     //private
+    var NO_PLAYERS = 4;
     this.players = [];
-    var STATES = {
-        WAIT:  {id: 0, message: 'Waiting for players to join'},
-        READY: {id: 1, message: 'Press start game to start the game'},
-        CALL1: {id: 2, message: 'Waiting for players to call(Round1)'},
-        CALL2: {id: 3, message: 'Waiting for players to call(Round1)'},
-        CALL3: {id: 4, message: 'Waiting for players to call(Round1)'},
-        PLAY:  {id: 5, message: 'Game in progress'},
-        END:   {id: 6, message: 'Game has ended'}
-    };
+    this.currentRoundStartSlot = 0;
+    this.currentSlot = 0;
+    this.currentCallValue = 13;
+    this.nextAllowedCallValue = 14;
+    this.currentTrumpSlot = 0;
+    this.currentRoundCalls = 0;
+    this.trumpShown = false;
+    this.trump = null;
+    this.teamWithTrump = 0;
+    this.trumpSuit = '';
+    this.messages = [];
+    this.messageId = 0;
+    this.displayedMessageId = 0;
+    this.currentRoundPasses = 0;
 
+    this.tableCards = [];
 
 
     //public
@@ -24,7 +32,7 @@ var Room = function Room(roomId) {
     this.state =  STATES.WAIT;
     console.log('deck created'+this.game.deck);
     function distribute4CardsToEveryPlayer(deck, players) {
-        debugger;
+       // debugger;
         for(var j=0; j<4;j++) {
             for(var i=0; i<4;i++) {
                 var card = deck.pop();
@@ -40,6 +48,7 @@ var Room = function Room(roomId) {
         if(this.state == STATES.WAIT && length < 4)  {
             if(!this.players[slot]) {
                 console.log('Adding player '+playerId+ ' at slot ' + slot);
+                this.messages[this.messageId++] = 'Player ' + playerId + ' joined at slot ' + slot;
                 this.players[slot]  = new Player(playerId);
                 length++;
                 if(length == 4) {
@@ -48,16 +57,220 @@ var Room = function Room(roomId) {
             }
         }
     }
-    this.addPlayer('1',0);
-    this.addPlayer('2',1);
-    this.addPlayer('3',2);
-    this.addPlayer('4',3);
+
+    if(isDefaultAddPlayer) {
+        this.addPlayer('0',0);
+        this.addPlayer('1',1);
+        this.addPlayer('2',2);
+        this.addPlayer('3',3);
+    }
+
 
     this.start = function() {
        if(this.state == STATES.READY && this.players.length == 4) {
            distribute4CardsToEveryPlayer(this.game.deck, this.players);
            this.state = STATES.CALL1;
+           this.currentSlot = this.currentRoundStartSlot;
        }
+    }
+
+    this.isCallState = function() {
+       if(this.state == STATES.CALL1 || this.state == STATES.CALL2  || this.state == STATES.CALL3 ) {
+           return true;
+       }
+       return false;
+    }
+
+    this.play = function(playerId, rank, suit) {
+        if(this.state == STATES.PLAY && this.isCardValid(playerId, rank, suit)) {
+           this.players[this.currentSlot].removeCardByRankAndSuit(rank, suit);
+        }
+    }
+
+    this.isCardValid = function(playerId, rank, suit) {
+        var currentPlayerId = this.players[this.currentSlot].id;
+        debugger;
+        if(currentPlayerId == playerId && this.players[this.currentSlot].hasCard(rank, suit)) {
+            return true;
+        }
+        return false;
+    }
+
+    this.call = function(playerId, callValue) {
+        var currentPlayerId = this.players[this.currentSlot].id;
+        if(currentPlayerId == playerId && this.isCallState()) {
+            //set min call value
+            var minCallValue = this.nextAllowedCallValue ;
+            console.log('min call value is: ' + minCallValue);
+
+            if(this.state == STATES.CALL1) {
+                if((this.currentTrumpSlot == 0 && this.currentSlot === 2)
+                   || (this.currentTrumpSlot === 2 && this.currentSlot === 0)
+                   || (this.currentTrumpSlot === 1 && this.currentSlot === 3)
+                   || (this.currentTrumpSlot === 3 && this.currentSlot === 1)) {
+                     if(minCallValue < 20) {
+                         minCallValue = 20;
+                     }
+                }
+            }
+            this.oldTrumpSlot = this.currentTrumpSlot;
+
+            if(callValue >= minCallValue)  {
+                this.messages[this.messageId++] = 'Player ' + this.players[this.currentSlot] + ' called ' + callValue;
+                this.currentCallValue =  callValue;
+                this.nextAllowedCallValue = callValue + 1;
+                this.messages[this.messageId++] = 'Next allowed call value ' + this.nextAllowedCallValue;
+                this.currentTrumpSlot = this.currentSlot;
+                this.nextSlotAfterCall();
+
+                this.teamWithTrump =  this.currentTrumpSlot % 2;
+                console.log('this.teamWithTrump=' +this.teamWithTrump);
+
+            } else if(callValue < this.nextAllowedCallValue && (this.state != STATES.CALL1 || this.currentRoundCalls > 0)) {
+                this.messages[this.messageId++] = 'Player ' + this.players[this.currentSlot] + ' passed.';
+                this.currentRoundPasses++;
+                this.nextSlotAfterPass();
+
+            }
+
+            console.log('currentRoundCalls=' + this.currentRoundCalls);
+            if(this.state == STATES.CALL1 && this.currentRoundCalls >= 4) {
+
+                this.advanceToNextState();
+            }  else if(this.state == STATES.CALL2 && this.currentRoundPasses >= 4) {
+                this.advanceToNextState();
+            } else if(this.state == STATES.CALL3 && this.currentRoundPasses >= 4) {
+                this.advanceToNextState();
+            }
+
+            this.messages[this.messageId++] = 'Next turn: Player ' + this.players[this.currentSlot];
+
+            if(this.currentCallValue == 28) {
+                if(this.players[0].cards.length == 4) {
+                    distribute4CardsToEveryPlayer(this.game.deck, this.players);
+                }
+                this.setStateToTrump2();
+            }
+        }
+
+    }
+
+    this.setStateToPlay = function() {
+        this.state = STATES.PLAY;
+        this.nextAllowedCallValue = 29;
+        this.currentSlot = this.currentRoundStartSlot;
+    }
+
+    this.setStateToTrump2 = function() {
+        this.messages[this.messageId++] = 'Waiting for player ' + this.currentTrumpSlot + ' to select a trump.';
+        this.currentSlot = this.currentTrumpSlot;
+        this.state = STATES.TRUMP2;
+    }
+
+    this.advanceToNextState = function() {
+        console.log('advancing to next state');
+        this.currentRoundCalls = 0;
+        switch (this.state) {
+            case STATES.WAIT:
+                this.state = STATES.READY;
+                this.currentSlot = this.currentRoundStartSlot;
+                break;
+            case STATES.READY:
+                this.state = STATES.CALL1;
+                this.currentRoundPasses = 0;
+                this.currentSlot = this.currentRoundStartSlot;
+                break;
+            case STATES.CALL1:
+                this.state = STATES.CALL2;
+                this.currentRoundPasses = 0;
+                this.currentRoundCalls =0;
+                this.currentSlot = this.currentRoundStartSlot;
+                if(this.nextAllowedCallValue < 20) {this.nextAllowedCallValue = 20;}
+                break;
+            case STATES.CALL2:
+                this.messages[this.messageId++] = 'Waiting for player ' + this.currentTrumpSlot + ' to select a trump.';
+                this.state = STATES.TRUMP1;
+                this.currentSlot = this.currentTrumpSlot;
+                this.currentRoundCalls = 0;
+                if(this.nextAllowedCallValue < 24) {this.nextAllowedCallValue = 24;}
+                break;
+            case STATES.TRUMP1:
+                this.currentRoundCalls = 0;
+                this.state = STATES.CALL3;
+                this.currentRoundPasses = 0;
+                this.currentSlot = this.currentRoundStartSlot;
+                distribute4CardsToEveryPlayer(this.game.deck, this.players);
+                break;
+            case STATES.CALL3:
+                if(this.call  >= 24) {
+                    this.setStateToTrump2();
+                } else {
+                    this.setStateToPlay();
+                }
+
+                break;
+            case STATES.TRUMP2:
+                this.setStateToPlay();
+                break;
+            case STATES.END:
+                this.state = STATES.READY;
+                this.currentRoundCalls = 0;
+                this.nextAllowedCallValue = 14;
+                this.trumpShown = false;
+                this.trumpSuit = '';
+                this.currentCallValue = 13;
+                this.currentRoundPasses = 0;
+                this.currentRoundStartSlot  = (this.currentRoundStartSlot + 1) % NO_PLAYERS;
+                this.currentSlot = this.currentRoundStartSlot;
+
+        }
+    }
+
+    this.nextSlotAfterCall =  function () {
+        this.currentRoundCalls++;
+        console.log('\nthis.currentRoundCalls  is ' + this.currentRoundCalls);
+        console.log(this.currentSlot + 'called ' + this.currentCallValue);
+
+        if(this.state == STATES.CALL1) {
+            switch(this.currentRoundCalls) {
+                case 1: this.currentSlot = (this.currentSlot + 1) % NO_PLAYERS;break;
+                case 2: this.currentSlot = (this.currentSlot + 1) % NO_PLAYERS;break;
+                case 3: this.currentSlot = (this.oldTrumpSlot + 2) % NO_PLAYERS;break;
+            }
+        } else {
+            this.currentSlot = (this.currentSlot + 1) % NO_PLAYERS;
+        }
+
+        console.log('setting current slot to in call :' + this.currentSlot) ;
+    }
+
+    this.nextSlotAfterPass = function() {
+        console.log(this.currentSlot + 'passed');
+        console.log('\nthis.teamWithTrump'  + this.teamWithTrump);
+        this.currentRoundCalls++;
+
+        if(this.state == STATES.CALL1) {
+            switch(this.currentRoundCalls) {
+                case 1: this.currentSlot = (this.currentSlot + 1) % NO_PLAYERS;break;
+                case 2: this.currentSlot = (this.currentSlot + 2) % NO_PLAYERS;break;
+                case 3: this.currentSlot = (this.oldTrumpSlot + 2) % NO_PLAYERS;break;
+            }
+        } else {
+            this.currentSlot = (this.currentSlot + 1) % NO_PLAYERS;
+        }
+        console.log('setting current slot to in pass :' + this.currentSlot) ;
+    }
+
+    this.selectTrump = function(playerId, rank, suit) {
+        var trumpPlayerId = this.players[this.currentTrumpSlot];
+        if(trumpPlayerId == playerId) {
+            this.trump = new Card(rank, suit);
+            this.trumpSuit = suit;
+            if(this.state == STATES.TRUMP1 || this.state == STATES.TRUMP2) {
+                this.advanceToNextState();
+            }
+            this.messages[this.messageId++] = 'Player ' + this.currentSlot + ' selected a trump.';
+        }
     }
 
 }

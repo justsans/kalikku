@@ -20,10 +20,27 @@ io.on('updateTable', function (data) {
     $("#startButton").click(function() {
         io.emit('startGame', {'roomId': roomId, 'action': 'startGame'});
     });
+
+    $(".callButton").click(function() {
+        var callValue = $(this).attr("value");
+        io.emit('call', {'roomId': roomId, 'callValue': callValue});
+    })  ;
+
+    $(".card").click(function() {
+        var suit = $(this).attr("suit");
+        var rank = $(this).attr("rank");
+        if(data.room.state.id == 7) {
+            io.emit('play', {'roomId': roomId, 'suit': suit, 'rank' :  rank});
+        } else if(data.room.state.id == 4 || data.room.state.id == 6) {
+            io.emit('selectTrump', {'roomId': roomId, 'suit': suit, 'rank' :  rank});
+        }
+
+    })
 });
 
 io.on('updateMessage', function (data) {
-    $('.messagesDiv').append('<p>' + data.message + '</p>')
+    var messagesTextArea    = $('#messagesTextArea');
+    messagesTextArea.val(messagesTextArea.val() + data + "\n" );
 });
 
 
@@ -34,11 +51,3 @@ function getParameterByName(name) {
         results = regex.exec(location.search);
     return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
-
-$( document ).ready(function() {
-    var roomId = getParameterByName('roomId');
-    $("#startButton").click(function() {
-        io.emit('startGame', {'roomId': roomId, 'action': 'startGame'});
-    })
-
-});

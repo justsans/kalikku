@@ -11,7 +11,12 @@
 
 .messagesDiv {
     width: 200px;
-    float: right;
+    float: left;
+}
+
+#messagesTextArea {
+    margin-top: 20px;
+    height: 550px;
 }
 
 .middleRow {
@@ -50,5 +55,45 @@
     float: left;
     width: 100%;
     border: solid black 1px;
+}
+
+.slot2 {
+    width: 60px;
+    height: 80px;
+    border: solid black 1px;
+    position: absolute;
+    top: 30px;
+    left: 120px;
+}
+
+.slot3 {
+    width: 60px;
+    height: 80px;
+    border: solid black 1px;
+    position: absolute;
+    top: 100px;
+    left: 30px;
+}
+
+.slot1 {
+    width: 60px;
+    height: 80px;
+    border: solid black 1px;
+    position: absolute;
+    top: 100px;
+    right: 30px;
+}
+
+.slot0 {
+    width: 60px;
+    height: 80px;
+    border: solid black 1px;
+    position: absolute;
+    bottom: 30px;
+    left: 120px;
+}
+
+.centerTable {
+    position: relative;
 }
 

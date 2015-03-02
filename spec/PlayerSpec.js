@@ -39,17 +39,30 @@ describe("Player", function () {
         player.addCard(card2);
         expect(2).toEqual(player.cards.length);
 
-        player.removeCard(card1);
-        expect(1).toEqual(player.cards.length);
-
-        player.removeCard(card1);
+        player.removeCard(card2);
         expect(1).toEqual(player.cards.length);
 
         player.removeCard(card2);
+        expect(1).toEqual(player.cards.length);
+
+        player.removeCard(card1);
         expect(0).toEqual(player.cards.length);
 
         player.removeCard(card1);
         expect(0).toEqual(player.cards.length);
+    });
+
+    it("should return true if a player has card", function () {
+        player = new Player('playerid');
+        var card1 = new Card('A', 'S');
+        player.addCard(card1);
+
+        expect(1).toEqual(player.cards.length);
+        expect(true).toEqual(player.hasCard('A','S'));
+        expect(false).toEqual(player.hasCard('A','D'));
+        expect(false).toEqual(player.hasCard('10','S'));
+        expect(false).toEqual(player.hasCard('9','H'));
+
     });
 
 });

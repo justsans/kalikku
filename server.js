@@ -11,7 +11,7 @@ app.set( "views", __dirname + "/public/tmpl" );
 var Room = require ('./model/room');
 
 var rooms = {};
-rooms['1'] = new Room('1');
+rooms['1'] = new Room('1', true);
 
 require("./routes/configure")(app, rooms);
 
