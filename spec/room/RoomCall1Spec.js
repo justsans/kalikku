@@ -1,15 +1,16 @@
 var Room = require('../../model/room');
 var STATES = require('../../model/states');
+var Simulator = require('../util/simulatorUtil')
+
 describe("Room", function () {
     var room;
+    var simulator;
 
     beforeEach(function () {
         room = new Room('roomid');
-        room.addPlayer('0', 0);
-        room.addPlayer('1', 1);
-        room.addPlayer('2', 2);
-        room.addPlayer('3', 3);
-        room.start();
+
+        simulator = new Simulator();
+        simulator.addPlayersAndStartGame(room);
     });
 
     it("should be able to call in round 1", function () {
