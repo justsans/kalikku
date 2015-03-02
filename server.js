@@ -15,4 +15,4 @@ rooms['1'] = new Room('1', true);
 
 require("./routes/configure")(app, rooms);
 
-app.listen( 3000 );
+app.listen( 5000 );
