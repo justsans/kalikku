@@ -1,5 +1,6 @@
 # Game Description
-This is a implementation of a game called Twenty Eight. It also known as Thuruppu, Trump. 
+This is a implementation of a game called Twenty Eight. It also known as Trump. It is mainly played in the state of Kerala in India, where it is called Thuruppu (which is the Malayalam word for Trump). This implementation only supports the 4 player version of the game. You read more about the rules and variations about this game in this link.
+http://en.wikipedia.org/wiki/Twenty-eight_%28card_game%29
 
 
 ## Prerequisites
