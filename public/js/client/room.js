@@ -41,6 +41,8 @@ io.on('updateTable', function (data) {
 io.on('updateMessage', function (data) {
     var messagesTextArea    = $('#messagesTextArea');
     messagesTextArea.val(messagesTextArea.val() + data + "\n" );
+    alert(messagesTextArea.scrollHeight);
+    messagesTextArea.scrollTop(messagesTextArea[0].scrollHeight);
 });
 
 

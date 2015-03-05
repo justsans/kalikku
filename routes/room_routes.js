@@ -28,7 +28,6 @@ module.exports = function (app, rooms) {
         var room = rooms[room_id];
         req.io.join(room_id);
         app.io.room(room_id).broadcast('updateTable', { roomId: room_id, room: room } );
-        app.io.room(room_id).broadcast('updateMessage', {'message' : 'table shown'}  );
     })
 
     app.get( "/room/:id", function( req, res ) {

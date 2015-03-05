@@ -1,12 +1,15 @@
 
-<div class="room" data-id="{{=it.roomId}}">
-    <b>Room: {{=it.roomId}}
-    &nbsp;&nbsp;&nbsp;Status: {{=it.room.state.message}} </b>
+<div class="alert alert-success gameStatusDiv" data-id="{{=it.roomId}}">
+    <b>Game Status:
+    &nbsp; {{=it.room.state.message}} </b>
 </div>
 
 
 {{? it.room.state.id === 1 }}
-    <input type="button" id="startButton" value="Start Game"/>
+    <div class="jumbotron startGameContent">
+        There are no active games in this room currently. Click below to start a new game. <br/> <br/>
+        <input class="btn btn-primary btn-lg btn-blue" type="button" id="startButton" value="Start Game"/>
+    </div>
 {{?? it.room.state.id >= 2 }}
 
   <div class="table" id="table">
