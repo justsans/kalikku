@@ -1,6 +1,6 @@
 var Room = require('../../model/room');
 var STATES = require('../../model/states');
-var Simulator = require('../util/simulatorUtil')
+var Simulator = require('../util/simulatorUtil');
 
 describe("Room", function () {
     var room;
@@ -13,8 +13,6 @@ describe("Room", function () {
 
         //call round 1
         simulator.callCALL1(room);
-
-
     });
 
     it("should not be able to call in round 2 19 or below", function () {

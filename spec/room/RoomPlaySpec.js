@@ -38,12 +38,12 @@ describe("Room", function () {
 
     });
 
-    it("should not be able to play trump if trump is not shown and you called trump", function () {
-        expect(8).toEqual(room.players[0].cards.length);
-        room.play('0', room.trump.rank, room.trump.suit);
-
-        expect(8).toEqual(room.players[0].cards.length);
-
-    });
+//    it("should not be able to play trump if trump is not shown and you called trump", function () {
+//        expect(8).toEqual(room.players[0].cards.length);
+//        room.play('0', room.trump.rank, room.trump.suit);
+//
+//        expect(8).toEqual(room.players[0].cards.length);
+//
+//    });
 
 });

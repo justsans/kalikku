@@ -1,16 +1,15 @@
 var Room = require('../../model/room');
 var STATES = require('../../model/states');
+var Simulator = require('../util/simulatorUtil');
+
 describe("Room", function () {
     var room;
+    var simulator;
 
     beforeEach(function () {
         room = new Room('roomid');
-        room.addPlayer('0', 0);
-        room.addPlayer('1', 1);
-        room.addPlayer('2', 2);
-        room.addPlayer('3', 3);
-
-        room.start();
+        simulator = new Simulator();
+        simulator.addPlayersAndStartGame(room);
 
         //call round 1
         room.call('0',14);
@@ -19,10 +18,7 @@ describe("Room", function () {
         room.call('3',0);
 
         //call round 2
-        room.call('0',0);
-        room.call('1',0);
-        room.call('2',0);
-        room.call('3',0);
+        simulator.everyonePass(room);
 
         expect(STATES.TRUMP1).toEqual(room.state);
         expect(1).toEqual(room.currentTrumpSlot);

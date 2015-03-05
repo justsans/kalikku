@@ -6,24 +6,32 @@
 	<title>Trump - Table</title>
     <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
-	<link rel="stylesheet" href="/css/main.css" />
-	<link rel="stylesheet" href="/css/room.css" />
 
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/main.css" />
+	<link rel="stylesheet" href="/css/room.css" />
+    <link rel="stylesheet" href="/css/navbar.css" />
     <link rel="stylesheet" href="/css/card.css" />
+
 </head>
 <body>
-	<header>
-		<h1>Trump</h1>
-	</header>
-	<div class="content">
-       <div class="roomDiv"></div>
-       <div class="messagesDiv">
-            <textarea id="messagesTextArea"></textarea>
-       </div>
+    <div class="navbarContainer"></div>
+	<div class="content container">
+        <div class="row">
+            <div class="roomDiv col-sm-12 col-md-8 col-lg-8" ></div>
+            <div class="messagesDiv col-sm-12 col-md-4 col-lg-4">
+                <textarea id="messagesTextArea"></textarea>
+            </div>
+
+        </div>
+
     </div>
 
+    <script src="/js/lib/doT.min.js"></script>
+    <script src="/js/client/navbar.js"></script>
+    <script src="/js/client/room.js"></script>
 
-	<script src="/js/lib/doT.min.js"></script>
-	<script src="/js/client/room.js"></script>
+
 </body>
 </html>

@@ -1,21 +1,17 @@
 .table {
-    width: 600px;
-    height: 600px;
+    margin-right: 25px;
     background-color: darkgreen;
 }
 
 .roomDiv {
-    width: 600px;
-    float: left;
 }
 
 .messagesDiv {
-    width: 200px;
-    float: left;
+
 }
 
 #messagesTextArea {
-    margin-top: 20px;
+    width: 100%;
     height: 550px;
 }
 
@@ -96,4 +92,5 @@
 .centerTable {
     position: relative;
 }
+
 
