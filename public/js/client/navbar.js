@@ -1,7 +1,9 @@
 var navbarTmpl;
 
 function init() {
-    $( "div.navbarContainer" ).html( navbarTmpl() );
+    $.get( "user", function( info ) {
+        $( "div.navbarContainer" ).html( navbarTmpl(info) );
+    });
 }
 
 $.when(

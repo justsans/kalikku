@@ -9,5 +9,14 @@
                     <li><a href="#">Rooms</a></li>
                 </ul>
             </div>
+            <div class="welcomeContent pull-right">
+                {{? it.displayName}}
+                Welcome! {{=it.displayName}}
+                    <a href="/logout" class="logoutButton btn btn-warning btn-sm"><span class="fa fa-user"></span> Logout</a>
+                {{??}}
+                    <a href="/login" class="logoutButton btn btn-warning btn-sm"><span class="fa fa-user"></span> Login</a>
+                / <a href="/signup" class="logoutButton btn btn-info btn-sm"><span class="fa fa-user"></span> Register</a>
+                {{?}}
+            </div>
         </div>
 </nav>

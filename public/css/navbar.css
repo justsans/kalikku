@@ -1,3 +1,9 @@
 .navbar {
      border-radius: 0;
 }
+
+.welcomeContent {
+    color: white;
+    font-weight: bold;
+    margin-top: 5px;
+}
