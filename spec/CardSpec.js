@@ -2,14 +2,15 @@ var Card = require('../model/card');
 
 function createDBSettings(mongoLabURI) {
     var dbSettings = {};
-    var regexp = /^mongodb:\/\/(\w+):(\w+)@(\w+):(\w+)\/(\w+)$/;
+    var regexp = /^mongodb:\/\/(\w+):(\w+)@([\w.]+):(\w+)\/(\w+)$/;
     var matches = mongoLabURI.match(regexp);
 
-    dbSettings.db = matches[5];
+
     dbSettings.host = matches[3];
     dbSettings.port = matches[4];
     dbSettings.username = matches[1];
     dbSettings.password = matches[2];
+    dbSettings.db = matches[5];
 
     return dbSettings;
 }
@@ -21,12 +22,12 @@ describe("Card", function() {
 
 
   it("should be able to parse mongoLab uri", function() {
-        var dbSettings = createDBSettings('mongodb://dbuser:dbpass@host:port/dbname');
-        expect(dbSettings.db).toEqual('dbname');
-        expect(dbSettings.username).toEqual('dbuser');
-        expect(dbSettings.password).toEqual('dbpass');
-        expect(dbSettings.port).toEqual('port');
-        expect(dbSettings.host).toEqual('host');
+        var dbSettings = createDBSettings('mongodb://heroku_app34518149:6neriuteir36kleb2pip84dsdj@ds051831.mongolab.com:51831/heroku_app34518149');
+        expect(dbSettings.db).toEqual('heroku_app34518149');
+        expect(dbSettings.username).toEqual('heroku_app34518149');
+        expect(dbSettings.password).toEqual('6neriuteir36kleb2pip84dsdj');
+        expect(dbSettings.port).toEqual('51831');
+        expect(dbSettings.host).toEqual('ds051831.mongolab.com');
   });
 
 
