@@ -10,7 +10,7 @@ var flash    = require('connect-flash');
 var configDB = require('./config/database.js');
 
 // configuration ===============================================================
-mongoose.connect(configDB.url); // connect to our database
+var mongooseInstance = mongoose.connect(configDB.url); // connect to our database
 
 require('./config/passport')(passport); // pass passport for configuration
 
@@ -27,12 +27,12 @@ app.set( "view engine", "dot" );
 app.set( "views", __dirname + "/public/tmpl" );
 
 //////////////////
+
+
 var passportSocketIo = require("passport.socketio");
 var session = require('express-session');
 var MongoStore = require('connect-mongostore')(session);
-var sessionStore = new MongoStore({
-    db: 'userSessions'
-});
+var sessionStore = new MongoStore(configDB.dbConfig);
 
 var sessionConfig = {
     key:    'connect.sid',       //the cookie where express (or connect) stores its session id.
