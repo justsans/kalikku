@@ -21,27 +21,31 @@ io.on('updateTable', function (data) {
         io.emit('startGame', {'roomId': roomId, 'action': 'startGame'});
     });
 
+    $(".joinButton").click(function() {
+        var userId = $("#userId").attr("value");
+        io.emit('join', {'roomId': roomId, 'action': 'joinGame', 'slotId': $(this).attr("slot"), userId: userId});
+    });
+
     $(".callButton").click(function() {
         var callValue = $(this).attr("value");
         io.emit('call', {'roomId': roomId, 'callValue': callValue});
-    })  ;
+    });
 
     $(".card").click(function() {
         var suit = $(this).attr("suit");
         var rank = $(this).attr("rank");
-        if(data.room.state.id == 7) {
+        if(data.view.state == 7) {
             io.emit('play', {'roomId': roomId, 'suit': suit, 'rank' :  rank});
-        } else if(data.room.state.id == 4 || data.room.state.id == 6) {
+        } else if(data.view.state == 4 || data.view.state == 6) {
             io.emit('selectTrump', {'roomId': roomId, 'suit': suit, 'rank' :  rank});
         }
 
-    })
+    });
 });
 
 io.on('updateMessage', function (data) {
     var messagesTextArea    = $('#messagesTextArea');
     messagesTextArea.val(messagesTextArea.val() + data + "\n" );
-    alert(messagesTextArea.scrollHeight);
     messagesTextArea.scrollTop(messagesTextArea[0].scrollHeight);
 });
 

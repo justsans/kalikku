@@ -13,6 +13,9 @@
     "mongoose": "^3.8.25",
     "passport": "^0.2.1",
     "passport-facebook": "*",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "passport.socketio": "3.5.0",
+    "express-session": "1.10.4",
+    "connect-mongostore": "0.1.4"
   }
 }

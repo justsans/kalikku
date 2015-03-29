@@ -1,6 +1,7 @@
 module.exports = {
 
     'url' : process.env.MONGOLAB_URI ||
-        process.env.MONGOHQ_URL || 'mongodb://localhost:27017/'
+        process.env.MONGOHQ_URL || 'mongodb://localhost:27017/'   ,
+    'cookie_secret': 'dennisinuithukaliyakampakshenjangalkithuverumkaliyalla'
 
 };

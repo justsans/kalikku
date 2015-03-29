@@ -1,57 +1,85 @@
 
-<div class="alert alert-success gameStatusDiv" data-id="{{=it.roomId}}">
+<div class="alert alert-success gameStatusDiv" data-id="{{=it.view.roomId}}">
     <b>Game Status:
-    &nbsp; {{=it.room.state.message}} </b>
+    &nbsp; {{=it.view.state.message}} </b>
 </div>
 
 
-{{? it.room.state.id === 1 }}
-    <div class="jumbotron startGameContent">
-        There are no active games in this room currently. Click below to start a new game. <br/> <br/>
-        <input class="btn btn-primary btn-lg btn-blue" type="button" id="startButton" value="Start Game"/>
-    </div>
-{{?? it.room.state.id >= 2 }}
+{{? it.view.state.id === 1 }}
+<div class="alert alert-info startGameContent">
+    All the players have joined the game. Click here to start game.
+    <input class="btn btn-primary btn-md btn-blue" type="button" id="startButton" value="Start Game"/>
+</div>
+{{?}}
 
-  <div class="table" id="table">
-    <div class="playerslot center"></div>
+<div class="table" id="table">
+    <div class="playerslot center">
+        {{? !it.view.players[2]}}
+        <input class="btn btn-primary btn-lg btn-blue joinButton" type="button"  slot="2" value="Join"/>
+        {{??}}
+        {{=it.view.players[2].displayName}}
+        {{?}}
+
+    </div>
     <div class="middleRow">
-        <div class="playerslot vmiddle"></div>
+        <div class="playerslot vmiddle">
+            {{? !it.view.players[3]}}
+            <input class="btn btn-primary btn-lg btn-blue joinButton" type="button"  slot="3" value="Join"/>
+            {{??}}
+            {{=it.view.players[3].displayName}}
+            {{?}}
+
+        </div>
         <div class="centerTable">
-            {{? it.room.state.id == 7 }}
+            {{? it.view.state.id == 7 }}
                 <div class="slot2"></div>
                 <div class="slot3"></div>
                 <div class="slot1"></div>
                 <div class="slot0"></div>
-            {{?? it.room.state.id >= 2 }}
+            {{?? it.view.state.id >= 2 }}
                 {{ for(var val = 14; val <= 28; val++) { }}
-                    {{? it.room.nextAllowedCallValue <= val }}
+                    {{? it.view.nextAllowedCallValue <= val }}
                         <button type="submit" class="callButton" value="{{=val}}">{{=val}}</button>
                     {{?}}
 
                 {{ } }}
 
                 <button type="submit" class="callButton" value="0">Pass</button>
-            {{??}}
-                   State not handled
 
             {{?}}
         </div>
-        <div class="playerslot vmiddle"></div>
+        <div class="playerslot vmiddle">
+            {{? !it.view.players[1]}}
+            <input class="btn btn-primary btn-lg btn-blue joinButton" type="button"  slot="1" value="Join"/>
+            {{??}}
+            {{=it.view.players[1].displayName}}
+            {{?}}
+        </div>
     </div>
 
-    <div class="mydeck">
-        <ul class="hand">
-            {{~it.room.players[it.room.currentSlot].cards :value:index}}
+    <div class="playerslot center">
+        {{? !it.view.players[0]}}
+        <input class="btn btn-primary btn-lg btn-blue joinButton" type="button"  slot="0" value="Join"/>
+        {{??}}
+        {{=it.view.players[0].displayName}}
+        {{?}}
 
-                <li>
-                    <img class="card" index="{{=index}}"  suit="{{=value.suit}}" rank="{{=value.rank}}" src="/images/classic-cards/{{=value.rank}}{{=value.suit}}.png"/>
-                </li>
-
-            {{~}}
-        </ul>
     </div>
+
+
+    {{? it.view.state.id >= 2}}
+        <div class="mydeck">
+            <ul class="hand">
+                {{~it.view.cards :value:index}}
+
+                    <li>
+                        <img class="card" index="{{=index}}"  suit="{{=value.suit}}" rank="{{=value.rank}}" src="/images/classic-cards/{{=value.rank}}{{=value.suit}}.png"/>
+                    </li>
+
+                {{~}}
+            </ul>
+        </div>
+    {{?}}
   </div>
-{{??}}
-       State not handled
-{{?}}
+
 

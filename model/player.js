@@ -1,5 +1,6 @@
-var Player = function Player (playerId) {
+var Player = function Player (playerId, displayName) {
     this.id = playerId;
+    this.displayName = displayName || '';
     this.cards = [];
     this.addCard  = function(card) {
        if(this.cards.length < 8) {
@@ -45,7 +46,7 @@ var Player = function Player (playerId) {
 }
 
 Player.prototype.toString = function toString() {
-    return this.id;
+    return this.displayName;
 }
 
 module.exports = Player;

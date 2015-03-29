@@ -1,10 +1,10 @@
 
 var Simulator = function Simulator() {
    this.addPlayersAndStartGame = function(room) {
-       room.addPlayer('0', 0);
-       room.addPlayer('1', 1);
-       room.addPlayer('2', 2);
-       room.addPlayer('3', 3);
+       room.addPlayer('0',0, 'Player 0');
+       room.addPlayer('1',1, 'Player 1');
+       room.addPlayer('2',2, 'Player 2');
+       room.addPlayer('3',3, 'Player 3');
 
        room.start();
    };

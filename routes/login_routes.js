@@ -33,7 +33,15 @@ module.exports = function (app, passport) {
 
     app.get('/user', function(req, res) {
         if(req.user) {
-            res.send( { displayName: req.user.local.name} );
+            res.send( { displayName: req.user.data.displayName, userId: req.user.id} );
+        } else {
+            res.send({displayName: null});
+        }
+    });
+
+    app.get('/userobject', function(req, res) {
+        if(req.user) {
+            res.send( { displayName: req.user.id} );
         } else {
             res.send({displayName: null});
         }

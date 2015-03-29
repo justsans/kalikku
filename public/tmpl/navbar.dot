@@ -17,6 +17,7 @@
                     <a href="/login" class="logoutButton btn btn-warning btn-sm"><span class="fa fa-user"></span> Login</a>
                 / <a href="/signup" class="logoutButton btn btn-info btn-sm"><span class="fa fa-user"></span> Register</a>
                 {{?}}
+                <input type="hidden" id="userId" name="userId" value="{{=it.userId}}"/>
             </div>
         </div>
 </nav>

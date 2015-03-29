@@ -1,4 +1,7 @@
 var Room = require ('../model/room');
+var User = require('../model/user');
+var RoomView = require('../model/roomView');
+var ObjectId = require('mongoose').Types.ObjectId;
 
 module.exports = function (app, rooms) {
     app.get( "/rooms", function( req, res ) {
@@ -22,12 +25,16 @@ module.exports = function (app, rooms) {
 
     });
 
+    function getObjectToSendToUser(room_id, room) {
+        return { room: room, view: new RoomView(room) };
+    }
+
     app.io.route('/room/show', function(req) {
         var room_id = req.data.roomId;
         console.log('showing game:' + room_id);
         var room = rooms[room_id];
         req.io.join(room_id);
-        app.io.room(room_id).broadcast('updateTable', { roomId: room_id, room: room } );
+        app.io.room(room_id).broadcast('updateTable', getObjectToSendToUser(room_id, room) );
     })
 
     app.get( "/room/:id", function( req, res ) {
@@ -35,7 +42,7 @@ module.exports = function (app, rooms) {
         console.log('fetching room id: ' + room_id);
         var room = rooms[room_id];
         //req.io.join(room_id);
-        res.send( { roomId: room_id, room: room } );
+        res.send( getObjectToSendToUser(room_id, room) );
     });
 
 
@@ -46,7 +53,7 @@ module.exports = function (app, rooms) {
 
         room.start();
 
-        app.io.room(room_id).broadcast('updateTable', { roomId: room_id, room: room });
+        app.io.room(room_id).broadcast('updateTable', getObjectToSendToUser(room_id, room));
     });
 
     app.io.route('call', function(req) {
@@ -57,8 +64,41 @@ module.exports = function (app, rooms) {
         var room = rooms[room_id];
         var playerId = room.players[room.currentSlot].id;
         room.call(playerId, parseInt(callValue));
-        app.io.room(room_id).broadcast('updateTable', { roomId: room_id, room: room });
+        app.io.room(room_id).broadcast('updateTable', getObjectToSendToUser(room_id, room));
         publishUndisplayedMessages(room, room_id);
+
+    });
+
+    app.io.route('join', function(req) {
+        console.log('user isss:::::::::::' + req.handshake.user);
+        var room_id = req.data.roomId;
+        var userId = req.data.userId;
+        var slotId = req.data.slotId;
+        console.log(req.data);
+        if(userId && userId != 'undefined') {
+
+            User.findOne({'_id': new ObjectId(userId)}, function(err, user) {
+                // if there are any errors, return the error
+                if (err)
+                    return done(err);
+
+                // check to see if theres already a user with that email
+                if (user) {
+                    console.log('User requested to join table:' + userId);
+
+                    var room = rooms[room_id];
+                    if(!room.players[slotId]) {
+                        room.addPlayer(userId, slotId, user.data.displayName);
+                    }
+
+                    req.io.join(room_id + '-' + slotId);
+
+                    app.io.room(room_id).broadcast('updateTable', getObjectToSendToUser(room_id, room));
+                    publishUndisplayedMessages(room, room_id);
+                }
+
+            });
+        }
 
     });
 
@@ -71,7 +111,7 @@ module.exports = function (app, rooms) {
         var room = rooms[room_id];
         var playerId = room.players[room.currentSlot].id;
         room.selectTrump(playerId, trumpSuit, trumpRank);
-        app.io.room(room_id).broadcast('updateTable', { roomId: room_id, room: room });
+        app.io.room(room_id).broadcast('updateTable', getObjectToSendToUser(room_id, room));
         publishUndisplayedMessages(room, room_id);
     }) ;
 
@@ -84,7 +124,7 @@ module.exports = function (app, rooms) {
         var room = rooms[room_id];
         var playerId = room.players[room.currentSlot].id;
         room.play(playerId, rank, suit);
-        app.io.room(room_id).broadcast('updateTable', { roomId: room_id, room: room });
+        app.io.room(room_id).broadcast('updateTable', getObjectToSendToUser(room_id, room));
         publishUndisplayedMessages(room, room_id);
     }) ;
 
