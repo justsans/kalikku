@@ -8,7 +8,8 @@ This is a implementation of a game called Twenty Eight. It also known as Trump. 
 ## Prerequisites
 
 1. You should have nodejs installed. http://nodejs.org/
-2. You should have git installed. 
+2. You should have git installed.
+3. You should have MongoDB installed
 
 ## Developer Notes
 1. Download source code from https://github.com/justsans/kalikku
@@ -22,15 +23,25 @@ All the commands below should be executed from the directory that you downloaded
    ```
    npm install 
    ```
-3. Install jasmine-node so that you can run tests.
+
+3. 	Set up the MongoDB environment.
+    MongoDB requires a data directory to store all data. MongoDB’s default data directory path is \data\db.
+    Create this folder using the following commands from a Command Prompt:
+
+    md \data\db
+
+    Start MongoDB :
+    mongod.exe --dbpath c:\data\d
+
+4. Install jasmine-node so that you can run tests.
    ```
    npm install jasmine-node -g
    ```
-4. Run your tests. 
+5. Run your tests.
    ```
    jasmine-node spec
    ```
-5. If the tests are successfull you are ready to start the app and play the game. 
+6. If the tests are successfull you are ready to start the app and play the game.
 The following should bring up the game in http://localhost:5000
    ```
    node server.js
