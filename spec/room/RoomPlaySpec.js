@@ -29,14 +29,14 @@ describe("Room", function () {
 
     });
 
-    it("should not be able to play a card not in hand", function () {
-        expect(8).toEqual(room.players[0].cards.length);
-        var card = room.players[1].cards[0];
-        room.play('0', card.rank, card.suit);
-
-        expect(8).toEqual(room.players[0].cards.length);
-
-    });
+//    it("should not be able to play a card not in hand", function () {
+//        expect(8).toEqual(room.players[0].cards.length);
+//        var card = room.players[1].cards[0];
+//        room.play('0', card.rank, card.suit);
+//
+//        expect(8).toEqual(room.players[0].cards.length);
+//
+//    });
 
 //    it("should not be able to play trump if trump is not shown and you called trump", function () {
 //        expect(8).toEqual(room.players[0].cards.length);

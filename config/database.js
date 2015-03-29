@@ -1,8 +1,8 @@
 
 function createDBSettings(mongoLabURI) {
     var dbSettings = {};
-    var regexp = /^mongodb:\/\/(\w+):(\w+)@(\w+):(\w+)\/(\w+)$/;
-    var matches = regexp.match(mongoLabURI);
+    var regexp = new RegExp('/^mongodb:\/\/(\w+):(\w+)@(\w+):(\w+)\/(\w+)$/');
+    var matches = mongoLabURI.match(regexp);
 
     dbSettings.db = matches[5];
     dbSettings.host = matches[3];
@@ -13,7 +13,6 @@ function createDBSettings(mongoLabURI) {
     return dbSettings;
 }
 
-var dbUrl = '';
 var dbConfig = {db: 'userSessions'}
 
 if(process.env.MONGOLAB_URI) {
