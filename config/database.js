@@ -1,7 +1,7 @@
 
 function createDBSettings(mongoLabURI) {
     var dbSettings = {};
-    var regexp = new RegExp('/^mongodb:\/\/(\w+):(\w+)@(\w+):(\w+)\/(\w+)$/');
+    var regexp = /^mongodb:\/\/(\w+):(\w+)@(\w+):(\w+)\/(\w+)$/;
     var matches = mongoLabURI.match(regexp);
 
     dbSettings.db = matches[5];
