@@ -1,0 +1,12 @@
+{{? it.state.id >= 2}}
+
+    <ul class="hand">
+        {{~it.cards.cards :value:index}}
+
+        <li>
+            <img class="card" index="{{=index}}"  suit="{{=value.suit}}" rank="{{=value.rank}}" src="/images/classic-cards/{{=value.rank}}{{=value.suit}}.png"/>
+        </li>
+
+        {{~}}
+    </ul>
+{{?}}

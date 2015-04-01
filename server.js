@@ -9,9 +9,6 @@ var flash    = require('connect-flash');
 
 var configDB = require('./config/database.js');
 
-// configuration ===============================================================
-var mongooseInstance = mongoose.connect(configDB.url); // connect to our database
-
 require('./config/passport')(passport); // pass passport for configuration
 
 
@@ -27,8 +24,7 @@ app.set( "view engine", "dot" );
 app.set( "views", __dirname + "/public/tmpl" );
 
 //////////////////
-
-
+//mongoose.connect(configDB.url); // connect to our database
 var passportSocketIo = require("passport.socketio");
 var session = require('express-session');
 var MongoStore = require('connect-mongostore')(session);
@@ -72,4 +68,9 @@ rooms['Machans'] = new Room('Machans', false);
 require("./routes/configure")(app, rooms, passport);
 var port = process.env.PORT || 5000;
 
-app.listen( port );
+
+mongoose.connect(configDB.url, function () {
+    app.listen(port);
+});
+
+//app.listen( port );

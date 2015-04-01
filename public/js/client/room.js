@@ -1,10 +1,18 @@
 var roomTmpl;
+var cardDeckTmpl;
 var io = io.connect();
 
 function init() {
     var roomId = getParameterByName('roomId');
     io.emit( "/room/show", {'roomId': roomId});
+
 }
+
+$.when(
+    $.get( "tmpl/cardDeck.dot", function( tmpl ) {
+        cardDeckTmpl = doT.template( tmpl );
+    }, "text" )
+).then(  );
 
 $.when(
     $.get( "tmpl/room.dot", function( tmpl ) {
@@ -31,16 +39,24 @@ io.on('updateTable', function (data) {
         io.emit('call', {'roomId': roomId, 'callValue': callValue});
     });
 
+});
+
+
+io.on('updateCards', function(data) {
+    console.log('Got CARDS:' + data);
+    $("#mydeckDiv").html( cardDeckTmpl( data ) );
+    var roomId = getParameterByName('roomId');
     $(".card").click(function() {
         var suit = $(this).attr("suit");
         var rank = $(this).attr("rank");
-        if(data.view.state == 7) {
+        if(data.state.id == 7) {
             io.emit('play', {'roomId': roomId, 'suit': suit, 'rank' :  rank});
-        } else if(data.view.state == 4 || data.view.state == 6) {
+        } else if(data.state.id == 4 || data.state.id == 6) {
             io.emit('selectTrump', {'roomId': roomId, 'suit': suit, 'rank' :  rank});
         }
 
     });
+
 });
 
 io.on('updateMessage', function (data) {

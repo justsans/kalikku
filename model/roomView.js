@@ -1,8 +1,3 @@
-var Card = require('./card');
-var Deck  = require('./deck');
-var Game =   require('./game');
-var Player = require('./player');
-var STATES = require('./states');
 
 var RoomView = function RoomView(room, slotId) {
    var numberOfActivePlayers = 0;
@@ -26,7 +21,7 @@ var RoomView = function RoomView(room, slotId) {
 
    if(room.players[slotId]) {
        this.playerId = room.players[slotId].id;
-       room.players[slotId].cards;
+       this.cards = room.players[slotId].cards;
    }
 
 }

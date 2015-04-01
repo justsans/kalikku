@@ -67,19 +67,8 @@
     </div>
 
 
-    {{? it.view.state.id >= 2}}
-        <div class="mydeck">
-            <ul class="hand">
-                {{~it.view.cards :value:index}}
-
-                    <li>
-                        <img class="card" index="{{=index}}"  suit="{{=value.suit}}" rank="{{=value.rank}}" src="/images/classic-cards/{{=value.rank}}{{=value.suit}}.png"/>
-                    </li>
-
-                {{~}}
-            </ul>
-        </div>
-    {{?}}
+    <div class="mydeck" id="mydeckDiv">
+    </div>
   </div>
 
 

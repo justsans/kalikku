@@ -1,6 +1,7 @@
 var Room = require ('../model/room');
 var User = require('../model/user');
 var RoomView = require('../model/roomView');
+var CardDeckView = require('../model/cardDeckView');
 var ObjectId = require('mongoose').Types.ObjectId;
 
 module.exports = function (app, rooms) {
@@ -25,24 +26,25 @@ module.exports = function (app, rooms) {
 
     });
 
-    function getObjectToSendToUser(room_id, room) {
-        return { room: room, view: new RoomView(room) };
-    }
-
     app.io.route('/room/show', function(req) {
         var room_id = req.data.roomId;
-        console.log('showing game:' + room_id);
+        var userId = req.handshake.user.id;
+
+        console.log('showing game:' + room_id + ',' + userId);
         var room = rooms[room_id];
         req.io.join(room_id);
-        app.io.room(room_id).broadcast('updateTable', getObjectToSendToUser(room_id, room) );
-    })
+        updateTable(room);
+        req.io.join(room_id + '-' + userId);
+        console.log('Joiningg ROOM: '+room_id + '-' + userId);
+        updatePlayer(room, userId);
+    });
 
     app.get( "/room/:id", function( req, res ) {
         var room_id = req.params.id;
         console.log('fetching room id: ' + room_id);
         var room = rooms[room_id];
         //req.io.join(room_id);
-        res.send( getObjectToSendToUser(room_id, room) );
+        res.send( getObjectToSendToUser(room) );
     });
 
 
@@ -53,8 +55,10 @@ module.exports = function (app, rooms) {
 
         room.start();
 
-        app.io.room(room_id).broadcast('updateTable', getObjectToSendToUser(room_id, room));
+        updateTableAndAllPlayers(room);
     });
+
+
 
     app.io.route('call', function(req) {
         var room_id = req.data.roomId;
@@ -64,17 +68,17 @@ module.exports = function (app, rooms) {
         var room = rooms[room_id];
         var playerId = room.players[room.currentSlot].id;
         room.call(playerId, parseInt(callValue));
-        app.io.room(room_id).broadcast('updateTable', getObjectToSendToUser(room_id, room));
+        updateTableAndAllPlayers(room);
         publishUndisplayedMessages(room, room_id);
 
     });
 
     app.io.route('join', function(req) {
-        console.log('user isss:::::::::::' + req.handshake.user);
+//        console.log('user isss:::::::::::' + req.handshake.user);
         var room_id = req.data.roomId;
-        var userId = req.data.userId;
+        var userId = req.handshake.user.id;
+
         var slotId = req.data.slotId;
-        console.log(req.data);
         if(userId && userId != 'undefined') {
 
             User.findOne({'_id': new ObjectId(userId)}, function(err, user) {
@@ -85,15 +89,13 @@ module.exports = function (app, rooms) {
                 // check to see if theres already a user with that email
                 if (user) {
                     console.log('User requested to join table:' + userId);
-
+                    req.io.join(room_id + '-' + userId);
                     var room = rooms[room_id];
                     if(!room.players[slotId]) {
                         room.addPlayer(userId, slotId, user.data.displayName);
                     }
 
-                    req.io.join(room_id + '-' + slotId);
-
-                    app.io.room(room_id).broadcast('updateTable', getObjectToSendToUser(room_id, room));
+                    app.io.room(room_id).broadcast('updateTable', getObjectToSendToUser(room));
                     publishUndisplayedMessages(room, room_id);
                 }
 
@@ -111,7 +113,7 @@ module.exports = function (app, rooms) {
         var room = rooms[room_id];
         var playerId = room.players[room.currentSlot].id;
         room.selectTrump(playerId, trumpSuit, trumpRank);
-        app.io.room(room_id).broadcast('updateTable', getObjectToSendToUser(room_id, room));
+        updateTableAndAllPlayers(room);
         publishUndisplayedMessages(room, room_id);
     }) ;
 
@@ -124,9 +126,48 @@ module.exports = function (app, rooms) {
         var room = rooms[room_id];
         var playerId = room.players[room.currentSlot].id;
         room.play(playerId, rank, suit);
-        app.io.room(room_id).broadcast('updateTable', getObjectToSendToUser(room_id, room));
+        updateTableAndAllPlayers(room);
         publishUndisplayedMessages(room, room_id);
     }) ;
+
+
+    function updateTableAndAllPlayers(room) {
+        updateTable(room);
+        updateAllPlayersWithCards(room);
+    }
+
+    function updateTable(room) {
+        app.io.room(room.roomId).broadcast('updateTable', getObjectToSendToUser(room));
+    }
+
+    function updateCards(room, slotId) {
+        app.io.room(room.roomId).broadcast('updateCards', getCardsToSendToUser(room, slotId));
+    }
+
+    function updateAllPlayersWithCards(room) {
+        for(var i = 0; i < room.players.length; i++) {
+            if(room.players[i]) {
+               updatePlayer(room, room.players[i].id)
+            }
+        }
+
+    }
+
+    function updatePlayer(room, playerId) {
+        var roomId = room.roomId + '-' + playerId;
+        var currentSlot = room.currentSlot;
+        if(room.players[currentSlot] && room.players[currentSlot].id == playerId) {
+            updateCards(room, currentSlot);
+
+        } else {
+            for(var i = 0; i < room.players.length; i++) {
+                if(room.players[i] && room.players[i].id == playerId) {
+                    updateCards(room, i);
+                }
+            }
+        }
+
+    }
 
     function publishUndisplayedMessages(room, room_id) {
         if (room.displayedMessageId < room.messageId) {
@@ -135,6 +176,14 @@ module.exports = function (app, rooms) {
                 room.displayedMessageId = i;
             }
         }
+    }
+
+    function getCardsToSendToUser(room, slotId) {
+        return { cards: new CardDeckView(room, slotId), state: room.state };
+    }
+
+    function getObjectToSendToUser(room) {
+        return { room: room, view: new RoomView(room) };
     }
 
 };
