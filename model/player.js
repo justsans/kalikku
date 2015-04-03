@@ -27,7 +27,7 @@ var Player = function Player (playerId, displayName) {
     this.getCard = function(rank, suit) {
         for(var i=0; i < this.cards.length; i++) {
 
-            if(this.cards[i].suit == suit && this.cards[0].rank == rank) {
+            if(this.cards[i].suit == suit && this.cards[i].rank == rank) {
                 return this.cards[i];
             }
         }
@@ -37,7 +37,7 @@ var Player = function Player (playerId, displayName) {
     this.hasCard = function(rank, suit) {
        for(var i=0; i < this.cards.length; i++) {
 
-           if(this.cards[i].suit == suit && this.cards[0].rank == rank) {
+           if(this.cards[i].suit == suit && this.cards[i].rank == rank) {
                return true;
            }
        }

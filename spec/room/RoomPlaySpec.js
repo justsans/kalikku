@@ -16,34 +16,46 @@ describe("Room", function () {
 
     it("should be in state to play with currentSlot as the first player", function () {
         expect(STATES.PLAY).toEqual(room.state);
-        expect(0).toEqual(room.currentSlot)
+        expect(0).toEqual(room.currentSlot);
         expect(29).toEqual(room.nextAllowedCallValue);
+        expect(1).toEqual(room.playRound);
+        expect(0).toEqual(room.currentRoundPlays);
     });
 
-    it("should be able to play a card in hand", function () {
+    it("should be able to play a card in hand that is not trump", function () {
         expect(8).toEqual(room.players[0].cards.length);
-        var card = room.players[0].cards[0];
+        var card;
+        for(var i =0;i < room.players[0].cards.length; i++) {
+            if(room.players[0].cards[i].suit != room.trumpSuit) {
+                card = room.players[0].cards[i];
+                break;
+            }
+        }
         room.play('0', card.rank, card.suit);
 
         expect(7).toEqual(room.players[0].cards.length);
+        expect(1).toEqual(room.currentRoundPlays);
 
     });
 
-//    it("should not be able to play a card not in hand", function () {
-//        expect(8).toEqual(room.players[0].cards.length);
-//        var card = room.players[1].cards[0];
-//        room.play('0', card.rank, card.suit);
-//
-//        expect(8).toEqual(room.players[0].cards.length);
-//
-//    });
+    it("should not be able to play a card not in hand", function () {
+        expect(8).toEqual(room.players[0].cards.length);
+        var card = room.players[1].cards[0];
+        expect(0).toEqual(room.currentSlot);
+        room.play('0', card.rank, card.suit);
 
-//    it("should not be able to play trump if trump is not shown and you called trump", function () {
-//        expect(8).toEqual(room.players[0].cards.length);
-//        room.play('0', room.trump.rank, room.trump.suit);
-//
-//        expect(8).toEqual(room.players[0].cards.length);
-//
-//    });
+        expect(8).toEqual(room.players[0].cards.length);
+        expect(0).toEqual(room.currentRoundPlays);
+
+    });
+
+    it("should not be able to play trump if trump is not shown and you called trump", function () {
+        expect(8).toEqual(room.players[0].cards.length);
+        room.play('0', room.trump.rank, room.trump.suit);
+
+        expect(8).toEqual(room.players[0].cards.length);
+        expect(0).toEqual(room.currentRoundPlays);
+
+    });
 
 });

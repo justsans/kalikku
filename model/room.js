@@ -23,6 +23,15 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
     this.displayedMessageId = 0;
     this.currentRoundPasses = 0;
 
+    this.playRound = 1;
+    this.currentPlayRoundSuit = '';
+    this.currentRoundPlays = 0;
+    this.currentPlayRoundStartSlot = 0;
+    this.team1Points = 0;
+    this.team0Points = 0;
+    this.team0GamePoints = 5;
+    this.team1GamePoints = 5;
+
     this.tableCards = [];
     this.numberOfActivePlayers = 0;
 
@@ -99,18 +108,166 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
     }
 
     this.play = function(playerId, rank, suit) {
+        console.log(rank+ suit +' played');
         if(this.state == STATES.PLAY && this.isCardValid(playerId, rank, suit)) {
+           console.log(rank+ suit +' is valid');
            this.players[this.currentSlot].removeCardByRankAndSuit(rank, suit);
+           this.tableCards[this.currentSlot] = new Card(rank, suit);
+
+           console.log('currentRoundPlays = ' + this.currentRoundPlays);
+           if(this.currentRoundPlays < 3) {
+               this.currentRoundPlays++;
+               this.currentSlot = (this.currentSlot + 1) % NO_PLAYERS;
+               console.log('next slot = ' + this.currentSlot );
+           } else {
+               this.finishRound();
+           }
         }
     }
 
-    this.isCardValid = function(playerId, rank, suit) {
-        var currentPlayerId = this.players[this.currentSlot].id;
-        debugger;
-        if(currentPlayerId == playerId && this.players[this.currentSlot].hasCard(rank, suit)) {
-            return true;
+    this.finishRound  = function() {
+        var slotWhoWon = this.whichSlotWonTheRound();
+        console.log('finishing round');
+        var points = 0;
+        for(card in this.tableCards) {
+            points += card.point;
         }
+
+        if(slotWhoWon % 2 == 0) {
+            this.team0Points += points;
+        } else {
+            this.team1Points +=  points;
+        }
+
+        var teamWon = this.whichTeamWonTheGame();
+        if(teamWon == -1) {
+            console.log('No team has won, slotWon is' + slotWhoWon);
+            this.tableCards = [];
+            this.currentPlayRoundStartSlot = slotWhoWon;
+            this.currentSlot = slotWhoWon;
+            this.currentRoundPlays = 0;
+            this.playRound += 1;
+        } else {
+            this.finishGame(teamWon);
+        }
+
+
+    }
+
+    this.finishGame = function(team) {
+      if(team == 0) {
+          this.team0GamePoints += 1;
+      } else {
+          this.team1GamePoints += 1;
+      }
+
+      this.state = STATES.END;
+      this.advanceToNextState();
+
+    }
+
+    this.whichSlotWonTheRound = function() {
+        var biggestSlot = this.currentPlayRoundStartSlot;
+        var startSuit = this.currentPlayRoundSuit;
+        var firstCard = this.tableCards[this.currentPlayRoundStartSlot];
+        for(var i =0 ; i<this.tableCards.length; i++) {
+             var card = this.tableCards[i];
+             if(card.suit == firstCard.suit) {
+                  if(card.order > firstCard.order) {
+                      biggestSlot = i;
+                  }
+             }
+        }
+
+        if(this.trumpShown) {
+            for(var i =0 ; i<this.tableCards.length; i++) {
+                var card = this.tableCards[i];
+                if(card.suit == this.trumpSuit) {
+                    if(this.tableCards[biggestSlot].suit != this.trumpSuit) {
+                        biggestSlot = i;
+                    } else {
+                        if(card.order > this.tableCards[biggestSlot].order) {
+                            biggestSlot = i;
+                        }
+                    }
+                }
+            }
+        }
+
+        return biggestSlot;
+    };
+
+    this.whichTeamWonTheGame = function() {
+       if(this.teamWithTrump = 0) {
+           if(this.team0Points >= this.currentCallValue ) return 0;
+           if(this.team1Points > (28 - this.currentCallValue)) return 1;
+       } else {
+           if(this.team1Points >= this.currentCallValue ) return 1;
+           if(this.team0Points > (28 - this.currentCallValue)) return 0;
+       }
+       return -1;
+    }
+
+    this.isCardValid = function(playerId, rank, suit) {
+        console.log('i am here 9');
+        var currentPlayerId = this.players[this.currentSlot].id;
+        console.log("currentPlayerId="+currentPlayerId);
+        console.log("playerId="+playerId);
+        console.log("hasCard="+this.players[this.currentSlot].hasCard(rank, suit));
+        console.log("cards="+this.players[this.currentSlot].cards);
+        if(currentPlayerId == playerId && this.players[this.currentSlot].hasCard(rank, suit)) {
+            console.log('i am here 10');
+            if(this.isSuitValid(suit, this.playRound, this.currentRoundPlays,
+                this.players[this.currentSlot].cards, this.trumpSuit,
+                this.trumpShown, this.currentSlot, this.currentPlayRoundSuit)) {
+                console.log('i am here 11');
+                return true;
+            }
+
+        }
+        console.log('i am here 12');
         return false;
+    }
+
+    this.isSuitValid = function(suit, playRound, currentRoundPlays,
+                                cards, trumpSuit, trumpShown, currentSlot, currentPlayRoundSuit) {
+
+        console.log('i am here 1');
+        if(playRound == 1 && currentRoundPlays == 0 && trumpSuit == suit) return false;
+
+        console.log('i am here 2');
+        if(currentRoundPlays == 0) {
+            console.log('i am here 3');
+           if(trumpShown) return true;
+            console.log('i am here 4');
+           if(suit != trumpSuit) return true;
+            console.log('i am here 5');
+           if(currentSlot != this.currentTrumpSlot) return true;
+            console.log('i am here 6');
+           if(everyCardIHaveIsTrump(cards, trumpSuit)) return true;
+           return false;
+        }
+
+        console.log('i am here 7');
+        if(suit == currentPlayRoundSuit) return true;
+        console.log('i am here 8');
+        if(ifIDoNotHaveTheCurrentSuit(suit, cards)) return true;
+
+        return false;
+    }
+
+    function everyCardIHaveIsTrump(cards, trumpSuit) {
+        for(card in cards) {
+            if(card.suit != trumpSuit) return false;
+        }
+        return true;
+    }
+
+    function ifIDoNotHaveTheCurrentSuit(suit, cards) {
+        for(card in cards) {
+            if(card.suit == suit) return false;
+        }
+        return true;
     }
 
     this.call = function(playerId, callValue) {
@@ -239,6 +396,10 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
                 this.currentRoundPasses = 0;
                 this.currentRoundStartSlot  = (this.currentRoundStartSlot + 1) % NO_PLAYERS;
                 this.currentSlot = this.currentRoundStartSlot;
+
+                this.playRound = 0;
+                this.currentRoundPlays = 0;
+                this.tableCards = [];
 
         }
     }

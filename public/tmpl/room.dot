@@ -32,10 +32,30 @@
         </div>
         <div class="centerTable">
             {{? it.view.state.id == 7 }}
-                <div class="slot2"></div>
-                <div class="slot3"></div>
-                <div class="slot1"></div>
-                <div class="slot0"></div>
+                <div class="slot2">
+                    {{? it.view.tableCards[2] }}
+                    <img class="card"
+                         src="/images/classic-cards/{{=it.view.tableCards[2].rank}}{{=it.view.tableCards[2].suit}}.png"/>
+                    {{?}}
+                </div>
+                <div class="slot3">
+                    {{? it.view.tableCards[3] }}
+                    <img class="card"
+                         src="/images/classic-cards/{{=it.view.tableCards[3].rank}}{{=it.view.tableCards[3].suit}}.png"/>
+                    {{?}}
+                </div>
+                <div class="slot1">
+                    {{? it.view.tableCards[1] }}
+                    <img class="card"
+                         src="/images/classic-cards/{{=it.view.tableCards[1].rank}}{{=it.view.tableCards[1].suit}}.png"/>
+                    {{?}}
+                </div>
+                <div class="slot0">
+                    {{? it.view.tableCards[0] }}
+                    <img class="card"
+                         src="/images/classic-cards/{{=it.view.tableCards[0].rank}}{{=it.view.tableCards[0].suit}}.png"/>
+                    {{?}}
+                </div>
             {{?? it.view.state.id >= 2 }}
                 {{ for(var val = 14; val <= 28; val++) { }}
                     {{? it.view.nextAllowedCallValue <= val }}
