@@ -20,7 +20,6 @@
     position: absolute;
     width: 60px;
     height: 60px;
-    float: left;
     padding: 5px;
     font-size: 9px;
 }
@@ -45,7 +44,9 @@
     left: 139px;
 }
 
-
+.avatar {
+    width:45px;
+}
 .startGameContent{
     font-size: 12px;
 }
@@ -148,5 +149,9 @@
     margin-top: -20px;
 }
 
+
+.navbar-header {
+    width: 100%;
+}
 
 

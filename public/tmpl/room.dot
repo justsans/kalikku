@@ -16,9 +16,9 @@
 
         <div class="playerslot two">
                 {{? !it.view.players[2]}}
-                <input class="btn btn-primary btn-lg btn-blue joinButton" type="button"  slot="2" value="Join"/>
+                <input class="btn btn-primary btn-md btn-blue joinButton" type="button"  slot="2" value="Join"/>
                 {{??}}
-                <img src="/images/avatar.png" width="45"/>
+                <img src="/images/avatar.png" class="avatar"/>
                 {{=it.view.players[2].displayName}}
                 {{?}}
 
@@ -26,18 +26,18 @@
 
             <div class="playerslot one">
                 {{? !it.view.players[1]}}
-                <input class="btn btn-primary btn-lg btn-blue joinButton" type="button"  slot="1" value="Join"/>
+                <input class="btn btn-primary btn-md btn-blue joinButton" type="button"  slot="1" value="Join"/>
                 {{??}}
-                <img src="/images/avatar.png" width="45"/>
+                <img src="/images/avatar.png" class="avatar"/>
                 {{=it.view.players[1].displayName}}
                 {{?}}
             </div>
 
             <div class="playerslot three">
                 {{? !it.view.players[3]}}
-                <input class="btn btn-primary btn-lg btn-blue joinButton" type="button"  slot="3" value="Join"/>
+                <input class="btn btn-primary btn-md btn-blue joinButton" type="button"  slot="3" value="Join"/>
                 {{??}}
-                <img src="/images/avatar.png" width="45"/>
+                <img src="/images/avatar.png"  class="avatar"/>
                 {{=it.view.players[3].displayName}}
                 {{?}}
 
@@ -45,9 +45,9 @@
 
             <div class="playerslot zero">
                 {{? !it.view.players[0]}}
-                <input class="btn btn-primary btn-lg btn-blue joinButton" type="button"  slot="0" value="Join"/>
+                <input class="btn btn-primary btn-md btn-blue joinButton" type="button"  slot="0" value="Join"/>
                 {{??}}
-                <img src="/images/avatar.png" width="45"/>
+                <img src="/images/avatar.png" class="avatar"/>
                 {{=it.view.players[0].displayName}}
                 {{?}}
 
@@ -102,10 +102,10 @@
         <textarea class="messagesTextArea"></textarea>
     </div>
 
-    <div class="chatDiv">
+    <div class="chatDiv" class="hidden-xs">
         <span> Team Chat:</span>
         <textarea class="chatTextArea"></textarea>
-        <input type="text"></input>
+        <input type="text" class="chatTextBox" ></input>
         <button type="button">Send</button>
     </div>
 
