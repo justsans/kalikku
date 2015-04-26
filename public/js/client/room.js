@@ -5,7 +5,8 @@ var io = io.connect();
 function init() {
     var roomId = getParameterByName('roomId');
     io.emit( "/room/show", {'roomId': roomId});
-
+    $('.table').width($(window).width());
+    $('.centerTable').width(($(window).width())/2);
 }
 
 $.when(
@@ -60,7 +61,7 @@ io.on('updateCards', function(data) {
 });
 
 io.on('updateMessage', function (data) {
-    var messagesTextArea    = $('#messagesTextArea');
+    var messagesTextArea    = $('.messagesTextArea');
     messagesTextArea.val(messagesTextArea.val() + data + "\n" );
     messagesTextArea.scrollTop(messagesTextArea[0].scrollHeight);
 });

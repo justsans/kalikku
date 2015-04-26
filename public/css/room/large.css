@@ -1,0 +1,152 @@
+.table {
+    height: 560px;
+    width: 100%;
+    position: relative;
+    color: white;
+    font-weight: bold;
+}
+
+.centerTable {
+    position: relative;
+    height: 225px;
+    border: solid #000000 1px;
+    width: 350px;
+    top:65px;
+    left:200px;
+    background-color: #006600;
+}
+
+.playerslot {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    float: left;
+    padding: 5px;
+    font-size: 9px;
+}
+
+.playerslot.zero {
+    top:290px;
+    left:345px;
+}
+
+.playerslot.one {
+    top:140px;
+    left:551px;
+}
+
+.playerslot.two {
+    top:0px;
+    left:345px;
+}
+
+.playerslot.three {
+    top: 140px;
+    left: 139px;
+}
+
+
+.startGameContent{
+    font-size: 12px;
+}
+
+.messagesDiv {
+    position: absolute;
+    top: 0;
+    right: 50px;
+    width: 300px;
+    text-align: left;
+    color: #008800;
+}
+.chatDiv {
+    position: absolute;
+    bottom: 0;
+    right: 50px;
+    width: 300px;
+    text-align: left;
+    color: orange;
+}
+.chatTextArea{
+    min-height: 200px;
+    font-size: 8px;
+    width: 100%;
+}
+
+.messagesTextArea {
+    min-height: 200px;
+    font-size: 8px;
+    width: 100%;
+}
+
+.mydeck {
+    position: absolute;
+    min-height: 100px;
+    left: 50px;
+    bottom: 0px;
+    width: 50%;
+}
+
+.slot3 {
+    width: 50px;
+    height: 50px;
+    /*border: solid black 1px;*/
+    position: absolute;
+    top: 60px;
+    left: 5px;
+}
+
+.slot1 {
+    width: 50px;
+    height: 50px;
+    /*border: solid black 1px;*/
+    position: absolute;
+    top: 60px;
+    right: 30px;
+}
+
+.slot2 {
+    width: 50px;
+    height: 50px;
+    /*border: solid black 1px;*/
+    position: absolute;
+    top: 5px;
+    left: 135px;
+}
+
+.slot0 {
+    width: 50px;
+    height: 50px;
+    /*border: solid black 1px;*/
+    position: absolute;
+    bottom: 55px;
+    left: 135px;
+}
+
+.alert {
+    padding: 5px;
+    margin-bottom: 2px;
+}
+
+.roomDiv {
+    text-align: center;
+}
+
+
+.card {
+    width: 65px;
+}
+
+.hand li
+{
+    display: inline;
+    list-style-type: none;
+    padding-right: 2px;
+    padding-bottom: 2px;
+}
+
+.content {
+    margin-top: -20px;
+}
+
+
+

@@ -13,82 +13,102 @@
 {{?}}
 
 <div class="table" id="table">
-    <div class="playerslot center">
-        {{? !it.view.players[2]}}
-        <input class="btn btn-primary btn-lg btn-blue joinButton" type="button"  slot="2" value="Join"/>
-        {{??}}
-        {{=it.view.players[2].displayName}}
-        {{?}}
 
-    </div>
-    <div class="middleRow">
-        <div class="playerslot vmiddle">
-            {{? !it.view.players[3]}}
-            <input class="btn btn-primary btn-lg btn-blue joinButton" type="button"  slot="3" value="Join"/>
-            {{??}}
-            {{=it.view.players[3].displayName}}
-            {{?}}
+        <div class="playerslot two">
+                {{? !it.view.players[2]}}
+                <input class="btn btn-primary btn-lg btn-blue joinButton" type="button"  slot="2" value="Join"/>
+                {{??}}
+                <img src="/images/avatar.png" width="45"/>
+                {{=it.view.players[2].displayName}}
+                {{?}}
 
-        </div>
-        <div class="centerTable">
-            {{? it.view.state.id == 7 }}
-                <div class="slot2">
-                    {{? it.view.tableCards[2] }}
-                    <img class="card"
-                         src="/images/classic-cards/{{=it.view.tableCards[2].rank}}{{=it.view.tableCards[2].suit}}.png"/>
-                    {{?}}
-                </div>
-                <div class="slot3">
-                    {{? it.view.tableCards[3] }}
-                    <img class="card"
-                         src="/images/classic-cards/{{=it.view.tableCards[3].rank}}{{=it.view.tableCards[3].suit}}.png"/>
-                    {{?}}
-                </div>
-                <div class="slot1">
-                    {{? it.view.tableCards[1] }}
-                    <img class="card"
-                         src="/images/classic-cards/{{=it.view.tableCards[1].rank}}{{=it.view.tableCards[1].suit}}.png"/>
-                    {{?}}
-                </div>
-                <div class="slot0">
-                    {{? it.view.tableCards[0] }}
-                    <img class="card"
-                         src="/images/classic-cards/{{=it.view.tableCards[0].rank}}{{=it.view.tableCards[0].suit}}.png"/>
-                    {{?}}
-                </div>
-            {{?? it.view.state.id >= 2 }}
-                {{ for(var val = 14; val <= 28; val++) { }}
-                    {{? it.view.nextAllowedCallValue <= val }}
-                        <button type="submit" class="callButton" value="{{=val}}">{{=val}}</button>
-                    {{?}}
+            </div>
 
-                {{ } }}
+            <div class="playerslot one">
+                {{? !it.view.players[1]}}
+                <input class="btn btn-primary btn-lg btn-blue joinButton" type="button"  slot="1" value="Join"/>
+                {{??}}
+                <img src="/images/avatar.png" width="45"/>
+                {{=it.view.players[1].displayName}}
+                {{?}}
+            </div>
 
-                <button type="submit" class="callButton" value="0">Pass</button>
+            <div class="playerslot three">
+                {{? !it.view.players[3]}}
+                <input class="btn btn-primary btn-lg btn-blue joinButton" type="button"  slot="3" value="Join"/>
+                {{??}}
+                <img src="/images/avatar.png" width="45"/>
+                {{=it.view.players[3].displayName}}
+                {{?}}
 
-            {{?}}
-        </div>
-        <div class="playerslot vmiddle">
-            {{? !it.view.players[1]}}
-            <input class="btn btn-primary btn-lg btn-blue joinButton" type="button"  slot="1" value="Join"/>
-            {{??}}
-            {{=it.view.players[1].displayName}}
-            {{?}}
-        </div>
-    </div>
+            </div>
 
-    <div class="playerslot center">
-        {{? !it.view.players[0]}}
-        <input class="btn btn-primary btn-lg btn-blue joinButton" type="button"  slot="0" value="Join"/>
-        {{??}}
-        {{=it.view.players[0].displayName}}
-        {{?}}
+            <div class="playerslot zero">
+                {{? !it.view.players[0]}}
+                <input class="btn btn-primary btn-lg btn-blue joinButton" type="button"  slot="0" value="Join"/>
+                {{??}}
+                <img src="/images/avatar.png" width="45"/>
+                {{=it.view.players[0].displayName}}
+                {{?}}
 
-    </div>
+            </div>
 
+
+            <div class="centerTable">
+                {{? it.view.state.id == 7 }}
+                    <div class="slot2">
+                        {{? it.view.tableCards[2] }}
+                        <img class="card"
+                             src="/images/classic-cards/{{=it.view.tableCards[2].rank}}{{=it.view.tableCards[2].suit}}.png"/>
+                        {{?}}
+                    </div>
+                    <div class="slot3">
+                        {{? it.view.tableCards[3] }}
+                        <img class="card"
+                             src="/images/classic-cards/{{=it.view.tableCards[3].rank}}{{=it.view.tableCards[3].suit}}.png"/>
+                        {{?}}
+                    </div>
+                    <div class="slot1">
+                        {{? it.view.tableCards[1] }}
+                        <img class="card"
+                             src="/images/classic-cards/{{=it.view.tableCards[1].rank}}{{=it.view.tableCards[1].suit}}.png"/>
+                        {{?}}
+                    </div>
+                    <div class="slot0">
+                        {{? it.view.tableCards[0] }}
+                        <img class="card"
+                             src="/images/classic-cards/{{=it.view.tableCards[0].rank}}{{=it.view.tableCards[0].suit}}.png"/>
+                        {{?}}
+                    </div>
+                {{?? it.view.state.id >= 2 }}
+                    {{ for(var val = 14; val <= 28; val++) { }}
+                        {{? it.view.nextAllowedCallValue <= val }}
+                            <button type="submit" class="callButton" value="{{=val}}">{{=val}}</button>
+                        {{?}}
+
+                    {{ } }}
+
+                    <button type="submit" class="callButton" value="0">Pass</button>
+
+                {{?}}
+            </div>
 
     <div class="mydeck" id="mydeckDiv">
+
     </div>
-  </div>
+
+    <div class="messagesDiv">
+        <span>Game History:</span>
+        <textarea class="messagesTextArea"></textarea>
+    </div>
+
+    <div class="chatDiv">
+        <span> Team Chat:</span>
+        <textarea class="chatTextArea"></textarea>
+        <input type="text"></input>
+        <button type="button">Send</button>
+    </div>
+
+</div>
 
 

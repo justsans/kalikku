@@ -10,24 +10,33 @@
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/main.css" />
-	<link rel="stylesheet" href="/css/room.css" />
     <link rel="stylesheet" href="/css/navbar.css" />
     <link rel="stylesheet" href="/css/card.css" />
+    <link rel="stylesheet" href="/css/room/common.css" />
+
+    <link rel="stylesheet"
+          media="screen and (min-device-width: 1440px)"
+          href="/css/room/large.css" />
+
+    <link rel='stylesheet'
+          media='screen and (min-width: 800px) and (max-width: 1439px)'
+          href='/css/room/large.css' />
+
+    <link rel='stylesheet'
+          media='screen and (min-width: 100px) and (max-width: 799px)'
+          href='/css/room/small.css' />
 
 </head>
 <body>
-    <div class="navbarContainer"></div>
-	<div class="content container">
-        <div class="row">
-            <div class="roomDiv col-sm-12 col-md-8 col-lg-8" ></div>
-            <div class="messagesDiv col-sm-12 col-md-4 col-lg-4">
-                <b>Game History:  </b>
-                <textarea id="messagesTextArea"></textarea>
-            </div>
 
+    <div class="navbarContainer"></div>
+    <div class="content">
+        <div class="row">
+            <div class="roomDiv" ></div>
         </div>
 
     </div>
+
 
     <script src="/js/lib/doT.min.js"></script>
     <script src="/js/client/navbar.js"></script>

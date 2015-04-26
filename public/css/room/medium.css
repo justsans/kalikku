@@ -1,0 +1,120 @@
+.table {
+    background: #006600;
+}
+
+.centerTable {
+    position: relative;
+    height: 150px;
+    border: solid #000000 1px;
+    width: 250px;
+    top:60px;
+    left:115px;
+}
+
+.mainPlayArea{
+    height: 285px;
+}
+
+.playerslot {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    float: left;
+    border: solid #000000 1px;
+}
+
+.playerslot.zero {
+    top:230px;
+    left:324px;
+}
+
+.playerslot.one {
+    top:120px;
+    left:500px;
+}
+
+.playerslot.two {
+    top:0px;
+    left:324px;
+}
+
+.playerslot.three {
+    top:120px;
+    left:50px;
+}
+
+
+.startGameContent{
+    font-size: 12px;
+}
+
+.messagesDiv {
+
+}
+.chatDiv {
+
+}
+.chatTextArea{
+    width: 150px;
+    min-height: 40%;
+    font-size: 8px;
+}
+
+.messagesTextArea {
+    min-height: 40%;
+    width: 150px;
+    font-size: 8px;
+}
+
+.mydeck {
+    border: solid black 1px;
+    min-height: 100px;
+}
+
+.slot2 {
+    width: 50px;
+    height: 50px;
+    /*border: solid black 1px;*/
+    position: absolute;
+    top: 5px;
+    left: 100px;
+}
+
+.slot3 {
+    width: 50px;
+    height: 50px;
+    /*border: solid black 1px;*/
+    position: absolute;
+    top: 45px;
+    left: 20px;
+}
+
+.slot1 {
+    width: 50px;
+    height: 50px;
+    /*border: solid black 1px;*/
+    position: absolute;
+    top: 45px;
+    right: 20px;
+}
+
+.slot0 {
+    width: 50px;
+    height: 50px;
+    /*border: solid black 1px;*/
+    position: absolute;
+    bottom: 15px;
+    left: 100px;
+}
+
+.alert {
+    padding: 5px;
+    margin-bottom: 2px;
+}
+
+.roomDiv {
+    text-align: center;
+}
+
+
+
