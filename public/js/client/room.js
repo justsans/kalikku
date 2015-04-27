@@ -62,11 +62,9 @@ io.on('updateCards', function(data) {
 
 io.on('updateMessage', function (data) {
     var messagesTextArea    = $('.messagesTextArea');
-    messagesTextArea.val(messagesTextArea.val() + data + "\n" );
+    messagesTextArea.append(data + "<br\>" );
     messagesTextArea.scrollTop(messagesTextArea[0].scrollHeight);
 });
-
-
 
 function getParameterByName(name) {
     name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");

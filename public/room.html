@@ -21,11 +21,11 @@
           href="/css/room/large.css" />
 
     <link rel='stylesheet'
-          media='screen and (min-width: 700px) and (max-width: 1439px)'
+          media='screen and (min-width: 976px) and (max-width: 1439px)'
           href='/css/room/large.css' />
 
     <link rel='stylesheet'
-          media='screen and (min-width: 321px) and (max-width: 699px)'
+          media='screen and (min-width: 321px) and (max-width: 975px)'
           href='/css/room/medium.css' />
 
     <link rel='stylesheet'
@@ -34,11 +34,29 @@
 
 </head>
 <body>
-
     <div class="navbarContainer"></div>
     <div class="content">
         <div class="row">
-            <div class="roomDiv" ></div>
+            <div class="roomConatiner">
+                <div class="roomDiv" ></div>
+                <div class="mydeck" id="mydeckDiv">
+
+                </div>
+
+                <div class="messagesDiv">
+                    <span>Game History:</span>
+                    <div class="messagesTextArea" id="messagesTextArea"></div>
+                </div>
+
+                <div class="chatDiv" class="hidden-xs">
+                    <span> Team Chat:</span>
+                    <textarea class="chatTextArea"></textarea>
+                    <input type="text" class="chatTextBox" />
+                    <button type="button">Send</button>
+                </div>
+
+            </div>
+
         </div>
 
     </div>

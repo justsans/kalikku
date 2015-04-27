@@ -58,4 +58,21 @@ describe("Room", function () {
 
     });
 
+    it("should not be able to play another card if suit is available", function () {
+        //simulator.setupTestCards1('JH9HAHTH7C8C7D8D  JD9DADTDQDKDQH8S JC9CACTCKCQCKH7S JS9SASTSKSQS8H7H')
+        simulator.setupTestCards1(room, 'JH9HAHTH7C8C7D8DJD9DADTDQDKDQH8SJC9CACTCKCQCKH7SJS9SASTSKSQS8H7H');
+        expect(8).toEqual(room.players[0].cards.length);
+
+        room.play('0', '8', 'H');
+
+        expect(7).toEqual(room.players[0].cards.length);
+        expect(1).toEqual(room.currentRoundPlays);
+
+        room.play('0', '8', 'S');
+        expect(8).toEqual(room.players[1].cards.length);
+        expect(1).toEqual(room.currentRoundPlays);
+
+    });
+
+
 });

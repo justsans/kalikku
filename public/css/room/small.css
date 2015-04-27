@@ -1,10 +1,18 @@
-.table {
+
+.roomContainer {
     height: 400px;
+    min-height: 400px;
     position: relative;
     color: white;
     font-weight: bold;
+    min-width: 400px;
     width: 500px;
 }
+
+.table {
+    position: relative;
+}
+
 
 .centerTable {
     position: relative;
@@ -19,7 +27,7 @@
 .mydeck {
     position: absolute;
     min-height: 200px;
-    left: 0px;
+    left: -32px;
     bottom: 0px;
     width: 222px;
 }
@@ -81,12 +89,14 @@
     display: none;
 }
 .chatTextArea{
+    background-color: white;
     min-height: 100px;
     font-size: 8px;
     width: 100%;
 }
 
 .messagesTextArea {
+    background-color: white;
     min-height: 160px;
     font-size: 8px;
     width: 100%;

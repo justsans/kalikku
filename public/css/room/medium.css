@@ -1,9 +1,16 @@
-.table {
-    height: 400px;
+
+.roomContainer {
+    height: 600px;
+    min-height:600px;
+    min-width: 500px;
+    width: 800px;
     position: relative;
     color: white;
     font-weight: bold;
-    width: 500px;
+}
+
+.table {
+    position: relative;
 }
 
 .centerTable {
@@ -19,8 +26,8 @@
 .mydeck {
     position: absolute;
     min-height: 200px;
-    left: 0px;
-    bottom: 0px;
+    top: 136px;
+    left: 210px;
     width: 222px;
 }
 
@@ -63,7 +70,7 @@
 
 .messagesDiv {
     position: absolute;
-    top: 0px;
+    top: 86px;
     right: 20px;
     width: 100px;
     text-align: left;
@@ -72,7 +79,7 @@
 }
 .chatDiv {
     position: absolute;
-    bottom: 100px;
+    bottom: 0px;
     right: 20px;
     width: 100px;
     text-align: left;
@@ -80,15 +87,16 @@
     font-size: 8px;
 }
 .chatTextArea{
-    min-height: 100px;
+    min-height: 50px;
     font-size: 8px;
     width: 100%;
 }
 
 .messagesTextArea {
-    min-height: 100px;
+    min-height: 50px;
     font-size: 8px;
     width: 100%;
+    background-color: white;
 }
 
 .slot3 {

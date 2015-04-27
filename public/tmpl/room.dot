@@ -93,22 +93,6 @@
                 {{?}}
             </div>
 
-    <div class="mydeck" id="mydeckDiv">
-
-    </div>
-
-    <div class="messagesDiv">
-        <span>Game History:</span>
-        <textarea class="messagesTextArea"></textarea>
-    </div>
-
-    <div class="chatDiv" class="hidden-xs">
-        <span> Team Chat:</span>
-        <textarea class="chatTextArea"></textarea>
-        <input type="text" class="chatTextBox" ></input>
-        <button type="button">Send</button>
-    </div>
-
 </div>
 
 

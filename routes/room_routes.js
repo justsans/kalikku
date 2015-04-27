@@ -74,7 +74,6 @@ module.exports = function (app, rooms) {
     });
 
     app.io.route('join', function(req) {
-//        console.log('user isss:::::::::::' + req.handshake.user);
         var room_id = req.data.roomId;
         var userId = req.handshake.user.id;
 
@@ -112,7 +111,7 @@ module.exports = function (app, rooms) {
 
         var room = rooms[room_id];
         var playerId = room.players[room.currentSlot].id;
-        room.selectTrump(playerId, trumpSuit, trumpRank);
+        room.selectTrump(playerId, trumpRank, trumpSuit);
         updateTableAndAllPlayers(room);
         publishUndisplayedMessages(room, room_id);
     }) ;

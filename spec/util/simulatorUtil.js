@@ -1,4 +1,4 @@
-
+var Deck  = require('../../model/deck');
 var Simulator = function Simulator() {
    this.addPlayersAndStartGame = function(room) {
        room.addPlayer('0',0, 'Player 0');
@@ -38,7 +38,26 @@ var Simulator = function Simulator() {
 
        //call round 3
        this.everyonePass(room);
-   }
+   };
+
+    this.setupTestCards1 = function(room, cardDeck) {
+        var deck1 = new Deck(cardDeck);
+        distribute8CardsToEveryPlayer(deck1, room.players);
+    };
+
+    function distribute8CardsToEveryPlayer(deck, players) {
+        // debugger;
+
+        for(var j=0; j<4;j++) {
+            players[j].cards=[];
+            for(var i=0; i<8;i++) {
+                var card = deck.pop();
+                players[j].addCard(card);
+            }
+        }
+
+    };
+
 };
 
 module.exports = Simulator;

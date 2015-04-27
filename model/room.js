@@ -20,7 +20,7 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
     this.trumpSuit = '';
     this.messages = [];
     this.messageId = 0;
-    this.displayedMessageId = 0;
+    this.displayedMessageId = -1;
     this.currentRoundPasses = 0;
 
     this.playRound = 1;
@@ -67,7 +67,6 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
 
     this.addPlayer = function(playerId, slot, name) {
         var numberOfPlayers = this.findNumberOfActivePlayers();
-//        debugger;
         if(this.state == STATES.WAIT && !this.hasAllPlayersJoined)  {
             if(!this.players[slot]) {
                 console.log('Adding player '+playerId+ ' at slot ' + slot);
@@ -115,6 +114,10 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
            this.tableCards[this.currentSlot] = new Card(rank, suit);
 
            console.log('currentRoundPlays = ' + this.currentRoundPlays);
+            if(this.currentRoundPlays == 0) {
+                this.currentPlayRoundSuit = suit;
+                console.log('currentPlayRoundSuit = ' + this.currentPlayRoundSuit);
+            }
            if(this.currentRoundPlays < 3) {
                this.currentRoundPlays++;
                this.currentSlot = (this.currentSlot + 1) % NO_PLAYERS;
@@ -209,64 +212,55 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
     }
 
     this.isCardValid = function(playerId, rank, suit) {
-        console.log('i am here 9');
         var currentPlayerId = this.players[this.currentSlot].id;
         console.log("currentPlayerId="+currentPlayerId);
         console.log("playerId="+playerId);
         console.log("hasCard="+this.players[this.currentSlot].hasCard(rank, suit));
         console.log("cards="+this.players[this.currentSlot].cards);
         if(currentPlayerId == playerId && this.players[this.currentSlot].hasCard(rank, suit)) {
-            console.log('i am here 10');
-            if(this.isSuitValid(suit, this.playRound, this.currentRoundPlays,
-                this.players[this.currentSlot].cards, this.trumpSuit,
-                this.trumpShown, this.currentSlot, this.currentPlayRoundSuit)) {
-                console.log('i am here 11');
+            if(this.isSuitValid(suit, this.players[this.currentSlot].cards)) {
                 return true;
             }
 
         }
-        console.log('i am here 12');
         return false;
     }
 
-    this.isSuitValid = function(suit, playRound, currentRoundPlays,
-                                cards, trumpSuit, trumpShown, currentSlot, currentPlayRoundSuit) {
+    this.isSuitValid = function(suit, cards) {
 
-        console.log('i am here 1');
-        if(playRound == 1 && currentRoundPlays == 0 && trumpSuit == suit) return false;
+        if(this.playRound == 1 && this.currentRoundPlays == 0 && this.trumpSuit == suit) return false;
 
-        console.log('i am here 2');
-        if(currentRoundPlays == 0) {
-            console.log('i am here 3');
-           if(trumpShown) return true;
-            console.log('i am here 4');
-           if(suit != trumpSuit) return true;
-            console.log('i am here 5');
-           if(currentSlot != this.currentTrumpSlot) return true;
-            console.log('i am here 6');
-           if(everyCardIHaveIsTrump(cards, trumpSuit)) return true;
+        if(this.currentRoundPlays == 0) {
+           if(this.trumpShown) return true;
+           if(suit != this.trumpSuit) return true;
+           if(this.currentSlot != this.currentTrumpSlot) return true;
+           if(this.everyCardIHaveIsTrump(cards)) return true;
            return false;
         }
 
-        console.log('i am here 7');
-        if(suit == currentPlayRoundSuit) return true;
-        console.log('i am here 8');
-        if(ifIDoNotHaveTheCurrentSuit(suit, cards)) return true;
+        if(suit == this.currentPlayRoundSuit) return true;
+        if(this.ifIDoNotHaveTheCurrentSuit(cards)) return true;
 
         return false;
     }
 
-    function everyCardIHaveIsTrump(cards, trumpSuit) {
-        for(card in cards) {
-            if(card.suit != trumpSuit) return false;
+    this.everyCardIHaveIsTrump = function(cards) {
+        for(var card in cards) {
+            if(cards[card].suit != this.trumpSuit) return false;
         }
         return true;
     }
 
-    function ifIDoNotHaveTheCurrentSuit(suit, cards) {
-        for(card in cards) {
-            if(card.suit == suit) return false;
+    this.ifIDoNotHaveTheCurrentSuit = function(cards) {
+        console.log('checking if suit' +this.currentPlayRoundSuit + ' is present in '+ cards);
+        for(var card in cards) {
+            console.log('i am in loop: '+card);
+            if(cards[card].suit == this.currentPlayRoundSuit) {
+                console.log('returning false');
+                return false;
+            }
         }
+        console.log('returning true');
         return true;
     }
 
