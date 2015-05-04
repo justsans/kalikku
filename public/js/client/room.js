@@ -24,29 +24,76 @@ $.when(
 
 // Listen for the announce event.
 io.on('updateTable', function (data) {
-    $( "div.roomDiv" ).html( roomTmpl( data ) );
+    $(".showTrump").hide();
+    $("div.roomDiv").html(roomTmpl(data));
+    $('.trumpDivBody').html('');
+    $('.lastRoundCards').html('');
     var roomId = getParameterByName('roomId');
-    $("#startButton").click(function() {
+    $('.team1Points .tableData.gamePoints').html(data.view.team1GamePoints);
+    $('.team1Points .tableData.points').html(data.view.team1Points);
+    $('.team2Points .tableData.gamePoints').html(data.view.team2GamePoints);
+    $('.team2Points .tableData.points').html(data.view.team2Points);
+    $('.trumpDiv .tableData').html(data.view.trumpDisplayText);
+
+    if(data.view.state.id == 7) {
+        $('.lastCall .tableData').html(data.view.currentCallValue + " by " + data.view.currentTrumpPlayerName);
+
+        if (data.view.trumpShown) {
+            $('.trumpDivBody').html("Trump <br\> <img class='card' src='/images/classic-cards/" + data.view.trump + ".png'/>");
+        } else {
+            $('.trumpDivBody').html("Trump <br\> <img class='card showTrump' src='/images/classic-cards/b2fv.png'/>");
+        }
+    }
+
+    if(data.view.state.id == 7) {
+        if(data.view.lastRoundCards.length > 0) {
+            $('.lastRoundCards').html("Last Round <br\>");
+            for(var i =0 ; i<4; i++) {
+                $('.lastRoundCards').append("<img class='card' src='/images/classic-cards/" + data.view.lastRoundCards[i].rank + data.view.lastRoundCards[i].suit + ".png'/>");
+            }
+        }
+    }
+
+    $("#startButton").click(function () {
         io.emit('startGame', {'roomId': roomId, 'action': 'startGame'});
     });
 
-    $(".joinButton").click(function() {
+    $(".joinButton").click(function () {
         var userId = $("#userId").attr("value");
         io.emit('join', {'roomId': roomId, 'action': 'joinGame', 'slotId': $(this).attr("slot"), userId: userId});
     });
-
-    $(".callButton").click(function() {
-        var callValue = $(this).attr("value");
-        io.emit('call', {'roomId': roomId, 'callValue': callValue});
-    });
-
 });
 
+io.on('updateCallPopup', function(data) {
+    $('.callBody').html('');
+    console.log("got message in updateCallPopup "+ data.nextAllowedCallValue);
+    var roomId = getParameterByName('roomId');
+    for (var val = 14; val <= 28; val++) {
+        if (data.nextAllowedCallValue <= val) {
+            $('.callBody').append('<button type="submit" class="callButton" value="' + val + '">' + val + '</button>');
+        }
+    }
+    $('.callBody').append('<button type="submit" class="callButton" value="0">PASS</button>');
+
+    //$("#myModal").modal('show');
+    $(".callButton").click(function () {
+        var callValue = $(this).attr("value");
+        $('.callBody').html('');
+        //$("#myModal").modal('hide');
+        io.emit('call', {'roomId': roomId, 'callValue': callValue});
+    });
+});
 
 io.on('updateCards', function(data) {
-    console.log('Got CARDS:' + data);
-    $("#mydeckDiv").html( cardDeckTmpl( data ) );
+    console.log('Got CARDS:' + data.cards + ' and ' + data.enableShowTrumpButton);
+    $(".mydeckBody").html( cardDeckTmpl( data ) );
     var roomId = getParameterByName('roomId');
+    if(data.enableShowTrumpButton == true) {
+        $(".showTrump").click(function() {
+                io.emit('showTrump', {'roomId': roomId});
+        });
+    }
+
     $(".card").click(function() {
         var suit = $(this).attr("suit");
         var rank = $(this).attr("rank");

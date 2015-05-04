@@ -7,19 +7,22 @@
 
 {{? it.view.state.id === 1 }}
 <div class="alert alert-info startGameContent">
-    All the players have joined the game. Click here to start game.
+    All the players have joined the game.
     <input class="btn btn-primary btn-md btn-blue" type="button" id="startButton" value="Start Game"/>
 </div>
 {{?}}
 
 <div class="table" id="table">
 
-        <div class="playerslot two">
+            <div class="playerslot two">
                 {{? !it.view.players[2]}}
                 <input class="btn btn-primary btn-md btn-blue joinButton" type="button"  slot="2" value="Join"/>
                 {{??}}
-                <img src="/images/avatar.png" class="avatar"/>
-                {{=it.view.players[2].displayName}}
+                    <img src="/images/avatar.png" class="avatar"/>
+                    {{=it.view.players[2].displayName}}
+                    {{? it.view.currentSlot == 2 }}
+                        <img class="statusIcon right" src="/images/green_bl.gif"/>
+                    {{?}}
                 {{?}}
 
             </div>
@@ -28,8 +31,11 @@
                 {{? !it.view.players[1]}}
                 <input class="btn btn-primary btn-md btn-blue joinButton" type="button"  slot="1" value="Join"/>
                 {{??}}
-                <img src="/images/avatar.png" class="avatar"/>
-                {{=it.view.players[1].displayName}}
+                    <img src="/images/avatar.png" class="avatar"/>
+                    {{=it.view.players[1].displayName}}
+                    {{? it.view.currentSlot == 1 }}
+                        <img class="statusIcon bottom" src="/images/green_bl.gif"/>
+                    {{?}}
                 {{?}}
             </div>
 
@@ -37,8 +43,11 @@
                 {{? !it.view.players[3]}}
                 <input class="btn btn-primary btn-md btn-blue joinButton" type="button"  slot="3" value="Join"/>
                 {{??}}
-                <img src="/images/avatar.png"  class="avatar"/>
-                {{=it.view.players[3].displayName}}
+                    <img src="/images/avatar.png"  class="avatar"/>
+                    {{=it.view.players[3].displayName}}
+                    {{? it.view.currentSlot == 3 }}
+                        <img class="statusIcon bottom" src="/images/green_bl.gif"/>
+                    {{?}}
                 {{?}}
 
             </div>
@@ -47,32 +56,38 @@
                 {{? !it.view.players[0]}}
                 <input class="btn btn-primary btn-md btn-blue joinButton" type="button"  slot="0" value="Join"/>
                 {{??}}
-                <img src="/images/avatar.png" class="avatar"/>
-                {{=it.view.players[0].displayName}}
+                    <img src="/images/avatar.png" class="avatar"/>
+                    {{=it.view.players[0].displayName}}
+                    {{? it.view.currentSlot == 0 }}
+                        <img class="statusIcon right" src="/images/green_bl.gif"/>
+                    {{?}}
                 {{?}}
 
             </div>
 
 
             <div class="centerTable">
-                {{? it.view.state.id == 7 }}
+
                     <div class="slot2">
                         {{? it.view.tableCards[2] }}
                         <img class="card"
                              src="/images/classic-cards/{{=it.view.tableCards[2].rank}}{{=it.view.tableCards[2].suit}}.png"/>
                         {{?}}
+
                     </div>
                     <div class="slot3">
                         {{? it.view.tableCards[3] }}
                         <img class="card"
                              src="/images/classic-cards/{{=it.view.tableCards[3].rank}}{{=it.view.tableCards[3].suit}}.png"/>
                         {{?}}
+
                     </div>
                     <div class="slot1">
                         {{? it.view.tableCards[1] }}
                         <img class="card"
                              src="/images/classic-cards/{{=it.view.tableCards[1].rank}}{{=it.view.tableCards[1].suit}}.png"/>
                         {{?}}
+
                     </div>
                     <div class="slot0">
                         {{? it.view.tableCards[0] }}
@@ -80,17 +95,7 @@
                              src="/images/classic-cards/{{=it.view.tableCards[0].rank}}{{=it.view.tableCards[0].suit}}.png"/>
                         {{?}}
                     </div>
-                {{?? it.view.state.id >= 2 }}
-                    {{ for(var val = 14; val <= 28; val++) { }}
-                        {{? it.view.nextAllowedCallValue <= val }}
-                            <button type="submit" class="callButton" value="{{=val}}">{{=val}}</button>
-                        {{?}}
 
-                    {{ } }}
-
-                    <button type="submit" class="callButton" value="0">Pass</button>
-
-                {{?}}
             </div>
 
 </div>

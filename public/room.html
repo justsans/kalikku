@@ -11,6 +11,7 @@
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="/css/main.css" />
     <link rel="stylesheet" href="/css/navbar.css" />
     <link rel="stylesheet" href="/css/card.css" />
@@ -21,11 +22,11 @@
           href="/css/room/large.css" />
 
     <link rel='stylesheet'
-          media='screen and (min-width: 976px) and (max-width: 1439px)'
+          media='screen and (min-width: 1200px) and (max-width: 1439px)'
           href='/css/room/large.css' />
 
     <link rel='stylesheet'
-          media='screen and (min-width: 321px) and (max-width: 975px)'
+          media='screen and (min-width: 321px) and (max-width: 1199px)'
           href='/css/room/medium.css' />
 
     <link rel='stylesheet'
@@ -39,20 +40,71 @@
         <div class="row">
             <div class="roomConatiner">
                 <div class="roomDiv" ></div>
-                <div class="mydeck" id="mydeckDiv">
 
+                <div class="statPanel panel panel-info">
+                    <div class="panel-heading">Game Stats</div>
+                    <div class="statBody">
+                        <table class="gameStatTable">
+                            <tr class="team1Points">
+                                <td class="tableHeader"><b>Team 1</b></td>
+                                <td class="tableData gamePoints">0</td>
+                                <td class="tableData points">0</td>
+                            </tr>
+                            <tr class="team2Points">
+                                <td class="tableHeader"><b>Team 2</b></td>
+                                <td class="tableData gamePoints">0</td>
+                                <td class="tableData points">0</td>
+                            </tr>
+                            <tr class="trumpDiv"><td class="tableHeader"><b>Trump</b></td>  <td colspan="2" class="tableData">Not shown</td></tr>
+                            <tr class="lastCall"><td class="tableHeader"><b>Last Call</b></td>  <td colspan="2" class="tableData"></td></tr>
+
+                        </table>
+                    </div>
                 </div>
 
-                <div class="messagesDiv">
-                    <span>Game History:</span>
+                <div class="mydeck panel panel-danger">
+                    <div class="panel-heading">Your Cards</div>
+                    <div class="mydeckBody"></div>
+                </div>
+
+                <div class="actionPanel panel panel-info">
+                    <div class="panel-heading">Action</div>
+                    <div class="callBody">
+
+                    </div>
+                    <div class="trumpDivBody">
+
+                    </div>
+                    <div class="lastRoundCards"></div>
+                </div>
+
+                <div class="messagesDiv panel panel-success">
+                    <div class="panel-heading">Game History</div>
                     <div class="messagesTextArea" id="messagesTextArea"></div>
                 </div>
 
-                <div class="chatDiv" class="hidden-xs">
-                    <span> Team Chat:</span>
+                <div class="chatDiv hidden-xs panel panel-success">
+                    <div class="panel-heading">Team Chat</div>
                     <textarea class="chatTextArea"></textarea>
                     <input type="text" class="chatTextBox" />
                     <button type="button">Send</button>
+                </div>
+
+
+                <!-- Modal HTML -->
+                <div id="myModal" class="modal fade">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title">It is your turn to call !</h4>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default callButton" data-dismiss="modal" value="0">PASS</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             </div>

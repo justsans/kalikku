@@ -1,3 +1,4 @@
+
 var express = require( "express.io" ),
     app = express(),
     cons = require( "consolidate" );
@@ -64,6 +65,8 @@ var Room = require ('./model/room');
 var rooms = {};
 rooms['Beginers'] = new Room('Beginers', false);
 rooms['Machans'] = new Room('Machans', false);
+
+
 
 require("./routes/configure")(app, rooms, passport);
 var port = process.env.PORT || 5000;

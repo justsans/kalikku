@@ -3,6 +3,9 @@ var Deck  = require('./deck');
 var Game =   require('./game');
 var Player = require('./player');
 var STATES = require('./states');
+// load up the user model
+var User       		= require('./user');
+var ObjectId = require('mongoose').Types.ObjectId;
 
 var Room = function Room(roomId, isDefaultAddPlayer) {
     //private
@@ -13,6 +16,7 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
     this.currentCallValue = 13;
     this.nextAllowedCallValue = 14;
     this.currentTrumpSlot = 0;
+    this.currentTrumpPlayerName = '';
     this.currentRoundCalls = 0;
     this.trumpShown = false;
     this.trump = null;
@@ -28,11 +32,12 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
     this.currentRoundPlays = 0;
     this.currentPlayRoundStartSlot = 0;
     this.team1Points = 0;
-    this.team0Points = 0;
-    this.team0GamePoints = 5;
-    this.team1GamePoints = 5;
+    this.team2Points = 0;
+    this.team2GamePoints = 6;
+    this.team1GamePoints = 6;
 
     this.tableCards = [];
+    this.lastRoundCards = [];
     this.numberOfActivePlayers = 0;
 
 
@@ -128,23 +133,36 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
         }
     }
 
+    this.showTrump = function() {
+        console.log('showing trump 1');
+        if(this.state == STATES.PLAY) {
+            console.log('showing trump 2');
+            this.trumpShown = true;
+            this.messages[this.messageId++] = this.players[this.currentSlot] + ' requested trump to be shown.';
+        }
+    }
+
     this.finishRound  = function() {
         var slotWhoWon = this.whichSlotWonTheRound();
         console.log('finishing round');
         var points = 0;
         for(card in this.tableCards) {
-            points += card.point;
+            points += this.tableCards[card].point;
         }
 
         if(slotWhoWon % 2 == 0) {
-            this.team0Points += points;
+            this.team2Points += points;
         } else {
             this.team1Points +=  points;
         }
 
         var teamWon = this.whichTeamWonTheGame();
         if(teamWon == -1) {
-            console.log('No team has won, slotWon is' + slotWhoWon);
+            this.lastRoundCards[0] = this.tableCards[this.currentPlayRoundStartSlot];
+            this.lastRoundCards[1] = this.tableCards[(this.currentPlayRoundStartSlot+1)%4];
+            this.lastRoundCards[2] = this.tableCards[(this.currentPlayRoundStartSlot+2)%4];
+            this.lastRoundCards[3] = this.tableCards[(this.currentPlayRoundStartSlot+3)%4];
+
             this.tableCards = [];
             this.currentPlayRoundStartSlot = slotWhoWon;
             this.currentSlot = slotWhoWon;
@@ -158,15 +176,92 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
     }
 
     this.finishGame = function(team) {
+      var penalty = 1;
+      var isSenior = false;
+      var isHonors = false;
+
+      if(this.teamWithTrump != team) {
+          penalty += 1;
+      }
+      if(this.currentCallValue >= 20 ) {
+          penalty += 1;
+          isHonors = true;
+      }
+
+      if(this.currentCallValue >= 24) {
+          penalty += 1;
+          isSenior = true;
+      }
+
       if(team == 0) {
-          this.team0GamePoints += 1;
+
+          this.team2GamePoints += penalty;
+          this.team1GamePoints -= penalty;
+          this.updateUserPenalty(penalty, this.players[0].id, true, isSenior, isHonors);
+          this.updateUserPenalty(penalty, this.players[2].id, true, isSenior, isHonors);
+          this.updateUserPenalty(penalty, this.players[1].id, false, isSenior, isHonors);
+          this.updateUserPenalty(penalty, this.players[3].id, false, isSenior, isHonors);
       } else {
-          this.team1GamePoints += 1;
+          this.team1GamePoints += penalty;
+          this.team2GamePoints -= penalty;
+          this.updateUserPenalty(penalty, this.players[1].id, true, isSenior, isHonors);
+          this.updateUserPenalty(penalty, this.players[3].id, true, isSenior, isHonors);
+          this.updateUserPenalty(penalty, this.players[0].id, false, isSenior, isHonors);
+          this.updateUserPenalty(penalty, this.players[2].id, false, isSenior, isHonors);
       }
 
       this.state = STATES.END;
       this.advanceToNextState();
 
+    }
+
+    this.updateUserPenalty = function(penalty, userId, won, isSenior, isHonors) {
+        var pointMultiplier = 1;
+        User.findOne({'_id': new ObjectId(userId)}, function(err, user) {
+            // if there are any errors, return the error
+            if (err)
+                return done(err);
+
+            // check to see if theres already a user with that email
+            if (user) {
+                console.log('Updating user points:' + userId);
+                if(isSenior && won) {
+                    user.data.seniorsWon += 1;
+                    pointMultiplier = 3;
+                }
+
+                if(isHonors && won) {
+                    user.data.honorsWon += 1;
+                    pointMultiplier = 2;
+                }
+
+                if(!won) {
+                    penalty = 0 - penalty;
+                }
+                user.data.points += penalty;
+
+                user.data.profilePoints += penalty * pointMultiplier;
+
+                if(user.data.profilePoints >= 50) {
+                    user.data.level = "Shark";
+                }
+
+                if(user.data.profilePoints >= 100) {
+                    user.data.level = "Expert";
+                }
+
+                if(user.data.profilePoints >= 400) {
+                    user.data.level = "Master";
+                }
+
+            }
+
+            // save the user
+            user.save(function(err) {
+                console.log("Error-:  is saving user statistics");
+            });
+
+        });
     }
 
     this.whichSlotWonTheRound = function() {
@@ -202,21 +297,17 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
 
     this.whichTeamWonTheGame = function() {
        if(this.teamWithTrump = 0) {
-           if(this.team0Points >= this.currentCallValue ) return 0;
+           if(this.team2Points >= this.currentCallValue ) return 0;
            if(this.team1Points > (28 - this.currentCallValue)) return 1;
        } else {
            if(this.team1Points >= this.currentCallValue ) return 1;
-           if(this.team0Points > (28 - this.currentCallValue)) return 0;
+           if(this.team2Points > (28 - this.currentCallValue)) return 0;
        }
        return -1;
     }
 
     this.isCardValid = function(playerId, rank, suit) {
         var currentPlayerId = this.players[this.currentSlot].id;
-        console.log("currentPlayerId="+currentPlayerId);
-        console.log("playerId="+playerId);
-        console.log("hasCard="+this.players[this.currentSlot].hasCard(rank, suit));
-        console.log("cards="+this.players[this.currentSlot].cards);
         if(currentPlayerId == playerId && this.players[this.currentSlot].hasCard(rank, suit)) {
             if(this.isSuitValid(suit, this.players[this.currentSlot].cards)) {
                 return true;
@@ -252,19 +343,16 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
     }
 
     this.ifIDoNotHaveTheCurrentSuit = function(cards) {
-        console.log('checking if suit' +this.currentPlayRoundSuit + ' is present in '+ cards);
         for(var card in cards) {
-            console.log('i am in loop: '+card);
             if(cards[card].suit == this.currentPlayRoundSuit) {
-                console.log('returning false');
                 return false;
             }
         }
-        console.log('returning true');
         return true;
     }
 
     this.call = function(playerId, callValue) {
+        console.log('playerID='+playerId);
         var currentPlayerId = this.players[this.currentSlot].id;
         if(currentPlayerId == playerId && this.isCallState()) {
             //set min call value
@@ -288,6 +376,8 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
                 this.currentCallValue =  callValue;
                 this.nextAllowedCallValue = callValue + 1;
                 this.messages[this.messageId++] = 'Next allowed call value ' + this.nextAllowedCallValue;
+                this.currentTrumpPlayerName = this.currentSlot;
+                this.currentTrumpPlayerName = this.players[this.currentTrumpSlot].displayName;
                 this.currentTrumpSlot = this.currentSlot;
                 this.nextSlotAfterCall();
 
@@ -330,7 +420,7 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
     }
 
     this.setStateToTrump2 = function() {
-        this.messages[this.messageId++] = 'Waiting for player ' + this.currentTrumpSlot + ' to select a trump.';
+        this.messages[this.messageId++] = 'Waiting for player ' + this.currentTrumpPlayerName + ' to select a trump.';
         this.currentSlot = this.currentTrumpSlot;
         this.state = STATES.TRUMP2;
     }
@@ -356,7 +446,7 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
                 if(this.nextAllowedCallValue < 20) {this.nextAllowedCallValue = 20;}
                 break;
             case STATES.CALL2:
-                this.messages[this.messageId++] = 'Waiting for player ' + this.currentTrumpSlot + ' to select a trump.';
+                this.messages[this.messageId++] = 'Waiting for player ' + this.currentTrumpPlayerName + ' to select a trump.';
                 this.state = STATES.TRUMP1;
                 this.currentSlot = this.currentTrumpSlot;
                 this.currentRoundCalls = 0;

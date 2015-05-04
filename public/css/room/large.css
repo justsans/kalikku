@@ -10,7 +10,7 @@
 
 .table {
     position: relative;
-    top: 30px;
+    top: 5px;
 }
 
 .centerTable {
@@ -19,7 +19,7 @@
     border: solid #000000 1px;
     width: 350px;
     top:65px;
-    left:200px;
+    left:90px;
     background-color: #006600;
 }
 
@@ -34,22 +34,22 @@
 
 .playerslot.zero {
     top:290px;
-    left:345px;
+    left:235px;
 }
 
 .playerslot.one {
     top:140px;
-    left:551px;
+    left:441px;
 }
 
 .playerslot.two {
-    top:0px;
-    left:345px;
+    top: 0px;
+    left:235px;
 }
 
 .playerslot.three {
     top: 140px;
-    left: 139px;
+    left: 29px;
 }
 
 .avatar {
@@ -57,28 +57,31 @@
 }
 .startGameContent{
     font-size: 12px;
+    width: 500px;
 }
 
 .messagesDiv {
     position: absolute;
-    top: 136px;
+    top: 100px;
     right: 100px;
-    width: 30%;
+    width: 33%;
+    height: 35%;
     text-align: left;
     color: #008800;
 }
 .chatDiv {
     position: absolute;
-    bottom: 20px;
+    top: 450px;
     right: 100px;
-    width: 30%;
+    width: 33%;
+    height: 35%;
     text-align: left;
     color: orange;
 }
 .chatTextArea{
     min-height: 150px;
     max-height: 150px;
-    font-size: 8px;
+    font-size: 10px;
     width: 100%;
     overflow-y: scroll;
 }
@@ -86,7 +89,7 @@
 .messagesTextArea {
     min-height: 150px;
     max-height: 150px;
-    font-size: 8px;
+    font-size: 10px;
     width: 100%;
     background-color: white;
     overflow-y: scroll;
@@ -96,8 +99,8 @@
     position: absolute;
     min-height: 180px;
     left: 50px;
-    bottom: 0px;
-    width: 50%;
+    top: 500px;
+    min-width: 650px;
 }
 
 .slot3 {
@@ -150,6 +153,11 @@
     width: 65px;
 }
 
+.lastRoundCards .card {
+    width: 35px;
+    margin: 2px;
+}
+
 .hand li
 {
     display: inline;
@@ -161,6 +169,77 @@
 .content {
     margin-top: -20px;
 }
+
+.statPanel {
+    position: absolute;
+    left: 500px;
+    top: 100px;
+    min-width: 200px;
+    max-width: 200px;
+    min-height: 130px;
+    max-height: 130px;
+    margin-bottom: 5px;
+}
+
+.actionPanel {
+    position: absolute;
+    left: 500px;
+    top: 260px;
+    min-width: 200px;
+    max-width: 200px;
+    min-height: 230px;
+    max-height: 230px;
+    text-align: center;
+
+}
+
+.gameStatTable {
+    width: 100%;
+}
+
+td.tableHeader {
+    border-right: 1px solid #AEBDCC;
+    width: 70px;
+    font-size: 12px;
+}
+
+td.tableData {
+    font-size: 12px;
+    text-align: center;
+}
+
+.team2Points td, .team1Points td, .trumpDiv td {
+    border-bottom: 1px solid #AEBDCC;
+}
+
+.team2Points .gamePoints, .team1Points .gamePoints {
+    border-right: 1px solid #AEBDCC;
+}
+
+
+
+.callButton {
+    min-width: 30px;
+    margin: 5px;
+    font-weight: bold;
+}
+
+.panel-heading {
+    text-align: center;
+    margin-bottom: 5px;
+    font-weight: bold;
+    max-height: 35px;
+    margin-top: -5px;
+}
+
+.statusIcon.right {
+    position: absolute;
+    left: 60px;
+    top: 10px;
+    z-index: 10;
+}
+
+
 
 
 

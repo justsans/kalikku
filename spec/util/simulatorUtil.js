@@ -26,7 +26,12 @@ var Simulator = function Simulator() {
 
    this.doAllStepsUntilPlay = function(room) {
        this.addPlayersAndStartGame(room);
+       this.callAndSelectTrump(room);
 
+   };
+
+   this.callAndSelectTrump = function(room) {
+       console.log("calling and setting up trump");
        //call round 1
        this.callCALL1(room);
 
@@ -39,6 +44,25 @@ var Simulator = function Simulator() {
        //call round 3
        this.everyonePass(room);
    };
+
+    this.callAndSelectTrumpWithPlayerId = function(room, playerId) {
+        room.call(playerId,14);
+        room.call(playerId,0);
+        room.call(playerId,0);
+        room.call(playerId,0);
+
+        room.call(playerId,0);
+        room.call(playerId,0);
+        room.call(playerId,0);
+        room.call(playerId,0);
+
+        room.selectTrump(playerId, '9', 'S');
+
+        room.call(playerId,0);
+        room.call(playerId,0);
+        room.call(playerId,0);
+        room.call(playerId,0);
+    };
 
     this.setupTestCards1 = function(room, cardDeck) {
         var deck1 = new Deck(cardDeck);

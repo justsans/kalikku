@@ -7,7 +7,14 @@ var bcrypt   = require('bcrypt-nodejs');
 var userSchema = mongoose.Schema({
 
     data             : {
-        displayName : String
+        displayName : String,
+        flags: {type: Number,default: 0},
+        profilePoints: {type: Number,default: 0},
+        points: {type: Number,default: 0},
+        honorsWon: {type: Number,default: 0},
+        seniorsWon: {type: Number,default: 0},
+        level: {type: String,default: 'Beginner'}
+
     },
 
     local            : {

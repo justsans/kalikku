@@ -1,8 +1,10 @@
 var Room = require ('../model/room');
 var User = require('../model/user');
+var STATES = require('../model/states');
 var RoomView = require('../model/roomView');
 var CardDeckView = require('../model/cardDeckView');
 var ObjectId = require('mongoose').Types.ObjectId;
+var Simulator = require('../spec/util/simulatorUtil');
 
 module.exports = function (app, rooms) {
     app.get( "/rooms", function( req, res ) {
@@ -34,9 +36,12 @@ module.exports = function (app, rooms) {
         var room = rooms[room_id];
         req.io.join(room_id);
         updateTable(room);
-        req.io.join(room_id + '-' + userId);
-        console.log('Joiningg ROOM: '+room_id + '-' + userId);
+        var room_id = room_id + '-' + userId;
+        req.io.join(room_id);
+        console.log('Joiningg ROOM: '+room_id);
         updatePlayer(room, userId);
+        updateCurrentPlayerWithCallValues(room);
+        publishAllMessages(room, room_id);
     });
 
     app.get( "/room/:id", function( req, res ) {
@@ -54,8 +59,12 @@ module.exports = function (app, rooms) {
         var room = rooms[room_id];
 
         room.start();
+        //var simulator = new Simulator();
+        //simulator.callAndSelectTrumpWithPlayerId(room, '553a97c9ffd561c00e44c28c');
 
         updateTableAndAllPlayers(room);
+
+
     });
 
 
@@ -63,13 +72,16 @@ module.exports = function (app, rooms) {
     app.io.route('call', function(req) {
         var room_id = req.data.roomId;
         var callValue = req.data.callValue;
-        console.log('calling value:' + callValue);
-
+        var userId = req.handshake.user.id;
         var room = rooms[room_id];
         var playerId = room.players[room.currentSlot].id;
-        room.call(playerId, parseInt(callValue));
-        updateTableAndAllPlayers(room);
-        publishUndisplayedMessages(room, room_id);
+        console.log("userID is "+userId+" playerID is "+ playerId);
+        if(userId ==  playerId) {
+            console.log('calling value:' + callValue);
+            room.call(playerId, parseInt(callValue));
+            updateTableAndAllPlayers(room);
+            publishUndisplayedMessages(room, room_id);
+        }
 
     });
 
@@ -129,18 +141,29 @@ module.exports = function (app, rooms) {
         publishUndisplayedMessages(room, room_id);
     }) ;
 
+    app.io.route('showTrump', function(req) {
+        var room_id = req.data.roomId;
+        var room = rooms[room_id];
+        var playerId = room.players[room.currentSlot].id;
+        console.log('player requested to show trump:');
+        room.showTrump(playerId);
+        updateTableAndAllPlayers(room);
+        publishUndisplayedMessages(room, room_id);
+    }) ;
+
 
     function updateTableAndAllPlayers(room) {
         updateTable(room);
         updateAllPlayersWithCards(room);
+        updateCurrentPlayerWithCallValues(room);
     }
 
     function updateTable(room) {
         app.io.room(room.roomId).broadcast('updateTable', getObjectToSendToUser(room));
     }
 
-    function updateCards(room, slotId) {
-        app.io.room(room.roomId).broadcast('updateCards', getCardsToSendToUser(room, slotId));
+    function updateCards(room, roomId, slotId) {
+        app.io.room(roomId).broadcast('updateCards', getCardsToSendToUser(room, slotId));
     }
 
     function updateAllPlayersWithCards(room) {
@@ -152,16 +175,26 @@ module.exports = function (app, rooms) {
 
     }
 
+    function updateCurrentPlayerWithCallValues(room) {
+        console.log('updating popup 1');
+        if(room.state == STATES.CALL1 || room.state == STATES.CALL2 || room.state == STATES.CALL3) {
+            console.log('updating popup 2');
+            var currentSlot = room.currentSlot;
+            var roomId = room.roomId + '-' + room.players[currentSlot].id;
+            app.io.room(roomId).broadcast('updateCallPopup', {nextAllowedCallValue: room.nextAllowedCallValue});
+        }
+    }
+
     function updatePlayer(room, playerId) {
         var roomId = room.roomId + '-' + playerId;
         var currentSlot = room.currentSlot;
         if(room.players[currentSlot] && room.players[currentSlot].id == playerId) {
-            updateCards(room, currentSlot);
+            updateCards(room, roomId, currentSlot);
 
         } else {
             for(var i = 0; i < room.players.length; i++) {
                 if(room.players[i] && room.players[i].id == playerId) {
-                    updateCards(room, i);
+                    updateCards(room, roomId,  i);
                 }
             }
         }
@@ -177,8 +210,17 @@ module.exports = function (app, rooms) {
         }
     }
 
+    function publishAllMessages(room, room_id) {
+            for (var i = 0; i < room.messageId; i++) {
+                app.io.room(room_id).broadcast('updateMessage', room.messages[i]);
+            }
+    }
+
     function getCardsToSendToUser(room, slotId) {
-        return { cards: new CardDeckView(room, slotId), state: room.state };
+        var cardDeckView = new CardDeckView(room, slotId);
+
+        var enableShowTrumpButton = room.currentRoundPlays > 0 && room.ifIDoNotHaveTheCurrentSuit(cardDeckView.cards);
+        return { cards: cardDeckView, state: room.state , trumpShown: room.trumpShown, enableShowTrumpButton: enableShowTrumpButton};
     }
 
     function getObjectToSendToUser(room) {

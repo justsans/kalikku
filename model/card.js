@@ -4,6 +4,7 @@ var Card = function Card (rank, suit) {
 	this.suit = suit;
 	this.point = calculatePoints(rank);
     this.order = calculateOrder(rank);
+    this.displayText = getDisplayRankText(rank) + ' of ' + getDisplaySuitText(suit);
 
     function calculatePoints(rank) {
         if(rank == 'J') return 3;
@@ -32,6 +33,44 @@ var Card = function Card (rank, suit) {
                 return 7;
             default:
                 return -1;
+        }
+    }
+
+    function getDisplayRankText(rank) {
+        switch (rank) {
+            case '7':
+                return 'Seven';
+            case '8':
+                return 'Eight';
+            case 'Q':
+                return 'Queen';
+            case 'K':
+                return 'King';
+            case 'T':
+                return 'Ten';
+            case 'A':
+                return 'Ace';
+            case  '9':
+                return 'Nine';
+            case  'J':
+                return 'Jack';
+            default:
+                return '';
+        }
+    }
+
+    function getDisplaySuitText(suit) {
+        switch (suit) {
+            case 'S':
+                return 'Spades';
+            case 'D':
+                return 'Diamond';
+            case 'C':
+                return 'Clubs';
+            case 'H':
+                return 'Hearts';
+            default:
+                return '';
         }
     }
 }
