@@ -46,6 +46,27 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
     this.game = new Game();
     this.state =  STATES.WAIT;
     console.log('deck created'+this.game.deck);
+
+    this.initAfterEachGame = function() {
+        this.trump = null;
+        this.trumpSuit = '';
+        this.playRound = 1;
+        this.tableCards = [];
+        this.team1Points = 0;
+        this.team2Points = 0;
+        this.teamWithTrump = 0;
+        this.game = new Game();
+        this.trumpShown = false;
+        this.trumpShown = false;
+        this.currentTrumpSlot = 0;
+        this.currentRoundPlays = 0;
+        this.currentCallValue = 13;
+        this.currentRoundCalls = 0;
+        this.currentRoundPasses = 0;
+        this.nextAllowedCallValue = 14;
+        this.currentTrumpPlayerName = '';
+    }
+
     function distribute4CardsToEveryPlayer(deck, players) {
        // debugger;
         for(var j=0; j<4;j++) {
@@ -98,6 +119,7 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
 
     this.start = function() {
        if(this.state == STATES.READY && this.players.length == 4) {
+           this.initAfterEachGame();
            distribute4CardsToEveryPlayer(this.game.deck, this.players);
            this.state = STATES.CALL1;
            this.currentSlot = this.currentRoundStartSlot;
@@ -134,9 +156,7 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
     }
 
     this.showTrump = function() {
-        console.log('showing trump 1');
         if(this.state == STATES.PLAY) {
-            console.log('showing trump 2');
             this.trumpShown = true;
             this.messages[this.messageId++] = this.players[this.currentSlot] + ' requested trump to be shown.';
         }
@@ -472,19 +492,9 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
                 break;
             case STATES.END:
                 this.state = STATES.READY;
-                this.currentRoundCalls = 0;
-                this.nextAllowedCallValue = 14;
-                this.trumpShown = false;
-                this.trumpSuit = '';
-                this.currentCallValue = 13;
-                this.currentRoundPasses = 0;
+
                 this.currentRoundStartSlot  = (this.currentRoundStartSlot + 1) % NO_PLAYERS;
                 this.currentSlot = this.currentRoundStartSlot;
-
-                this.playRound = 0;
-                this.currentRoundPlays = 0;
-                this.tableCards = [];
-
         }
     }
 

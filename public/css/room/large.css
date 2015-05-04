@@ -74,7 +74,7 @@
     top: 450px;
     right: 100px;
     width: 33%;
-    height: 35%;
+    height: 230px;
     text-align: left;
     color: orange;
 }
@@ -229,7 +229,6 @@ td.tableData {
     margin-bottom: 5px;
     font-weight: bold;
     max-height: 35px;
-    margin-top: -5px;
 }
 
 .statusIcon.right {
