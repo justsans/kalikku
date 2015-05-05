@@ -57,7 +57,6 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
         this.teamWithTrump = 0;
         this.game = new Game();
         this.trumpShown = false;
-        this.trumpShown = false;
         this.currentTrumpSlot = 0;
         this.currentRoundPlays = 0;
         this.currentCallValue = 13;

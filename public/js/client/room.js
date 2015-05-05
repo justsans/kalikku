@@ -34,6 +34,7 @@ io.on('updateTable', function (data) {
     $('.team2Points .tableData.gamePoints').html(data.view.team2GamePoints);
     $('.team2Points .tableData.points').html(data.view.team2Points);
     $('.trumpDiv .tableData').html(data.view.trumpDisplayText);
+    $('.lastCall .tableData').html('');
 
     if(data.view.state.id == 7) {
         $('.lastCall .tableData').html(data.view.currentCallValue + " by " + data.view.currentTrumpPlayerName);
