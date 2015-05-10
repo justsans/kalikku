@@ -13,11 +13,11 @@
 
     <link rel="stylesheet" href="/css/login/common.css" />
     <link rel="stylesheet"
-          media="screen and (min-device-width: 1201px)"
+          media="screen and (min-device-width: 981px)"
           href="/css/login/large.css" />
 
     <link rel='stylesheet'
-          media='screen and (min-width: 100px) and (max-width: 1200px)'
+          media='screen and (min-width: 100px) and (max-width: 980px)'
           href='/css/login/small.css' />
 
 </head>

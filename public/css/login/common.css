@@ -1,11 +1,10 @@
 .loginPanel, .signupPanel {
     width: 100%;
-    margin-top: 100px;
+    margin-top: 5px;
 }
 .panel-heading {
     margin-left: -15px;
     margin-right: -15px;
-    padding: 25px;
 }
 
 .form-group {
