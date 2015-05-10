@@ -11,38 +11,51 @@
     <link rel="stylesheet" href="/css/main.css" />
     <link rel="stylesheet" href="/css/navbar.css" />
 
+    <link rel="stylesheet" href="/css/login/common.css" />
+    <link rel="stylesheet"
+          media="screen and (min-device-width: 1201px)"
+          href="/css/login/large.css" />
+
+    <link rel='stylesheet'
+          media='screen and (min-width: 100px) and (max-width: 1200px)'
+          href='/css/login/small.css' />
+
 </head>
 <body>
 
 <div class="navbarContainer"></div>
 <div class="content loginPanel container">
-    <div class="col-sm-6 col-sm-offset-3">
 
-        <h1><span class="fa fa-sign-in"></span> Login</h1>
+    <!-- show any messages that come back with authentication   -->
+    {{? it.message.length }}
+    <div class="alert alert-danger">{{=it.message }}</div>
+    {{?}}
 
-        <!-- show any messages that come back with authentication   -->
-        {{? it.message.length }}
-        <div class="alert alert-danger">{{=it.message }}</div>
-        {{?}}
+    <div class="col-xs-12 col-xs-offset-0 col-sm-12 col-sm-offset-0 col-lg-6 col-lg-offset-3 panel panel-info">
+
+        <div class="panel-heading">Login</div>
 
         <!-- LOGIN FORM -->
         <form action="/login" method="post">
-            <div class="form-group">
+            <div class="form-group emailSection">
                 <label>Email</label>
-                <input type="text" class="form-control" name="email">
+                <input type="text" class="form-control" name="email"/>
             </div>
             <div class="form-group">
                 <label>Password</label>
-                <input type="password" class="form-control" name="password">
+                <input type="password" class="form-control" name="password"/>
             </div>
 
             <button type="submit" class="btn btn-warning btn-lg">Login</button>
         </form>
 
-        <hr>
+        <div class='footerSection'>
+                <hr/>
 
-        <p>Need an account? <a href="/signup">Signup</a></p>
-        <p>Or go <a href="/">home</a>.</p>
+                <p>Need an account? <a href="/signup">Signup</a></p>
+                <p>Or go <a href="/">home</a>.</p>
+        </div>
+
 
     </div>
 
