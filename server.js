@@ -65,6 +65,8 @@ var Room = require ('./model/room');
 var rooms = {};
 rooms['Beginers'] = new Room('Beginers', false);
 rooms['Machans'] = new Room('Machans', false);
+rooms['Utd'] = new Room('Utd', false);
+rooms['Dallas'] = new Room('Dallas', false);
 
 
 

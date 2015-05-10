@@ -5,6 +5,7 @@ var RoomView = require('../model/roomView');
 var CardDeckView = require('../model/cardDeckView');
 var ObjectId = require('mongoose').Types.ObjectId;
 var Simulator = require('../spec/util/simulatorUtil');
+var User       		= require('../model/user');
 
 module.exports = function (app, rooms) {
     app.get( "/rooms", function( req, res ) {
@@ -28,7 +29,7 @@ module.exports = function (app, rooms) {
 
     });
 
-    app.io.route('/room/show', function(req) {
+    app.io.route('/room/show', function(req, res) {
         var room_id = req.data.roomId;
         var userId = req.handshake.user.id;
 
@@ -48,8 +49,18 @@ module.exports = function (app, rooms) {
         var room_id = req.params.id;
         console.log('fetching room id: ' + room_id);
         var room = rooms[room_id];
-        //req.io.join(room_id);
         res.send( getObjectToSendToUser(room) );
+    });
+
+    app.get( "/showRoom/:id", function( req, res ) {
+        var room_id = req.params.id;
+        console.log("oh gooly gooly i am here+ "+ room_id);
+        if(req.isAuthenticated()) {
+            res.redirect('/room.html?roomId='+room_id);
+        } else {
+            res.redirect('/login');
+
+        }
     });
 
 
@@ -67,6 +78,24 @@ module.exports = function (app, rooms) {
 
     });
 
+    app.io.route('chat', function(req) {
+        var room_id = req.data.roomId;
+        var chatMessage = req.data.message;
+        var userId = req.handshake.user.id;
+        console.log('got chat message: '+chatMessage + ' from ' + userId);
+        var room = rooms[room_id];
+
+        var playerName = 'Anonymous';
+        User.findOne({'_id': new ObjectId(userId)}, function(err, user) {
+            if(user) {
+                playerName = user.data.displayName;
+            }
+            room.addChatMessage(playerName, chatMessage);
+            publishUndisplayedChatMessages(room, room_id);
+        });
+
+
+    });
 
 
     app.io.route('call', function(req) {
@@ -74,13 +103,14 @@ module.exports = function (app, rooms) {
         var callValue = req.data.callValue;
         var userId = req.handshake.user.id;
         var room = rooms[room_id];
-        var playerId = room.players[room.currentSlot].id;
-        console.log("userID is "+userId+" playerID is "+ playerId);
-        if(userId ==  playerId) {
-            console.log('calling value:' + callValue);
-            room.call(playerId, parseInt(callValue));
-            updateTableAndAllPlayers(room);
-            publishUndisplayedMessages(room, room_id);
+        if(room.players[room.currentSlot]) {
+            var playerId = room.players[room.currentSlot].id;
+            if(userId ==  playerId) {
+                console.log('calling value:' + callValue);
+                room.call(playerId, parseInt(callValue));
+                updateTableAndAllPlayers(room);
+                publishUndisplayedMessages(room, room_id);
+            }
         }
 
     });
@@ -93,11 +123,9 @@ module.exports = function (app, rooms) {
         if(userId && userId != 'undefined') {
 
             User.findOne({'_id': new ObjectId(userId)}, function(err, user) {
-                // if there are any errors, return the error
                 if (err)
                     return done(err);
 
-                // check to see if theres already a user with that email
                 if (user) {
                     console.log('User requested to join table:' + userId);
                     req.io.join(room_id + '-' + userId);
@@ -207,6 +235,17 @@ module.exports = function (app, rooms) {
                 app.io.room(room_id).broadcast('updateMessage', room.messages[i]);
                 room.displayedMessageId = i;
             }
+        }
+    }
+
+    function publishUndisplayedChatMessages(room, room_id) {
+        if (room.displayedChatId < room.chatId) {
+            console.log(' i am here x12 and room.diplayChatId is: ' + room.displayedChatId);
+            for (var i = room.displayedChatId + 1; i <= room.chatId; i++) {
+                app.io.room(room_id).broadcast('updateChat', room.chats[i]);
+                console.log(' i am here x12 in for loop and i = ' + i);
+            }
+            room.displayedChatId = room.chatId;
         }
     }
 

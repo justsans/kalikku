@@ -25,6 +25,9 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
     this.messages = [];
     this.messageId = 0;
     this.displayedMessageId = -1;
+    this.chats = [];
+    this.chatId = -1;
+    this.displayedChatId = -1;
     this.currentRoundPasses = 0;
 
     this.playRound = 1;
@@ -67,14 +70,34 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
     }
 
     function distribute4CardsToEveryPlayer(deck, players) {
-       // debugger;
         for(var j=0; j<4;j++) {
             for(var i=0; i<4;i++) {
                 var card = deck.pop();
                 players[j].addCard(card);
             }
         }
+        for(var j=0; j<4;j++) {
+            sortPlayerCardsBySuit(players[j].cards);
+        }
 
+    }
+
+    function sortPlayerCardsBySuit(cards) {
+        cards.sort(compareCards);
+    }
+
+    function compareCards(card1, card2) {
+        if(card1.suit < card2.suit) {
+            return 1;
+        } else if(card1.suit ==  card2.suit) {
+            if(card1.order < card2.order) {
+                return 1;
+            }else if(card1.order == card2.order){
+                return 0;
+            }
+        }
+
+        return -1;
     }
 
     this.findNumberOfActivePlayers = function() {
@@ -234,12 +257,20 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
 
     }
 
+    this.addChatMessage = function(playerName, chatMessage) {
+        var message =  playerName + ": " + chatMessage;
+        this.chatId = this.chatId +  1;
+        console.log('chatMessage is :' +  chatMessage + 'playerName=' +playerName + ' chatid= ' + this.chatId);
+        this.chats[this.chatId] = message + "\n";
+        console.log('chats==== ' + this.chats);
+    }
+
     this.updateUserPenalty = function(penalty, userId, won, isSenior, isHonors) {
         var pointMultiplier = 1;
         User.findOne({'_id': new ObjectId(userId)}, function(err, user) {
             // if there are any errors, return the error
             if (err)
-                return done(err);
+                return console.log('could not find the user' + err);
 
             // check to see if theres already a user with that email
             if (user) {
