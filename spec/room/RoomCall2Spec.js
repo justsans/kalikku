@@ -59,12 +59,7 @@ describe("Room", function () {
         room.call('1',21);
         room.call('2',22);
         room.call('3',23);
-
-        room.call('0',0);
-        room.call('1',0);
-        room.call('2',0);
-        expect(3).toEqual(room.currentRoundPasses);
-        room.call('3',0);
+        console.log('current state = ' + room.state.id);
 
         expect(STATES.TRUMP1).toEqual(room.state);
         expect(3).toEqual(room.currentSlot);

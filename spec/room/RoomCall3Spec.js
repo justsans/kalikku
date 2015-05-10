@@ -50,25 +50,19 @@ describe("Room", function () {
     })
 
     it("should be able call one round", function () {
-        expect(1).toEqual(room.currentTrumpSlot);
-        expect(24).toEqual(room.nextAllowedCallValue);
-        expect(1).toEqual(room.teamWithTrump);
-        expect(0).toEqual(room.currentSlot);
 
         room.call('0',24);
         room.call('1',25);
         room.call('2',26);
         room.call('3',27);
 
-        room.call('0',0);
-        room.call('1',0);
-        room.call('2',0);
-        room.call('3',0);
+        expect(room.state).toEqual(STATES.TRUMP2);
+        room.selectTrump('3', 'A', 'S');
 
-        expect(0).toEqual(room.currentRoundStartSlot);
-        expect(room.currentSlot).toEqual(room.currentRoundStartSlot);
         expect(STATES.PLAY).toEqual(room.state);
         expect(29).toEqual(room.nextAllowedCallValue);
+        expect(0).toEqual(room.currentRoundStartSlot);
+        expect(room.currentSlot).toEqual(room.currentRoundStartSlot);
     })
 
     it("should not ask players to pass after 28 is called", function () {

@@ -426,7 +426,6 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
                 this.currentCallValue =  callValue;
                 this.nextAllowedCallValue = callValue + 1;
                 this.messages[this.messageId++] = 'Next allowed call value ' + this.nextAllowedCallValue;
-                this.currentTrumpPlayerName = this.currentSlot;
                 this.currentTrumpPlayerName = this.players[this.currentTrumpSlot].displayName;
                 this.currentTrumpSlot = this.currentSlot;
                 this.nextSlotAfterCall();
@@ -442,12 +441,7 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
             }
 
             console.log('currentRoundCalls=' + this.currentRoundCalls);
-            if(this.state == STATES.CALL1 && this.currentRoundCalls >= 4) {
-
-                this.advanceToNextState();
-            }  else if(this.state == STATES.CALL2 && this.currentRoundPasses >= 4) {
-                this.advanceToNextState();
-            } else if(this.state == STATES.CALL3 && this.currentRoundPasses >= 4) {
+            if(this.currentRoundCalls >= 4 && this.isCallState()) {
                 this.advanceToNextState();
             }
 
@@ -510,7 +504,7 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
                 distribute4CardsToEveryPlayer(this.game.deck, this.players);
                 break;
             case STATES.CALL3:
-                if(this.call  >= 24) {
+                if(this.currentCallValue  >= 24) {
                     this.setStateToTrump2();
                 } else {
                     this.setStateToPlay();
@@ -571,7 +565,7 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
             if(this.state == STATES.TRUMP1 || this.state == STATES.TRUMP2) {
                 this.advanceToNextState();
             }
-            this.messages[this.messageId++] = 'Player ' + this.currentSlot + ' selected a trump.';
+            this.messages[this.messageId++] = 'Player ' + this.currentTrumpPlayerName + ' selected a trump.';
         }
     }
 

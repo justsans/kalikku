@@ -1,4 +1,5 @@
 var Card = require('./card');
+var STATES = require('./states');
 
 var CardDeckView = function CardDeckView(room, slotId) {
     this.roomId = room.roomId;
@@ -11,7 +12,7 @@ var CardDeckView = function CardDeckView(room, slotId) {
         }
         //this.cards = room.players[slotId].cards;
     }
-    if(slotId ==  room.currentTrumpSlot && !room.trumpShown) {
+    if(slotId ==  room.currentTrumpSlot && !room.trumpShown && room.state == STATES.PLAY) {
         hideTrumpCard(this.cards, room.trump);
     }
 
