@@ -1,7 +1,14 @@
 
-<h2>Rooms</h2>
-{{~it.rooms :room}}
-<div class="room" data-id="{{=room.roomId}}">
-    <a href="/showRoom/{{=room.roomId}}?roomId={{=room.roomId}}">Room: {{=room.roomId}}</a>
+<div class="panel panel-success">
+    <div class="panel-heading">Available Rooms</div>
+    <div class="list-group">
+
+    {{~it.rooms :room}}
+        <a href="/showRoom/{{=room.roomId}}?roomId={{=room.roomId}}" class="list-group-item">
+            <span>{{=room.roomId}}</span>
+        </a>
+    {{~}}
+
+    </div>
 </div>
-{{~}}
+
