@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="/css/navbar.css" />
 
 
+    <link rel="stylesheet" href="/css/mobile/common.css"  media='screen and (min-width: 100px) and (max-width: 980px)'/>
     <link rel="stylesheet" href="/css/login/common.css" />
     <link rel="stylesheet"
           media="screen and (min-device-width: 981px)"
@@ -28,7 +29,7 @@
 <div class="content signupPanel container">
     <div class="col-xs-12 col-xs-offset-0 col-sm-12 col-sm-offset-0 col-lg-6 col-lg-offset-3 panel panel-info">
 
-        <div class="panel-heading">Signup</div>
+        <div class="panel-heading">Register</div>
 
         <!-- show any messages that come back with authentication   -->
         {{? it.message.length }}

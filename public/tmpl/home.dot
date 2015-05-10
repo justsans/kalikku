@@ -1,14 +1,25 @@
 
-<div class="panel panel-success">
-    <div class="panel-heading">Available Rooms</div>
-    <div class="list-group">
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-7">
 
-    {{~it.rooms :room}}
-        <a href="/showRoom/{{=room.roomId}}?roomId={{=room.roomId}}" class="list-group-item">
-            <span>{{=room.roomId}}</span>
-        </a>
-    {{~}}
+    <div class="panel panel-success availableRooms">
+            <div class="panel-heading">Available Rooms</div>
+            <div class="list-group">
 
+            {{~it.rooms :room}}
+                <a href="/showRoom/{{=room.roomId}}?roomId={{=room.roomId}}" class="list-group-item">
+                    <span>{{=room.roomId}}</span>
+                </a>
+            {{~}}
+
+            </div>
     </div>
+
+</div>
+
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 profilePanel">
+    <div class="panel panel-info">
+        <div class="panel-heading">Player Profile</div>
+    </div>
+
 </div>
 
