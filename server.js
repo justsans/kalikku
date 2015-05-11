@@ -67,6 +67,8 @@ rooms['Beginers'] = new Room('Beginers', false);
 rooms['Machans'] = new Room('Machans', false);
 rooms['Utd'] = new Room('Utd', false);
 rooms['Dallas'] = new Room('Dallas', false);
+rooms['India'] = new Room('India', false);
+rooms['Kerala'] = new Room('Kerala', false);
 
 
 

@@ -18,7 +18,10 @@ module.exports = function (app, rooms) {
             user = req.user;
         }
 
-        res.send( { rooms: arr, authenticated: req.isAuthenticated(), user: user.data } );
+        User.find(function (err, users) {
+            res.send( { rooms: arr, authenticated: req.isAuthenticated(), user: user.data, allUsers: users } );
+        }).select('data').sort('-data.profilePoints').limit(10);
+
     });
 
     app.get( "/room/new", function( req, res ) {
