@@ -63,7 +63,6 @@
                 <th>Name</th>
                 <th>Profile Points</th>
                 <th>Skill level</th>
-                <th>Net Points</th>
                 <th>Net Flags</th>
             </tr>
 
@@ -72,7 +71,6 @@
                     <td>{{=user.data.displayName}}</td>
                     <td>{{=user.data.profilePoints}}</td>
                     <td>{{=user.data.level}}</td>
-                    <td>{{=user.data.points}}</td>
                     <td>{{=user.data.flags}}</td>
                 </tr>
             {{~}}

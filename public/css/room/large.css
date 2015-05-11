@@ -179,11 +179,12 @@
     min-height: 130px;
     max-height: 130px;
     margin-bottom: 5px;
+
 }
 
 .actionPanel {
     position: absolute;
-    left: 500px;
+    left: 510px;
     top: 260px;
     min-width: 200px;
     max-width: 200px;
@@ -195,6 +196,7 @@
 
 .gameStatTable {
     width: 100%;
+    padding: 5px;
 }
 
 td.tableHeader {

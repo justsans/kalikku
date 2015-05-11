@@ -6,3 +6,7 @@
 .list-group-item {
     padding: 45px;
 }
+
+.userStatsPanel th{
+    font-size: 9px;
+}

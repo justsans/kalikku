@@ -1,22 +1,44 @@
+.navbar-brand {
+    font-size: 14px;
+}
+
+.btn-sm {
+    height: 30px;
+    font-size: 14px;
+}
+
+.welcomeContent {
+    font-size: 10px !important;
+}
+
+.logo {
+    height: 60px;
+}
+
+.gameStatusDiv {
+    margin-top: -20px;
+    width: 260px;
+}
+
 
 .roomContainer {
-    height: 600px;
-    min-height:600px;
-    min-width: 500px;
-    width: 800px;
+    height: 400px;
+    min-height: 400px;
     position: relative;
     color: white;
     font-weight: bold;
+    min-width: 400px;
+    width: 500px;
 }
 
 .table {
     position: relative;
 }
 
+
 .centerTable {
     position: relative;
     height: 100px;
-    border: solid #000000 1px;
     width: 140px;
     top:45px;
     left:70px;
@@ -25,10 +47,58 @@
 
 .mydeck {
     position: absolute;
-    min-height: 200px;
-    top: 136px;
-    left: 210px;
-    width: 222px;
+    min-height: 100%;
+    top: 50px;
+    right: 0px;
+    width: 100px;
+    z-index: 3;
+}
+
+.mydeck .panel-heading {
+    display: none;
+}
+
+.mydeck ul {
+    padding: 3px !important;
+}
+
+.actionPanel {
+    position: absolute;
+    left: 245px;
+    top: 50px;
+    width: 220px;
+    height: 130px;
+    text-align: center;
+    padding: 0px;
+    margin: 0px;
+    background-color: #33CCFF;
+
+}
+
+.actionPanel .panel-heading {
+    display: none;
+}
+
+.actionPanel .card {
+    width: 35px;
+    padding: 2px;
+}
+
+.statPanel {
+    position: absolute;
+    left: 245px;
+    top: 184px;
+    width: 220px;
+    margin-bottom: 5px;
+    background-color: #EFAC0E;
+}
+
+.statPanel td {
+    padding-right: 15px;
+}
+
+.statPanel .panel-heading {
+    display: none;
 }
 
 .playerslot {
@@ -70,7 +140,7 @@
 
 .messagesDiv {
     position: absolute;
-    top: 86px;
+    bottom: 90px;
     right: 20px;
     width: 100px;
     text-align: left;
@@ -79,47 +149,50 @@
 }
 .chatDiv {
     position: absolute;
-    bottom: 0px;
+    bottom: 100px;
     right: 20px;
     width: 100px;
     text-align: left;
     color: orange;
     font-size: 8px;
+    display: none;
 }
+
 .chatTextArea{
-    min-height: 50px;
+    background-color: white;
+    min-height: 100px;
     font-size: 8px;
     width: 100%;
 }
 
 .messagesTextArea {
-    min-height: 50px;
+    background-color: white;
+    min-height: 160px;
     font-size: 8px;
     width: 100%;
-    background-color: white;
 }
 
 .slot3 {
     position: absolute;
     top: 30px;
-    left: 5px;
+    left: 2px;
 }
 
 .slot1 {
     position: absolute;
     top: 30px;
-    right: 5px;
+    right: 2px;
 }
 
 .slot2 {
     position: absolute;
-    top: 5px;
+    top: 2px;
     left: 50px;
 }
 
 .slot0 {
     position: absolute;
-    bottom: 5px;
+    bottom: 2px;
     left: 50px;
 }
 
@@ -155,6 +228,18 @@
 
 .centerTable .card {
     width: 30px;
+    color: white;
+}
+
+.roomDiv {
+    font-size: 10px;
+}
+
+.statusIcon.right {
+    position: absolute;
+    left: 60px;
+    top: 10px;
+    z-index: 10;
 }
 
 
