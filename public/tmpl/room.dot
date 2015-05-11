@@ -1,7 +1,6 @@
 
 <div class="alert alert-success gameStatusDiv" data-id="{{=it.view.roomId}}">
-    <b>Game Status:
-    &nbsp; {{=it.view.state.message}} </b>
+    <b>{{=it.view.state.message}} </b>
 </div>
 
 

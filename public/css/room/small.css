@@ -1,3 +1,25 @@
+.navbar-brand {
+    font-size: 14px;
+}
+
+.btn-sm {
+    height: 30px;
+    font-size: 14px;
+}
+
+.welcomeContent {
+    font-size: 10px !important;
+}
+
+.logo {
+    height: 60px;
+}
+
+.gameStatusDiv {
+    margin-top: -20px;
+    width: 280px;
+}
+
 
 .roomContainer {
     height: 400px;
@@ -26,10 +48,54 @@
 
 .mydeck {
     position: absolute;
-    min-height: 200px;
-    left: -32px;
-    bottom: 0px;
-    width: 222px;
+    min-height: 100%;
+    top: 50px;
+    right: 0px;
+    width: 50px;
+    z-index: 3;
+}
+
+.mydeck .panel-heading {
+    display: none;
+}
+
+.mydeck ul {
+    padding: 3px !important;
+}
+
+.actionPanel {
+    position: absolute;
+    left: 0px;
+    top: 265px;
+    width: 250px;
+    height: 130px;
+    text-align: center;
+    padding: 0px;
+    margin: 0px;
+    background-color: #2aabd2;
+
+}
+
+.actionPanel .panel-heading {
+    display: none;
+}
+
+.actionPanel .card {
+    width: 35px;
+    padding: 2px;
+}
+
+.statPanel {
+    position: absolute;
+    left: 0px;
+    top: 410px;
+    width: 250px;
+    margin-bottom: 5px;
+    background-color: #b5d592;
+}
+
+.statPanel .panel-heading {
+    display: none;
 }
 
 .playerslot {
@@ -88,6 +154,7 @@
     font-size: 8px;
     display: none;
 }
+
 .chatTextArea{
     background-color: white;
     min-height: 100px;
@@ -158,6 +225,17 @@
 
 .centerTable .card {
     width: 30px;
+}
+
+.roomDiv {
+    font-size: 10px;
+}
+
+.statusIcon.right {
+    position: absolute;
+    left: 60px;
+    top: 10px;
+    z-index: 10;
 }
 
 
