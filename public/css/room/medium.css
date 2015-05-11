@@ -67,7 +67,7 @@
     left: 255px;
     top: 50px;
     width: 210px;
-    height: 130px;
+    height: 150px;
     text-align: center;
     padding: 0px;
     margin: 0px;
@@ -89,10 +89,15 @@
     padding: 2px;
 }
 
+.playerslot {
+    color: white;
+}
+
+
 .statPanel {
     position: absolute;
     left: 255px;
-    top: 184px;
+    top: 204px;
     width: 210px;
     margin-bottom: 5px;
     background-color: #EFAC0E;

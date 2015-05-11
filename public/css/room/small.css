@@ -71,7 +71,7 @@
 .actionPanel {
     position: absolute;
     left: 0px;
-    top: 265px;
+    top: 273px;
     width: 250px;
     height: 130px;
     text-align: center;
@@ -79,6 +79,10 @@
     margin: 0px;
     background-color: #2aabd2;
 
+}
+
+.playerslot {
+    color: white;
 }
 
 .actionPanel .panel-heading {
@@ -93,7 +97,7 @@
 .statPanel {
     position: absolute;
     left: 0px;
-    top: 410px;
+    top: 414px;
     width: 250px;
     margin-bottom: 5px;
     background-color: #b5d592;
