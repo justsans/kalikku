@@ -1,7 +1,7 @@
 
 <nav class="navbar">
             <div class="navbar-header">
-                <a class="navbar-brand" href="/">Trump</a>
+                <a class="navbar-brand" href="/"><img class="logo" src="/images/logo.gif"/></a>
                 <div class="welcomeContent pull-right">
                     {{? it.displayName}}
                     Welcome! {{=it.displayName}}

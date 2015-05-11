@@ -15,11 +15,11 @@ module.exports = function (app, rooms) {
         }
         var user = null;
         if(req.isAuthenticated()) {
-            user = req.user;
+            user = req.user.data;
         }
 
         User.find(function (err, users) {
-            res.send( { rooms: arr, authenticated: req.isAuthenticated(), user: user.data, allUsers: users } );
+            res.send( { rooms: arr, authenticated: req.isAuthenticated(), user: user, allUsers: users } );
         }).select('data').sort('-data.profilePoints').limit(10);
 
     });

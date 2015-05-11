@@ -3,3 +3,15 @@
     padding-left: 10px;
     padding-right: 10px;
 }
+
+.table-striped>tbody>tr:nth-of-type(odd) {
+    background-color: #F1F1EE;
+}
+
+.profilePanel .table-striped>tbody>tr:nth-of-type(odd) {
+    background-color: #F1F1EE;
+}
+
+.availableRooms .list-group-item{
+    background-color: #FFFFFF;
+}
