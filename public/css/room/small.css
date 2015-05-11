@@ -20,6 +20,11 @@
     width: 280px;
 }
 
+.startGameContent {
+    width: 280px;
+    z-index: 5;
+}
+
 
 .roomContainer {
     height: 400px;

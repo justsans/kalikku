@@ -64,15 +64,20 @@
 
 .actionPanel {
     position: absolute;
-    left: 245px;
+    left: 255px;
     top: 50px;
-    width: 220px;
+    width: 210px;
     height: 130px;
     text-align: center;
     padding: 0px;
     margin: 0px;
     background-color: #33CCFF;
 
+}
+
+.startGameContent {
+    width: 280px;
+    z-index: 5;
 }
 
 .actionPanel .panel-heading {
@@ -86,9 +91,9 @@
 
 .statPanel {
     position: absolute;
-    left: 245px;
+    left: 255px;
     top: 184px;
-    width: 220px;
+    width: 210px;
     margin-bottom: 5px;
     background-color: #EFAC0E;
 }
