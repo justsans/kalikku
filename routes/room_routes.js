@@ -13,7 +13,12 @@ module.exports = function (app, rooms) {
         for ( var room_id in rooms ) {
             arr.push( rooms[room_id] );
         }
-        res.send( { rooms: arr } );
+        var user = null;
+        if(req.isAuthenticated()) {
+            user = req.user;
+        }
+
+        res.send( { rooms: arr, authenticated: req.isAuthenticated(), user: user.data } );
     });
 
     app.get( "/room/new", function( req, res ) {
@@ -263,7 +268,7 @@ module.exports = function (app, rooms) {
     }
 
     function getObjectToSendToUser(room) {
-        return { room: room, view: new RoomView(room) };
+        return { view: new RoomView(room) };
     }
 
 };

@@ -266,6 +266,7 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
     }
 
     this.updateUserPenalty = function(penalty, userId, won, isSenior, isHonors) {
+        var profilePointMultiplier = 3;
         var pointMultiplier = 1;
         User.findOne({'_id': new ObjectId(userId)}, function(err, user) {
             // if there are any errors, return the error
@@ -289,26 +290,49 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
                     penalty = 0 - penalty;
                 }
                 user.data.points += penalty;
+                user.data.gamesPlayed += 1;
 
-                user.data.profilePoints += penalty * pointMultiplier;
+                if(penalty > 0) {
+                    user.data.profilePoints += penalty * pointMultiplier * profilePointMultiplier;
+                    user.data.pointsFor += penalty * pointMultiplier;
+                } else {
+                    user.data.pointsAgainst -= penalty * pointMultiplier;
+                    user.data.profilePoints += 1;
+                }
+
+                if(user.data.profilePoints >= 25) {
+                    user.data.level = "Novice";
+                }
 
                 if(user.data.profilePoints >= 50) {
-                    user.data.level = "Shark";
+                    user.data.level = "Rookie";
                 }
 
                 if(user.data.profilePoints >= 100) {
-                    user.data.level = "Expert";
+                    user.data.level = "Talented";
+                }
+
+                if(user.data.profilePoints >= 200) {
+                    user.data.level = "Senior";
                 }
 
                 if(user.data.profilePoints >= 400) {
+                    user.data.level = "Expert";
+                }
+
+                if(user.data.profilePoints >= 1000) {
                     user.data.level = "Master";
+                }
+
+                if(user.data.profilePoints >= 2000) {
+                    user.data.level = "Ninja";
                 }
 
             }
 
             // save the user
             user.save(function(err) {
-                console.log("Error-:  is saving user statistics");
+                console.log("Error-:  in saving user statistics");
             });
 
         });

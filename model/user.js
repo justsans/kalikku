@@ -11,9 +11,12 @@ var userSchema = mongoose.Schema({
         flags: {type: Number,default: 0},
         profilePoints: {type: Number,default: 0},
         points: {type: Number,default: 0},
+        gamesPlayed: {type: Number,default: 0},
+        pointsFor: {type: Number,default: 0},
+        pointsAgainst: {type: Number,default: 0},
         honorsWon: {type: Number,default: 0},
         seniorsWon: {type: Number,default: 0},
-        level: {type: String,default: 'Beginner'}
+        level: {type: String,default: 'Newbie'}
 
     },
 

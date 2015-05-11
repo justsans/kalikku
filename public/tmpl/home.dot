@@ -17,8 +17,19 @@
 </div>
 
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 profilePanel">
+
     <div class="panel panel-info">
         <div class="panel-heading">Player Profile</div>
+
+        <table class="table table-bordered">
+            <tr><td>Name</td><td>{{=it.user.displayName}}</td></tr>
+            <tr><td>Skill Level</td><td>{{=it.user.level}}</td></tr>
+            <tr><td>Profile Points</td><td>{{=it.user.profilePoints}}</td></tr>
+            <tr><td>Games Played</td><td>{{=it.user.gamesPlayed}}</td></tr>
+            <tr><td>Net Points</td><td>{{=it.user.points}}</td></tr>
+            <tr><td>Net Flags</td><td>{{=it.user.flags}}</td></tr>
+        </table>
+
     </div>
 
 </div>
