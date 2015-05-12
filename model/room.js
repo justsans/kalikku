@@ -67,6 +67,9 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
         this.currentRoundPasses = 0;
         this.nextAllowedCallValue = 14;
         this.currentTrumpPlayerName = '';
+        for(var j=0; j<4;j++) {
+            this.players[j].cards = [];
+        }
     }
 
     function distribute4CardsToEveryPlayer(deck, players) {
