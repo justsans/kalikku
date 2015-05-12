@@ -148,6 +148,7 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
            distribute4CardsToEveryPlayer(this.game.deck, this.players);
            this.state = STATES.CALL1;
            this.currentSlot = this.currentRoundStartSlot;
+           this.currentPlayRoundStartSlot = this.currentRoundStartSlot;
        }
     }
 
@@ -348,25 +349,31 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
         for(var i =0 ; i<this.tableCards.length; i++) {
              var card = this.tableCards[i];
              if(card.suit == firstCard.suit) {
-                  if(card.order > firstCard.order) {
+                  if(card.order > this.tableCards[biggestSlot].order) {
                       biggestSlot = i;
                   }
              }
         }
 
+        var biggestTrumpSlot = -1;
         if(this.trumpShown) {
-            for(var i =0 ; i<this.tableCards.length; i++) {
+            for(var i =0 ; i< this.tableCards.length; i++) {
                 var card = this.tableCards[i];
                 if(card.suit == this.trumpSuit) {
-                    if(this.tableCards[biggestSlot].suit != this.trumpSuit) {
-                        biggestSlot = i;
+                    if(biggestTrumpSlot < 0) {
+                        biggestTrumpSlot = i;
                     } else {
-                        if(card.order > this.tableCards[biggestSlot].order) {
-                            biggestSlot = i;
+                        if(card.order > this.tableCards[biggestTrumpSlot].order) {
+                            biggestTrumpSlot = i;
                         }
                     }
+
                 }
             }
+        }
+
+        if(biggestTrumpSlot >= 0) {
+            biggestSlot = biggestTrumpSlot;
         }
 
         return biggestSlot;
@@ -437,14 +444,17 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
             console.log('min call value is: ' + minCallValue);
 
             if(this.state == STATES.CALL1) {
-                if((this.currentTrumpSlot == 0 && this.currentSlot === 2)
-                   || (this.currentTrumpSlot === 2 && this.currentSlot === 0)
-                   || (this.currentTrumpSlot === 1 && this.currentSlot === 3)
-                   || (this.currentTrumpSlot === 3 && this.currentSlot === 1)) {
-                     if(minCallValue < 20) {
-                         minCallValue = 20;
-                     }
+                if(this.currentRoundCalls > 0) {
+                    if((this.currentTrumpSlot == 0 && this.currentSlot === 2)
+                        || (this.currentTrumpSlot === 2 && this.currentSlot === 0)
+                        || (this.currentTrumpSlot === 1 && this.currentSlot === 3)
+                        || (this.currentTrumpSlot === 3 && this.currentSlot === 1)) {
+                        if(minCallValue < 20) {
+                            minCallValue = 20;
+                        }
+                    }
                 }
+
             }
             this.oldTrumpSlot = this.currentTrumpSlot;
 
@@ -543,9 +553,7 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
                 break;
             case STATES.END:
                 this.state = STATES.READY;
-
                 this.currentRoundStartSlot  = (this.currentRoundStartSlot + 1) % NO_PLAYERS;
-                this.currentSlot = this.currentRoundStartSlot;
         }
     }
 

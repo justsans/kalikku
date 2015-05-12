@@ -111,7 +111,9 @@ module.exports = function (app, rooms) {
         var callValue = req.data.callValue;
         var userId = req.handshake.user.id;
         var room = rooms[room_id];
+        console.log(userId + ' called');
         if(room.players[room.currentSlot]) {
+            console.log('detected player at slot ' + room.currentSlot + ',' + room.players[room.currentSlot]);
             var playerId = room.players[room.currentSlot].id;
             if(userId ==  playerId) {
                 console.log('calling value:' + callValue);
@@ -271,7 +273,7 @@ module.exports = function (app, rooms) {
     }
 
     function getObjectToSendToUser(room) {
-        return { view: new RoomView(room) };
+        return { room: room, view: new RoomView(room) };
     }
 
 };
