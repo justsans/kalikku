@@ -53,7 +53,7 @@ module.exports = function (app, rooms) {
         publishAllMessages(room, room_id);
     });
 
-    app.get( "/room/:id", function( req, res ) {
+    app.get( "/rooms/:id", function( req, res ) {
         var room_id = req.params.id;
         console.log('fetching room id: ' + room_id);
         var room = rooms[room_id];
@@ -273,7 +273,7 @@ module.exports = function (app, rooms) {
     }
 
     function getObjectToSendToUser(room) {
-        return { room: room, view: new RoomView(room) };
+        return { view: new RoomView(room) };
     }
 
 };
