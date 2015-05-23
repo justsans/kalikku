@@ -53,7 +53,12 @@
             <button type="submit" class="btn btn-warning btn-lg">Login</button>
         </form>
 
+
         <div class='footerSection'>
+                <p>Login or Register with:</p>
+
+                <a href="/auth/facebook" class="btn btn-primary"><span class="fa fa-facebook"></span> Facebook</a>
+
                 <hr/>
 
                 <p>Need an account? <a href="/signup">Signup</a></p>

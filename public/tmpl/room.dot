@@ -17,7 +17,7 @@
                 {{? !it.view.players[2]}}
                 <input class="btn btn-primary btn-md btn-blue joinButton" type="button"  slot="2" value="Join"/>
                 {{??}}
-                    <img src="/images/avatar.png" class="avatar"/>
+                    <img src="{{=it.view.players[2].picture}}" class="avatar"/>
                     {{=it.view.players[2].displayName}}
                     {{? it.view.currentSlot == 2 }}
                         <img class="statusIcon right" src="/images/green_bl.gif"/>
@@ -30,7 +30,7 @@
                 {{? !it.view.players[1]}}
                 <input class="btn btn-primary btn-md btn-blue joinButton" type="button"  slot="1" value="Join"/>
                 {{??}}
-                    <img src="/images/avatar.png" class="avatar"/>
+                    <img src="{{=it.view.players[1].picture}}" class="avatar"/>
                     {{=it.view.players[1].displayName}}
                     {{? it.view.currentSlot == 1 }}
                         <img class="statusIcon bottom" src="/images/green_bl.gif"/>
@@ -42,7 +42,7 @@
                 {{? !it.view.players[3]}}
                 <input class="btn btn-primary btn-md btn-blue joinButton" type="button"  slot="3" value="Join"/>
                 {{??}}
-                    <img src="/images/avatar.png"  class="avatar"/>
+                    <img src="{{=it.view.players[3].picture}}"  class="avatar"/>
                     {{=it.view.players[3].displayName}}
                     {{? it.view.currentSlot == 3 }}
                         <img class="statusIcon bottom" src="/images/green_bl.gif"/>
@@ -55,7 +55,7 @@
                 {{? !it.view.players[0]}}
                 <input class="btn btn-primary btn-md btn-blue joinButton" type="button"  slot="0" value="Join"/>
                 {{??}}
-                    <img src="/images/avatar.png" class="avatar"/>
+                    <img src="{{=it.view.players[0].picture}}" class="avatar"/>
                     {{=it.view.players[0].displayName}}
                     {{? it.view.currentSlot == 0 }}
                         <img class="statusIcon right" src="/images/green_bl.gif"/>

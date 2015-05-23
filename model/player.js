@@ -1,6 +1,7 @@
-var Player = function Player (playerId, displayName) {
+var Player = function Player (playerId, displayName, picture) {
     this.id = playerId;
     this.displayName = displayName || '';
+    this.picture = picture || '/images/avatar.png';
     this.cards = [];
     this.addCard  = function(card) {
        if(this.cards.length < 8) {

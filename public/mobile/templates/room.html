@@ -1,14 +1,16 @@
 <ion-view view-title="Room">
     <ion-content>
-        <h1>{{room.view.roomId}}</h1>
+
         <roomTable>
             {{view.state.message}}
+        </roomTable>
+        <roomCards></roomCards>
+        <roomMessages>
             <ion-list>
                 <ion-item ng-repeat="message in messages">
                     {{message.messageText}}
                 </ion-item>
             </ion-list>
-
-        </roomTable>
+        </roomMessages>
     </ion-content>
 </ion-view>

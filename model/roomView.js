@@ -28,7 +28,7 @@ var RoomView = function RoomView(room) {
     for(var i=0; i < room.players.length; i++) {
        var player =  room.players[i];
        if(player) {
-           this.players[i] = {'displayName': player.displayName};
+           this.players[i] = {'displayName': player.displayName, 'picture': player.picture};
        }
     }
 

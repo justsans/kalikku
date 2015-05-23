@@ -31,12 +31,24 @@ angular.module('starter.controllers', ['starter.services', 'socket.services'])
       $scope.closeLogin();
     }, 1000);
   };
+
+  $scope.fbLogin = function() {
+      openFB.login(
+          function(response) {
+            if (response.status === 'connected') {
+              console.log('Facebook login succeeded');
+              $scope.closeLogin();
+            } else {
+              alert('Facebook login failed');
+            }
+          },
+          {scope: 'email,publish_actions'});
+  };
 })
 
 .controller('RoomsCtrl', function($scope, Room) {
   Room.get(function(data) {
     $scope.rooms = data.rooms;
-    console.log('rooms are ' + rooms);
   });
 })
 

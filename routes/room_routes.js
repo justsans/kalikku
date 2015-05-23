@@ -142,7 +142,7 @@ module.exports = function (app, rooms) {
                     req.io.join(room_id + '-' + userId);
                     var room = rooms[room_id];
                     if(!room.players[slotId]) {
-                        room.addPlayer(userId, slotId, user.data.displayName);
+                        room.addPlayer(userId, slotId, user.data.displayName, user.data.picture);
                     }
 
                     app.io.room(room_id).broadcast('updateTable', getObjectToSendToUser(room));

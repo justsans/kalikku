@@ -116,13 +116,13 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
 
     this.hasAllPlayersJoined = false;
 
-    this.addPlayer = function(playerId, slot, name) {
+    this.addPlayer = function(playerId, slot, name, picture) {
         var numberOfPlayers = this.findNumberOfActivePlayers();
         if(this.state == STATES.WAIT && !this.hasAllPlayersJoined)  {
             if(!this.players[slot]) {
                 console.log('Adding player '+playerId+ ' at slot ' + slot);
                 this.messages[this.messageId++] = name + ' joined the table.';
-                this.players[slot]  = new Player(playerId, name);
+                this.players[slot]  = new Player(playerId, name, picture);
                 numberOfPlayers++;
                 this.numberOfActivePlayers = numberOfPlayers;
                 if(numberOfPlayers == 4) {

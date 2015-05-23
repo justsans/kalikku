@@ -16,7 +16,8 @@ var userSchema = mongoose.Schema({
         pointsAgainst: {type: Number,default: 0},
         honorsWon: {type: Number,default: 0},
         seniorsWon: {type: Number,default: 0},
-        level: {type: String,default: 'Newbie'}
+        level: {type: String,default: 'Newbie'},
+        picture: ''
 
     },
 
@@ -29,7 +30,8 @@ var userSchema = mongoose.Schema({
         id           : String,
         token        : String,
         email        : String,
-        name         : String
+        name         : String,
+        picture      : String
     },
     twitter          : {
         id           : String,
