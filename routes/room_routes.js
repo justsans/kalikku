@@ -262,7 +262,7 @@ module.exports = function (app, rooms) {
 
     function publishAllMessages(room, room_id) {
             for (var i = 0; i < room.messageId; i++) {
-                app.io.room(room_id).broadcast('updateMessage', room.messages[i]);
+                app.io.room(room_id).broadcast('updateMessage', {id: i, messageText: room.messages[i]});
             }
     }
 
