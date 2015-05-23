@@ -1,4 +1,4 @@
-angular.module('starter.controllers', ['starter.services'])
+angular.module('starter.controllers', ['starter.services', 'socket.services'])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
   // Form data for the login modal
@@ -40,8 +40,25 @@ angular.module('starter.controllers', ['starter.services'])
   });
 })
 
-.controller('RoomCtrl', function($scope, $stateParams, Room) {
+.controller('RoomCtrl', function($scope, $stateParams, Room, socket) {
   $scope.room = Room.get({roomId: $stateParams.roomId});
+      console.log('sending show to beginers');
+
+  socket.emit( "/room/show", {'roomId': 'Beginers'});
+  socket.on('updateTable', function (data){
+    console.log('got message from server', data);
+    $scope.view = data.view;
+  });
+
+  socket.on('updateMessage', function (data) {
+    if(!$scope.messages) {
+      $scope.messages = [];
+    }
+    $scope.messages.unshift(data);
+  });
+
 });
+
+
 
 

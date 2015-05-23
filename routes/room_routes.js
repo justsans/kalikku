@@ -38,6 +38,7 @@ module.exports = function (app, rooms) {
     });
 
     app.io.route('/room/show', function(req, res) {
+        console.log('got message from in show');
         var room_id = req.data.roomId;
         var userId = req.handshake.user.id;
 
@@ -242,7 +243,7 @@ module.exports = function (app, rooms) {
     function publishUndisplayedMessages(room, room_id) {
         if (room.displayedMessageId < room.messageId) {
             for (var i = room.displayedMessageId + 1; i < room.messageId; i++) {
-                app.io.room(room_id).broadcast('updateMessage', room.messages[i]);
+                app.io.room(room_id).broadcast('updateMessage', {id: i, messageText: room.messages[i]});
                 room.displayedMessageId = i;
             }
         }

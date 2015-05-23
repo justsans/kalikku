@@ -118,7 +118,7 @@ io.on('updateChat', function (data) {
 
 io.on('updateMessage', function (data) {
     var messagesTextArea    = $('.messagesTextArea');
-    messagesTextArea.append(data + "<br\>" );
+    messagesTextArea.append(data.messageText + "<br\>" );
     messagesTextArea.scrollTop(messagesTextArea[0].scrollHeight);
 });
 
