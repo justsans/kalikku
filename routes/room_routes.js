@@ -40,17 +40,18 @@ module.exports = function (app, rooms) {
     app.io.route('/room/show', function(req, res) {
         console.log('got message from in show');
         var room_id = req.data.roomId;
-        var userId = req.handshake.user.id;
-
-        console.log('showing game:' + room_id + ',' + userId);
         var room = rooms[room_id];
         req.io.join(room_id);
         updateTable(room);
-        var room_id = room_id + '-' + userId;
-        req.io.join(room_id);
-        console.log('Joiningg ROOM: '+room_id);
-        updatePlayer(room, userId);
-        updateCurrentPlayerWithCallValues(room);
+
+        if(req.handshake && req.handshake.user && req.handshake.user.id) {
+            var userId = req.handshake.user.id;
+            console.log('showing game:' + room_id + ',' + userId);
+            var room_id = room_id + '-' + userId;
+            console.log('Joiningg ROOM: '+room_id);
+            updatePlayer(room, userId);
+            updateCurrentPlayerWithCallValues(room);
+        }
         publishAllMessages(room, room_id);
     });
 
@@ -70,6 +71,10 @@ module.exports = function (app, rooms) {
             res.redirect('/login');
 
         }
+    });
+
+    app.io.route('connect', function(req) {
+        console.log('someone connected ############');
     });
 
 
