@@ -3,7 +3,7 @@ var baseUrl = 'http://localhost:5000/';
 angular.module('socket.services', ['constants'])
 
 .factory('socket', function socket($rootScope, apiUrl) {
-    var socket = io.connect(apiUrl+ '/');
+    var socket = io.connect(apiUrl);
     return {
         on: function (eventName, callback) {
             socket.on(eventName, function () {

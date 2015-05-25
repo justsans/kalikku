@@ -8,5 +8,15 @@
   "watchPatterns": [
     "www/**/*",
     "!www/lib/**/*"
+  ],
+  "proxies": [
+        {
+          "path": "/socketApi",
+          "proxyUrl": "http://192.168.1.5:5000/socket.io/socket.io.js"
+        },
+        {
+          "path": "/mobileApi",
+          "proxyUrl": "http://192.168.1.5:5000/mobile/www"
+        }
   ]
 }

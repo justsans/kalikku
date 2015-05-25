@@ -47,8 +47,9 @@ module.exports = function (app, rooms) {
         if(req.handshake && req.handshake.user && req.handshake.user.id) {
             var userId = req.handshake.user.id;
             console.log('showing game:' + room_id + ',' + userId);
-            var room_id = room_id + '-' + userId;
-            console.log('Joiningg ROOM: '+room_id);
+            var new_room_id = room_id + '-' + userId;
+            console.log('Joiningg ROOM: '+new_room_id);
+            req.io.join(new_room_id);
             updatePlayer(room, userId);
             updateCurrentPlayerWithCallValues(room);
         }

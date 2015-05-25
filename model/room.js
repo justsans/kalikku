@@ -463,8 +463,8 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
                 this.currentCallValue =  callValue;
                 this.nextAllowedCallValue = callValue + 1;
                 this.messages[this.messageId++] = 'Next allowed call value ' + this.nextAllowedCallValue;
-                this.currentTrumpPlayerName = this.players[this.currentTrumpSlot].displayName;
                 this.currentTrumpSlot = this.currentSlot;
+                this.currentTrumpPlayerName = this.players[this.currentTrumpSlot].displayName;
                 this.nextSlotAfterCall();
 
                 this.teamWithTrump =  this.currentTrumpSlot % 2;
