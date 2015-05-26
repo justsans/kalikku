@@ -17,8 +17,8 @@ var userSchema = mongoose.Schema({
         honorsWon: {type: Number,default: 0},
         seniorsWon: {type: Number,default: 0},
         level: {type: String,default: 'Newbie'},
-        picture: ''
-
+        picture: '',
+        userId: ''
     },
 
     local            : {

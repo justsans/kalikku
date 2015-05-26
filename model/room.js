@@ -380,7 +380,7 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
     };
 
     this.whichTeamWonTheGame = function() {
-       if(this.teamWithTrump = 0) {
+       if(this.teamWithTrump == 0) {
            if(this.team2Points >= this.currentCallValue ) return 0;
            if(this.team1Points > (28 - this.currentCallValue)) return 1;
        } else {

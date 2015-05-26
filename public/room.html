@@ -7,8 +7,8 @@
 
 	<title>Trump - Table</title>
     <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-    <script src="/socket.io/socket.io.js"></script>
-
+    <!--<script src="/socket.io/socket.io.js"></script>-->
+    <script type="text/javascript" src="http://cdn.socket.io/socket.io-1.3.5.js"></script>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
@@ -114,6 +114,18 @@
 
     <script src="/js/lib/doT.min.js"></script>
     <script src="/js/client/navbar.js"></script>
+
+
+    <script type="text/javascript">
+        var socket = io('http://localhost:5000');
+        //        alert('i am starting');
+        socket.on('connect', function() {
+            socket.on('text', function(text) {
+                alert(text);
+            });
+        });
+    </script>
+
     <script src="/js/client/room.js"></script>
 
 </body>
