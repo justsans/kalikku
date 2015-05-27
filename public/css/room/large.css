@@ -71,24 +71,24 @@
 }
 .chatDiv {
     position: absolute;
-    top: 450px;
+    top: 420px;
     right: 100px;
     width: 33%;
-    height: 230px;
+    height: 260px;
     text-align: left;
     color: orange;
 }
 .chatTextArea{
-    min-height: 150px;
-    max-height: 150px;
+    min-height: 180px;
+    max-height: 180px;
     font-size: 10px;
     width: 100%;
     overflow-y: scroll;
 }
 
 .messagesTextArea {
-    min-height: 150px;
-    max-height: 150px;
+    min-height: 180px;
+    max-height: 180px;
     font-size: 10px;
     width: 100%;
     background-color: white;
@@ -224,6 +224,10 @@ td.tableData {
     min-width: 30px;
     margin: 5px;
     font-weight: bold;
+}
+
+.chatTextBox {
+    width: 360px;
 }
 
 .panel-heading {

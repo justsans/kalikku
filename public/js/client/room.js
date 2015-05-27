@@ -5,6 +5,15 @@ var io = io.connect();
 function init() {
     var roomId = getParameterByName('roomId');
     io.emit( "/room/show", {'roomId': roomId});
+    $('.chatButton').click(function() {
+        io.emit('chat', {roomId: roomId, message: $('.chatTextBox').val()});
+        $('.chatTextBox').val('');
+    });
+    $(".chatTextBox").keyup(function(event){
+        if(event.keyCode == 13){
+            $(".chatButton").click();
+        }
+    });
 }
 
 $.when(
@@ -16,6 +25,7 @@ $.when(
 $.when(
     $.get( "tmpl/room.dot", function( tmpl ) {
         roomTmpl = doT.template( tmpl );
+
     }, "text" )
 ).then( init );
 
@@ -34,9 +44,7 @@ io.on('updateTable', function (data) {
     $('.trumpDiv .tableData').html(data.view.trumpDisplayText);
     $('.lastCall .tableData').html('');
 
-    $('.chatButton').click(function() {
-        io.emit('chat', {roomId: roomId, message: $('.chatTextBox').val()});
-    });
+
 
     if(data.view.state.id == 7) {
         $('.lastCall .tableData').html(data.view.currentCallValue + " by " + data.view.currentTrumpPlayerName);

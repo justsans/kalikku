@@ -110,19 +110,19 @@ module.exports = function (app, rooms, io, sessionStore) {
 
     function publishUndisplayedMessages(room, room_id) {
         if (room.displayedMessageId < room.messageId) {
-            for (var i = room.displayedMessageId + 1; i < room.messageId; i++) {
+            for (var i = room.displayedMessageId + 1; i <= room.messageId; i++) {
                 io.sockets.in(room_id).emit('updateMessage', {id: i, messageText: room.messages[i]});
-                room.displayedMessageId = i;
             }
+            room.displayedMessageId = room.messageId;
         }
     }
 
     function publishUndisplayedChatMessages(room, room_id) {
+        console.log("I am here x1:  displayedChatId=" + room.displayedChatId + "  room.chatId="+ room.chatId );
         if (room.displayedChatId < room.chatId) {
-            console.log(' i am here x12 and room.diplayChatId is: ' + room.displayedChatId);
             for (var i = room.displayedChatId + 1; i <= room.chatId; i++) {
                 io.sockets.in(room_id).emit('updateChat', room.chats[i]);
-                console.log(' i am here x12 in for loop and i = ' + i);
+
             }
             room.displayedChatId = room.chatId;
         }
