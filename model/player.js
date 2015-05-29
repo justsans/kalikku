@@ -3,6 +3,12 @@ var Player = function Player (playerId, displayName, picture) {
     this.displayName = displayName || '';
     this.picture = picture || '/images/avatar.png';
     this.cards = [];
+    this.active = true;
+
+    this.setActive = function(active) {
+        this.active = active;
+    }
+
     this.addCard  = function(card) {
        if(this.cards.length < 8) {
            this.cards.push(card);

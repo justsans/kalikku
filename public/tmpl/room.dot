@@ -34,7 +34,7 @@
                     </div>
 
                     {{? it.view.currentSlot == 2 }}
-                        <img class="statusIcon right" src="/images/green_bl.gif"/>
+                        <img class="statusIcon bottom" src="/images/green_bl.gif"/>
                     {{?}}
                 {{?}}
 
@@ -48,7 +48,7 @@
                     <img src="{{=it.view.players[1].picture}}" class="avatar"/>
                     <span class="teamName">Team 1</span>
                     {{? it.view.currentSlot == 1 }}
-                        <img class="statusIcon bottom" src="/images/green_bl.gif"/>
+                        <img class="statusIcon left" src="/images/green_bl.gif"/>
                     {{?}}
 
                     <div class="ejectContainer" style="visibility:hidden">
@@ -66,7 +66,7 @@
                     <img src="{{=it.view.players[3].picture}}"  class="avatar"/>
                     <span class="teamName">Team 1</span>
                     {{? it.view.currentSlot == 3 }}
-                        <img class="statusIcon bottom" src="/images/green_bl.gif"/>
+                        <img class="statusIcon right" src="/images/green_bl.gif"/>
                     {{?}}
                     <div class="ejectContainer" style="visibility:hidden">
                         <input class="btn btn-primary btn-xs btn-blue ejectButton" type="button"  slot="3" value="Eject"/>
@@ -90,7 +90,7 @@
                 </div>
 
                     {{? it.view.currentSlot == 0 }}
-                        <img class="statusIcon right" src="/images/green_bl.gif"/>
+                        <img class="statusIcon top" src="/images/green_bl.gif"/>
                     {{?}}
                 {{?}}
 

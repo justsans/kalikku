@@ -50,6 +50,7 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
     this.roomId = roomId;
     this.game = new Game();
     this.state =  STATES.WAIT;
+    this.playerOldCards = [null, null, null, null];
     console.log('deck created'+this.game.deck);
 
     this.initAfterEachGame = function() {
@@ -69,6 +70,7 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
         this.currentRoundPasses = 0;
         this.nextAllowedCallValue = 14;
         this.currentTrumpPlayerName = '';
+        this.playerOldCards = [null, null, null, null];
         for(var j=0; j<4;j++) {
             this.players[j].cards = [];
         }
@@ -125,6 +127,10 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
                 console.log('Adding player '+playerId+ ' at slot ' + slot);
                 this.messages[this.messageId++] = name + ' joined the table.';
                 this.players[slot]  = new Player(playerId, name, picture);
+                if(this.playerOldCards[slot]) {
+                    this.players[slot].cards = this.playerOldCards[slot];
+                    this.playerOldCards[slot] = null;
+                }
                 console.log(this.players);
                 numberOfPlayers++;
                 console.log('numberOfPlayers=' + numberOfPlayers, 'stateBeforeHold='+ this.stateBeforeHold);
@@ -197,11 +203,13 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
     this.ejectPlayer = function(slotId, playerId) {
         console.log('ejecting player at slot played');
         if(playerId) {
+            this.playerOldCards[slotId] = this.players[slotId].cards;
             this.players[slotId] = null;
             console.log('this.players after ejecting=' + this.players);
             if(this.state != STATES.HOLD) {
                 this.stateBeforeHold  = this.state;
             }
+
             this.state = STATES.HOLD;
             this.hasAllPlayersJoined = false;
         }
