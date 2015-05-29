@@ -86,7 +86,7 @@ io.on('updateTable', function (data) {
     }
 
     clearTimeout(timeout);
-    timeout = setTimeout(eject, 3000);
+    timeout = setTimeout(eject, 60000);
 
     $('.standupButton').click(function() {
         var userId = $("#userId").attr("value");
