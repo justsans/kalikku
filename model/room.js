@@ -43,6 +43,7 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
     this.tableCards = [];
     this.lastRoundCards = [];
     this.numberOfActivePlayers = 0;
+    this.hasAllPlayersJoined = false;
 
 
     //public
@@ -115,7 +116,7 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
         return noPlayers;
     }
 
-    this.hasAllPlayersJoined = false;
+
 
     this.addPlayer = function(playerId, slot, name, picture) {
         var numberOfPlayers = this.findNumberOfActivePlayers();
@@ -124,9 +125,10 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
                 console.log('Adding player '+playerId+ ' at slot ' + slot);
                 this.messages[this.messageId++] = name + ' joined the table.';
                 this.players[slot]  = new Player(playerId, name, picture);
+                console.log(this.players);
                 numberOfPlayers++;
-
-                if(numberOfPlayers == 4) {
+                console.log('numberOfPlayers=' + numberOfPlayers, 'stateBeforeHold='+ this.stateBeforeHold);
+                if(numberOfPlayers >= 4) {
                     this.hasAllPlayersJoined = true;
                     this.state = this.stateBeforeHold;
 
@@ -196,7 +198,10 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
         console.log('ejecting player at slot played');
         if(playerId) {
             this.players[slotId] = null;
-            this.stateBeforeHold  = this.state;
+            console.log('this.players after ejecting=' + this.players);
+            if(this.state != STATES.HOLD) {
+                this.stateBeforeHold  = this.state;
+            }
             this.state = STATES.HOLD;
             this.hasAllPlayersJoined = false;
         }
@@ -267,6 +272,7 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
           this.updateUserPenalty(penalty, this.players[2].id, true, isSenior, isHonors);
           this.updateUserPenalty(penalty, this.players[1].id, false, isSenior, isHonors);
           this.updateUserPenalty(penalty, this.players[3].id, false, isSenior, isHonors);
+          this.messages[this.messageId++] = 'Team 1 won';
       } else {
           this.team1GamePoints += penalty;
           this.team2GamePoints -= penalty;
@@ -274,6 +280,7 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
           this.updateUserPenalty(penalty, this.players[3].id, true, isSenior, isHonors);
           this.updateUserPenalty(penalty, this.players[0].id, false, isSenior, isHonors);
           this.updateUserPenalty(penalty, this.players[2].id, false, isSenior, isHonors);
+          this.messages[this.messageId++] = 'Team 2 won';
       }
 
       this.state = STATES.END;

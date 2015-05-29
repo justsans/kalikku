@@ -18,7 +18,7 @@
     height: 225px;
     border: solid #000000 1px;
     width: 350px;
-    top:75px;
+    top:80px;
     left:90px;
     background-color: #006600;
 }
@@ -26,19 +26,19 @@
 .playerslot {
     position: absolute;
     width: 50px;
-    height: 65px;
+    height: 80px;
     font-size: 12px;
     color: white;
     z-index: 10;
 }
 
 .playerslot.zero {
-    top:300px;
+    top:310px;
     left:235px;
 }
 
 .playerslot.one {
-    top:140px;
+    top:150px;
     left:441px;
 }
 
@@ -48,7 +48,7 @@
 }
 
 .playerslot.three {
-    top: 140px;
+    top: 150px;
     left: 24px;
 }
 

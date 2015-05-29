@@ -171,7 +171,8 @@ module.exports = function (app, rooms, io, sessionStore) {
             var sid = cookie.parse(socket.handshake.headers.cookie)['connect.sid'];
             sessionStore.get(sid.split('.')[0].split(':')[1], function (err, session) {
                 if (session.passport.user) {
-                    var userId = session.passport.user.id;
+                    debugger;
+                    var userId = session.passport.user;
                     console.log('showing game:' + room_id + ',' + userId);
                     var new_room_id = room_id + '-' + userId;
                     console.log('Joiningg ROOM: '+new_room_id);
@@ -191,7 +192,8 @@ module.exports = function (app, rooms, io, sessionStore) {
             var sid = cookie.parse(socket.handshake.headers.cookie)['connect.sid'];
             sessionStore.get(sid.split('.')[0].split(':')[1], function (err, session) {
                 if (session.passport.user) {
-                    var userId = session.passport.user.id;
+                    debugger;
+                    var userId = session.passport.user;
                     User.findOne({'_id': new ObjectId(userId)}, function(err, user) {
                         if (err)
                             return done(err);
@@ -237,7 +239,7 @@ module.exports = function (app, rooms, io, sessionStore) {
             var sid = cookie.parse(socket.handshake.headers.cookie)['connect.sid'];
             sessionStore.get(sid.split('.')[0].split(':')[1], function (err, session) {
                 if (session.passport.user) {
-                    var userId = session.passport.user.id;
+                    var userId = session.passport.user;
                     console.log('got chat message: '+chatMessage + ' from ' + userId);
                     var room = rooms[room_id];
 
@@ -265,7 +267,7 @@ module.exports = function (app, rooms, io, sessionStore) {
             var sid = cookie.parse(socket.handshake.headers.cookie)['connect.sid'];
             sessionStore.get(sid.split('.')[0].split(':')[1], function (err, session) {
                 if (session.passport.user) {
-                    var userId = session.passport.user.id;
+                    var userId = session.passport.user;
                     var room = rooms[room_id];
                     console.log(userId + ' called');
                     if(room.players[room.currentSlot]) {
@@ -333,13 +335,55 @@ module.exports = function (app, rooms, io, sessionStore) {
             console.log('ejecting slot:' + slotId);
 
             var room = rooms[room_id];
-            var playerId = room.players[slotId].id;
-            if(playerId) {
-                room.ejectPlayer(slotId, playerId);
-                updateTableAndAllPlayers(room);
-                publishUndisplayedMessages(room, room_id);
-                console.log('ejected slot:' + slotId);
+            if(room.players[slotId]) {
+                var playerId = room.players[slotId].id;
+                if(playerId) {
+                    room.ejectPlayer(slotId, playerId);
+                    updateTableAndAllPlayers(room);
+                    publishUndisplayedMessages(room, room_id);
+                    console.log('ejected slot:' + slotId);
+                }
             }
+
+        }) ;
+
+        socket.on('standup', function(req) {
+            var room_id = req.roomId;
+            var room = rooms[room_id];
+
+            var sid = cookie.parse(socket.handshake.headers.cookie)['connect.sid'];
+            sessionStore.get(sid.split('.')[0].split(':')[1], function (err, session) {
+                if (session.passport.user) {
+                    var userId = session.passport.user;
+                    User.findOne({'_id': new ObjectId(userId)}, function(err, user) {
+                        if (err)
+                            return done(err);
+
+                        if (user) {
+                            for(var index in room.players) {
+                                if(userId && room.players[index]) {
+
+                                    var playerId = room.players[index].id;
+                                    console.log('playerid =' + playerId);
+                                    console.log('player _id =' + room.players[index]._id);
+                                    if(userId == playerId) {
+                                        room.ejectPlayer(index, playerId);
+                                    }
+                                }
+                            }
+                            updateTableAndAllPlayers(room);
+                            publishUndisplayedMessages(room, room_id);
+                        }
+
+                    });
+                } else {
+                    console.log('io found no user');
+                }
+            });
+
+
+
+
         }) ;
 
 

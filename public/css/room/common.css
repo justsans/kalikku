@@ -19,3 +19,20 @@
     margin-top: -35px;
     z-index: 4;
 }
+
+.statusIcon {
+    width: 20px;
+}
+
+.teamName {
+    font-size: 9px;
+    margin-top: -4px;
+}
+
+.playerButtonPanel {
+    position: absolute;
+    left: 10px;
+    width: 70px;
+    line-height: 30px;
+    z-index: 10;
+}

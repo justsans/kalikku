@@ -11,6 +11,11 @@
 </div>
 {{?}}
 
+<div class="playerButtonPanel">
+    <a class="btn btn-warning btn-xs toLobbyButton" href="/">To Lobby</a>
+    <input class="btn btn-warning btn-xs standupButton" type="button"  value="Stand up"/>
+</div>
+
 <div class="table" id="table">
 
             <div class="playerslot two 2">
@@ -22,6 +27,7 @@
                         <span class="playerName">{{=it.view.players[2].displayName}}</span>
 
                         <img src="{{=it.view.players[2].picture}}" class="avatar"/>
+                        <span class="teamName">Team 2</span>
                     </div>
                     <div class="ejectContainer horizontal" style="visibility:hidden">
                         <input class="btn btn-primary btn-xs btn-blue ejectButton" type="button"  slot="2" value="Eject"/>
@@ -40,7 +46,7 @@
                 {{??}}
                     <span class="playerName">{{=it.view.players[1].displayName}}</span>
                     <img src="{{=it.view.players[1].picture}}" class="avatar"/>
-
+                    <span class="teamName">Team 1</span>
                     {{? it.view.currentSlot == 1 }}
                         <img class="statusIcon bottom" src="/images/green_bl.gif"/>
                     {{?}}
@@ -58,6 +64,7 @@
 
                     <span class="playerName">{{=it.view.players[3].displayName}}</span>
                     <img src="{{=it.view.players[3].picture}}"  class="avatar"/>
+                    <span class="teamName">Team 1</span>
                     {{? it.view.currentSlot == 3 }}
                         <img class="statusIcon bottom" src="/images/green_bl.gif"/>
                     {{?}}
@@ -76,6 +83,7 @@
                 <div class="playerSlotHorizontal">
                     <span class="playerName">{{=it.view.players[0].displayName}}</span>
                     <img src="{{=it.view.players[0].picture}}" class="avatar"/>
+                    <span class="teamName">Team 2</span>
                 </div>
                 <div class="ejectContainer horizontal" style="visibility:hidden">
                     <input class="btn btn-primary btn-xs btn-blue ejectButton" type="button"  slot="0" value="Eject"/>

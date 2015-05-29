@@ -15,6 +15,7 @@ function init() {
             $(".chatButton").click();
         }
     });
+
 }
 
 $.when(
@@ -85,7 +86,12 @@ io.on('updateTable', function (data) {
     }
 
     clearTimeout(timeout);
-    timeout = setTimeout(eject, 40000);
+    timeout = setTimeout(eject, 3000);
+
+    $('.standupButton').click(function() {
+        var userId = $("#userId").attr("value");
+        io.emit('standup', {'roomId': roomId, 'action': 'standup', userId: userId});
+    });
 });
 
 io.on('updateCallPopup', function(data) {
