@@ -16,6 +16,10 @@
     <input class="btn btn-warning btn-xs standupButton" type="button"  value="Stand up"/>
 </div>
 
+<div class="rightButtonPanel">
+    <input class="btn btn-danger btn-xs restartGameButton" type="button"  value="Restart Game"/>
+</div>
+
 <div class="table" id="table">
 
             <div class="playerslot two 2">

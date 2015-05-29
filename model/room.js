@@ -23,7 +23,7 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
     this.teamWithTrump = 0;
     this.trumpSuit = '';
     this.messages = [];
-    this.messageId = 0;
+    this.messageId = -1;
     this.displayedMessageId = -1;
     this.chats = [];
     this.chatId = -1;
@@ -125,7 +125,7 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
         if((this.state == STATES.WAIT || this.state == STATES.HOLD) && !this.hasAllPlayersJoined)  {
             if(!this.players[slot]) {
                 console.log('Adding player '+playerId+ ' at slot ' + slot);
-                this.messages[this.messageId++] = name + ' joined the table.';
+                this.messages[++this.messageId] = name + ' joined the table.';
                 this.players[slot]  = new Player(playerId, name, picture);
                 if(this.playerOldCards[slot]) {
                     this.players[slot].cards = this.playerOldCards[slot];
@@ -151,9 +151,17 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
         this.addPlayer('3',3, 'Player 3');
     }
 
+    this.restart = function(userId) {
+        console.log(userId + ' requested to restart the game.');
+        this.messages[++this.messageId] = 'Player requested to restart the game.';
+        this.start();
+    }
 
     this.start = function() {
-       if(this.state == STATES.READY && this.players.length == 4) {
+
+       this.messages[++this.messageId] = 'Starting a new game.';
+       if((this.state != STATES.WAIT  && this.state != STATES.HOLD ) && this.players.length == 4) {
+
            this.initAfterEachGame();
            distribute4CardsToEveryPlayer(this.game.deck, this.players);
            this.state = STATES.CALL1;
@@ -219,7 +227,7 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
     this.showTrump = function() {
         if(this.state == STATES.PLAY) {
             this.trumpShown = true;
-            this.messages[this.messageId++] = this.players[this.currentSlot] + ' requested trump to be shown.';
+            this.messages[++this.messageId] = this.players[this.currentSlot] + ' requested trump to be shown.';
         }
     }
 
@@ -280,7 +288,7 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
           this.updateUserPenalty(penalty, this.players[2].id, true, isSenior, isHonors);
           this.updateUserPenalty(penalty, this.players[1].id, false, isSenior, isHonors);
           this.updateUserPenalty(penalty, this.players[3].id, false, isSenior, isHonors);
-          this.messages[this.messageId++] = 'Team 1 won';
+          this.messages[++this.messageId] = 'Team 1 won';
       } else {
           this.team1GamePoints += penalty;
           this.team2GamePoints -= penalty;
@@ -288,7 +296,7 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
           this.updateUserPenalty(penalty, this.players[3].id, true, isSenior, isHonors);
           this.updateUserPenalty(penalty, this.players[0].id, false, isSenior, isHonors);
           this.updateUserPenalty(penalty, this.players[2].id, false, isSenior, isHonors);
-          this.messages[this.messageId++] = 'Team 2 won';
+          this.messages[++this.messageId] = 'Team 2 won';
       }
 
       this.state = STATES.END;
@@ -494,10 +502,10 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
             this.oldTrumpSlot = this.currentTrumpSlot;
 
             if(callValue >= minCallValue)  {
-                this.messages[this.messageId++] = this.players[this.currentSlot] + ' called ' + callValue;
+                this.messages[++this.messageId] = this.players[this.currentSlot] + ' called ' + callValue;
                 this.currentCallValue =  callValue;
                 this.nextAllowedCallValue = callValue + 1;
-                this.messages[this.messageId++] = 'Next allowed call value ' + this.nextAllowedCallValue;
+                this.messages[++this.messageId] = 'Next allowed call value ' + this.nextAllowedCallValue;
                 this.currentTrumpSlot = this.currentSlot;
                 this.currentTrumpPlayerName = this.players[this.currentTrumpSlot].displayName;
                 this.nextSlotAfterCall();
@@ -506,7 +514,7 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
                 console.log('this.teamWithTrump=' +this.teamWithTrump);
 
             } else if(callValue < this.nextAllowedCallValue && (this.state != STATES.CALL1 || this.currentRoundCalls > 0)) {
-                this.messages[this.messageId++] = this.players[this.currentSlot] + ' passed.';
+                this.messages[++this.messageId] = this.players[this.currentSlot] + ' passed.';
                 this.currentRoundPasses++;
                 this.nextSlotAfterPass();
 
@@ -517,7 +525,7 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
                 this.advanceToNextState();
             }
 
-            this.messages[this.messageId++] = 'Next turn: ' + this.players[this.currentSlot];
+            this.messages[++this.messageId] = 'Next turn: ' + this.players[this.currentSlot];
 
             if(this.currentCallValue == 28) {
                 if(this.players[0].cards.length == 4) {
@@ -536,7 +544,7 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
     }
 
     this.setStateToTrump2 = function() {
-        this.messages[this.messageId++] = 'Waiting for player ' + this.currentTrumpPlayerName + ' to select a trump.';
+        this.messages[++this.messageId] = 'Waiting for player ' + this.currentTrumpPlayerName + ' to select a trump.';
         this.currentSlot = this.currentTrumpSlot;
         this.state = STATES.TRUMP2;
     }
@@ -562,7 +570,7 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
                 if(this.nextAllowedCallValue < 20) {this.nextAllowedCallValue = 20;}
                 break;
             case STATES.CALL2:
-                this.messages[this.messageId++] = 'Waiting for player ' + this.currentTrumpPlayerName + ' to select a trump.';
+                this.messages[++this.messageId] = 'Waiting for player ' + this.currentTrumpPlayerName + ' to select a trump.';
                 this.state = STATES.TRUMP1;
                 this.currentSlot = this.currentTrumpSlot;
                 this.currentRoundCalls = 0;
@@ -635,7 +643,7 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
             if(this.state == STATES.TRUMP1 || this.state == STATES.TRUMP2) {
                 this.advanceToNextState();
             }
-            this.messages[this.messageId++] = 'Player ' + this.currentTrumpPlayerName + ' selected a trump.';
+            this.messages[++this.messageId] = 'Player ' + this.currentTrumpPlayerName + ' selected a trump.';
         }
     }
 

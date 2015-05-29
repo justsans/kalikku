@@ -223,12 +223,19 @@ module.exports = function (app, rooms, io, sessionStore) {
             var room = rooms[room_id];
 
             room.start();
-            //var simulator = new Simulator();
-            //simulator.callAndSelectTrumpWithPlayerId(room, '553a97c9ffd561c00e44c28c');
-
             updateTableAndAllPlayers(room);
+            publishUndisplayedMessages(room, room_id);
+        });
 
+        socket.on('restartGame', function(req) {
+            var room_id = req.roomId;
+            var userId = req.userId;
+            console.log('Re starting game:' + room_id);
+            var room = rooms[room_id];
 
+            room.restart(userId);
+            updateTableAndAllPlayers(room);
+            publishUndisplayedMessages(room, room_id);
         });
 
 

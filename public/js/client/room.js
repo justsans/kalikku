@@ -46,10 +46,11 @@ io.on('updateTable', function (data) {
     $('.trumpDiv .tableData').html(data.view.trumpDisplayText);
     $('.lastCall .tableData').html('');
 
-
-
-    if(data.view.state.id == 7) {
+    if(data.view.currentCallValue && data.view.currentTrumpPlayerName) {
         $('.lastCall .tableData').html(data.view.currentCallValue + " by " + data.view.currentTrumpPlayerName);
+    }
+    if(data.view.state.id == 7) {
+
 
         if (data.view.trumpShown) {
             $('.trumpDivBody').html("Trump <br\> <img class='card' src='/images/classic-cards/" + data.view.trump + ".png'/>");
@@ -92,6 +93,13 @@ io.on('updateTable', function (data) {
         var userId = $("#userId").attr("value");
         io.emit('standup', {'roomId': roomId, 'action': 'standup', userId: userId});
     });
+
+
+    $('.restartGameButton').click(function() {
+        var userId = $("#userId").attr("value");
+        io.emit('restartGame', {'roomId': roomId, 'action': 'startGame', userId: userId});
+    });
+
 });
 
 io.on('updateCallPopup', function(data) {
@@ -145,7 +153,7 @@ io.on('updateChat', function (data) {
 
 io.on('updateMessage', function (data) {
     var messagesTextArea    = $('.messagesTextArea');
-    messagesTextArea.append(data.messageText + "<br\>" );
+    messagesTextArea.append(data.messageText + "\n" );
     messagesTextArea.scrollTop(messagesTextArea[0].scrollHeight);
 });
 
