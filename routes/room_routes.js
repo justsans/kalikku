@@ -305,6 +305,12 @@ module.exports = function (app, rooms, io, sessionStore) {
             var playerId = room.players[room.currentSlot].id;
             room.play(playerId, rank, suit);
             updateTableAndAllPlayers(room);
+            setTimeout(function() {
+                room.finishRoundIfDone();
+                updateTableAndAllPlayers(room);
+                publishUndisplayedMessages(room, room_id);
+            }, 3000);
+
             publishUndisplayedMessages(room, room_id);
         }) ;
 

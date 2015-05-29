@@ -8,7 +8,8 @@ var STATES = {
     TRUMP2: {id: 6, message: 'Waiting for players to select trump.'},
     PLAY:  {id: 7, message: 'Game in progress'},
     END:   {id: 8, message: 'Game has ended'},
-    HOLD:   {id: 9, message: 'One or more players have left the game.'}
+    HOLD:   {id: 9, message: 'One or more players have left the game.'},
+    FINALIZE:   {id: 10, message: 'Finalize Round.'}
 };
 
 module.exports = STATES;

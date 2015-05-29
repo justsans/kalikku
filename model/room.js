@@ -173,14 +173,22 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
                 this.currentPlayRoundSuit = suit;
                 console.log('currentPlayRoundSuit = ' + this.currentPlayRoundSuit);
             }
-           if(this.currentRoundPlays < 3) {
-               this.currentRoundPlays++;
-               this.currentSlot = (this.currentSlot + 1) % NO_PLAYERS;
-               console.log('next slot = ' + this.currentSlot );
-           } else {
+            if(this.currentRoundPlays <= 3) {
+                this.currentRoundPlays++;
+                if(this.currentRoundPlays < 4) {
+                    this.currentSlot = (this.currentSlot + 1) % NO_PLAYERS;
+                } else {
+                    console.log('putting state to finalize');
+                    this.state = STATES.FINALIZE;
+                }
+            }
+        }
+    }
 
-               this.finishRound();
-           }
+    this.finishRoundIfDone = function() {
+        if(this.currentRoundPlays >= 4) {
+            this.state = STATES.PLAY;
+            this.finishRound();
         }
     }
 
