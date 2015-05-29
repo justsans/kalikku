@@ -49,8 +49,10 @@
     position: absolute;
     min-height: 100%;
     top: 50px;
-    right: 0px;
+    left: 470px;
     width: 100px;
+    min-width: 100px;
+    max-width: 100px;
     z-index: 3;
 }
 
@@ -143,29 +145,30 @@
     width:30px;
 }
 
-
 .startGameContent{
     font-size: 12px;
 }
 
 .messagesDiv {
     position: absolute;
-    bottom: 90px;
-    right: 20px;
+    top: 50px;
+    left: 600px;
     width: 100px;
     text-align: left;
     color: #008800;
     font-size: 8px;
+    min-height: 100%;
 }
 .chatDiv {
     position: absolute;
-    bottom: 100px;
-    right: 20px;
+    top: 300px
+    left: 600px;
     width: 100px;
     text-align: left;
     color: orange;
     font-size: 8px;
     display: none;
+    min-height: 100%;
 }
 
 .chatTextArea{
@@ -177,7 +180,7 @@
 
 .messagesTextArea {
     background-color: white;
-    min-height: 160px;
+    min-height: 250px;
     font-size: 8px;
     width: 100%;
 }

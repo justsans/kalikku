@@ -1,6 +1,7 @@
 var roomTmpl;
 var cardDeckTmpl;
 var io = io.connect();
+var timeout;
 
 function init() {
     var roomId = getParameterByName('roomId');
@@ -73,6 +74,18 @@ io.on('updateTable', function (data) {
         var userId = $("#userId").attr("value");
         io.emit('join', {'roomId': roomId, 'action': 'joinGame', 'slotId': $(this).attr("slot"), userId: userId});
     });
+
+    $(".ejectButton").click(function () {
+        var userId = $("#userId").attr("value");
+        io.emit('eject', {'roomId': roomId, 'action': 'eject', 'slotId': $(this).attr("slot"), userId: userId});
+    });
+
+    function eject(){
+        $(".playerslot." + data.view.currentSlot +  " .ejectContainer").css('visibility','visible');
+    }
+
+    clearTimeout(timeout);
+    timeout = setTimeout(eject, 40000);
 });
 
 io.on('updateCallPopup', function(data) {

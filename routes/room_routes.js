@@ -59,6 +59,7 @@ module.exports = function (app, rooms, io, sessionStore) {
         }
     });
 
+
     function updateTableAndAllPlayers(room) {
         updateTable(room);
         updateAllPlayersWithCards(room);
@@ -111,7 +112,9 @@ module.exports = function (app, rooms, io, sessionStore) {
     function publishUndisplayedMessages(room, room_id) {
         if (room.displayedMessageId < room.messageId) {
             for (var i = room.displayedMessageId + 1; i <= room.messageId; i++) {
-                io.sockets.in(room_id).emit('updateMessage', {id: i, messageText: room.messages[i]});
+                if(room.messages[i]) {
+                    io.sockets.in(room_id).emit('updateMessage', {id: i, messageText: room.messages[i]});
+                }
             }
             room.displayedMessageId = room.messageId;
         }
@@ -317,6 +320,22 @@ module.exports = function (app, rooms, io, sessionStore) {
             updateTableAndAllPlayers(room);
             publishUndisplayedMessages(room, room_id);
         }) ;
+
+        socket.on('eject', function(req) {
+            var room_id = req.roomId;
+            var slotId = req.slotId;
+            console.log('ejecting slot:' + slotId);
+
+            var room = rooms[room_id];
+            var playerId = room.players[slotId].id;
+            if(playerId) {
+                room.ejectPlayer(slotId, playerId);
+                updateTableAndAllPlayers(room);
+                publishUndisplayedMessages(room, room_id);
+                console.log('ejected slot:' + slotId);
+            }
+        }) ;
+
 
     });
 

@@ -29,6 +29,7 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
     this.chatId = -1;
     this.displayedChatId = -1;
     this.currentRoundPasses = 0;
+    this.stateBeforeHold = STATES.READY;
 
     this.playRound = 1;
     this.currentPlayRoundSuit = '';
@@ -118,16 +119,17 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
 
     this.addPlayer = function(playerId, slot, name, picture) {
         var numberOfPlayers = this.findNumberOfActivePlayers();
-        if(this.state == STATES.WAIT && !this.hasAllPlayersJoined)  {
+        if((this.state == STATES.WAIT || this.state == STATES.HOLD) && !this.hasAllPlayersJoined)  {
             if(!this.players[slot]) {
                 console.log('Adding player '+playerId+ ' at slot ' + slot);
                 this.messages[this.messageId++] = name + ' joined the table.';
                 this.players[slot]  = new Player(playerId, name, picture);
                 numberOfPlayers++;
-                this.numberOfActivePlayers = numberOfPlayers;
+
                 if(numberOfPlayers == 4) {
                     this.hasAllPlayersJoined = true;
-                    this.state = STATES.READY;
+                    this.state = this.stateBeforeHold;
+
                 }
             }
         }
@@ -176,10 +178,22 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
                this.currentSlot = (this.currentSlot + 1) % NO_PLAYERS;
                console.log('next slot = ' + this.currentSlot );
            } else {
+
                this.finishRound();
            }
         }
     }
+
+    this.ejectPlayer = function(slotId, playerId) {
+        console.log('ejecting player at slot played');
+        if(playerId) {
+            this.players[slotId] = null;
+            this.stateBeforeHold  = this.state;
+            this.state = STATES.HOLD;
+            this.hasAllPlayersJoined = false;
+        }
+    }
+
 
     this.showTrump = function() {
         if(this.state == STATES.PLAY) {
@@ -217,8 +231,6 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
         } else {
             this.finishGame(teamWon);
         }
-
-
     }
 
     this.finishGame = function(team) {

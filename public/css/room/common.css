@@ -1,0 +1,10 @@
+.playerslot {
+    border: solid 1px grey;
+    background-color: grey;
+}
+
+.playerName{
+    text-align: center;
+    background-color: grey;
+    width: 160px;
+}
