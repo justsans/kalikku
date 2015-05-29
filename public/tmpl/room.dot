@@ -5,9 +5,9 @@
 
 
 {{? it.view.state.id === 1 }}
-<div class="alert alert-info startGameContent">
+<div class="alert alert-danger startGameContent">
     All the players have joined the game.
-    <input class="btn btn-primary btn-md btn-blue" type="button" id="startButton" value="Start Game"/>
+    <input class="btn btn-primary btn-xs btn-blue" type="button" id="startButton" value="Start Game"/>
 </div>
 {{?}}
 
@@ -15,7 +15,7 @@
 
             <div class="playerslot two 2">
                 {{? !it.view.players[2]}}
-                <input class="btn btn-primary btn-md btn-blue joinButton" type="button"  slot="2" value="Join"/>
+                <input class="btn btn-primary btn-sm btn-blue joinButton" type="button"  slot="2" value="Join"/>
                 {{??}}
 
                     <div class="playerSlotHorizontal">
@@ -36,7 +36,7 @@
 
             <div class="playerslot one 1">
                 {{? !it.view.players[1]}}
-                <input class="btn btn-primary btn-md btn-blue joinButton" type="button"  slot="1" value="Join"/>
+                <input class="btn btn-primary btn-sm btn-blue joinButton" type="button"  slot="1" value="Join"/>
                 {{??}}
                     <span class="playerName">{{=it.view.players[1].displayName}}</span>
                     <img src="{{=it.view.players[1].picture}}" class="avatar"/>
@@ -53,7 +53,7 @@
 
             <div class="playerslot three 3">
                 {{? !it.view.players[3]}}
-                <input class="btn btn-primary btn-md btn-blue joinButton" type="button"  slot="3" value="Join"/>
+                <input class="btn btn-primary btn-sm btn-blue joinButton" type="button"  slot="3" value="Join"/>
                 {{??}}
 
                     <span class="playerName">{{=it.view.players[3].displayName}}</span>
@@ -70,7 +70,7 @@
 
             <div class="playerslot zero 0">
                 {{? !it.view.players[0]}}
-                <input class="btn btn-primary btn-md btn-blue joinButton" type="button"  slot="0" value="Join"/>
+                <input class="btn btn-primary btn-sm btn-blue joinButton" type="button"  slot="0" value="Join"/>
                 {{??}}
 
                 <div class="playerSlotHorizontal">
