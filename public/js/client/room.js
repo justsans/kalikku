@@ -2,6 +2,7 @@ var roomTmpl;
 var cardDeckTmpl;
 var io = io.connect();
 var timeout;
+var winnerTimeout;
 
 function init() {
     var roomId = getParameterByName('roomId');
@@ -99,6 +100,23 @@ io.on('updateTable', function (data) {
         var userId = $("#userId").attr("value");
         io.emit('restartGame', {'roomId': roomId, 'action': 'startGame', userId: userId});
     });
+
+    $(".winnerIcon").css('visibility', 'hidden');
+    clearTimeout(winnerTimeout);
+    function showWinner(teamWon){
+        $(".winnerIcon." + teamWon).css('visibility','visible');
+        function hideWinner() {
+            $(".winnerIcon." + teamWon).css('visibility', 'hidden');
+        }
+        winnerTimeout = setTimeout(hideWinner, 5000);
+    }
+
+    if(data.view.state.id == 1 && data.view.teamWon >= 0) {
+    //    showWinner(1);
+        showWinner(data.view.teamWon);
+    }
+
+
 
 });
 

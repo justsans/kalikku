@@ -44,6 +44,7 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
     this.lastRoundCards = [];
     this.numberOfActivePlayers = 0;
     this.hasAllPlayersJoined = false;
+    this.teamWon = -1;
 
 
     //public
@@ -246,6 +247,7 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
         }
 
         var teamWon = this.whichTeamWonTheGame();
+
         if(teamWon == -1) {
             this.lastRoundCards[0] = this.tableCards[this.currentPlayRoundStartSlot];
             this.lastRoundCards[1] = this.tableCards[(this.currentPlayRoundStartSlot+1)%4];
@@ -258,6 +260,7 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
             this.currentRoundPlays = 0;
             this.playRound += 1;
         } else {
+            this.teamWon = teamWon == 0? 2 : 1;
             console.log('########finishing game: teamWon is:' + teamWon);
             this.finishGame(teamWon);
         }
@@ -282,7 +285,6 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
       }
 
       if(team == 0) {
-          console.log('########finishing game: In loop 0');
           this.team2GamePoints += penalty;
           this.team1GamePoints -= penalty;
           this.updateUserPenalty(penalty, this.players[0].id, true, isSenior, isHonors);
@@ -291,7 +293,6 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
           this.updateUserPenalty(penalty, this.players[3].id, false, isSenior, isHonors);
           this.messages[++this.messageId] = 'Team 2 won';
       } else {
-          console.log('########finishing game: In loop 1');
           this.team1GamePoints += penalty;
           this.team2GamePoints -= penalty;
           this.updateUserPenalty(penalty, this.players[1].id, true, isSenior, isHonors);

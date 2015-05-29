@@ -19,6 +19,8 @@ var RoomView = function RoomView(room) {
     this.currentCallValue = room.currentCallValue;
     this.currentTrumpPlayerName = room.currentTrumpPlayerName;
     this.lastRoundCards = room.lastRoundCards;
+    this.teamWon = room.teamWon;
+
     if(room.trumpShown && room.trump) {
         this.trumpDisplayText = room.trump.displayText;
         this.trump = room.trump.toString();

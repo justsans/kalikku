@@ -26,8 +26,9 @@
                 {{? !it.view.players[2]}}
                 <input class="btn btn-primary btn-sm btn-blue joinButton" type="button"  slot="2" value="Join"/>
                 {{??}}
-
+                    <span class="winner 2"><img class="winnerIcon 2" src="/images/winner/1.gif"/></span>
                     <div class="playerSlotHorizontal">
+
                         <span class="playerName">{{=it.view.players[2].displayName}}</span>
 
                         <img src="{{=it.view.players[2].picture}}" class="avatar"/>
@@ -48,6 +49,7 @@
                 {{? !it.view.players[1]}}
                 <input class="btn btn-primary btn-sm btn-blue joinButton" type="button"  slot="1" value="Join"/>
                 {{??}}
+                    <span class="winner 1"><img class="winnerIcon 1" src="/images/winner/1.gif"/></span>
                     <span class="playerName">{{=it.view.players[1].displayName}}</span>
                     <img src="{{=it.view.players[1].picture}}" class="avatar"/>
                     <span class="teamName">Team 1</span>
@@ -65,7 +67,7 @@
                 {{? !it.view.players[3]}}
                 <input class="btn btn-primary btn-sm btn-blue joinButton" type="button"  slot="3" value="Join"/>
                 {{??}}
-
+                    <span class="winner 1"><img class="winnerIcon 1" src="/images/winner/1.gif"/></span>
                     <span class="playerName">{{=it.view.players[3].displayName}}</span>
                     <img src="{{=it.view.players[3].picture}}"  class="avatar"/>
                     <span class="teamName">Team 1</span>
@@ -83,7 +85,7 @@
                 {{? !it.view.players[0]}}
                 <input class="btn btn-primary btn-sm btn-blue joinButton" type="button"  slot="0" value="Join"/>
                 {{??}}
-
+                <span class="winner 2"><img class="winnerIcon 2" src="/images/winner/1.gif"/></span>
                 <div class="playerSlotHorizontal">
                     <span class="playerName">{{=it.view.players[0].displayName}}</span>
                     <img src="{{=it.view.players[0].picture}}" class="avatar"/>
