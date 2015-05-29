@@ -258,6 +258,7 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
             this.currentRoundPlays = 0;
             this.playRound += 1;
         } else {
+            console.log('########finishing game: teamWon is:' + teamWon);
             this.finishGame(teamWon);
         }
     }
@@ -281,22 +282,23 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
       }
 
       if(team == 0) {
-
+          console.log('########finishing game: In loop 0');
           this.team2GamePoints += penalty;
           this.team1GamePoints -= penalty;
           this.updateUserPenalty(penalty, this.players[0].id, true, isSenior, isHonors);
           this.updateUserPenalty(penalty, this.players[2].id, true, isSenior, isHonors);
           this.updateUserPenalty(penalty, this.players[1].id, false, isSenior, isHonors);
           this.updateUserPenalty(penalty, this.players[3].id, false, isSenior, isHonors);
-          this.messages[++this.messageId] = 'Team 1 won';
+          this.messages[++this.messageId] = 'Team 2 won';
       } else {
+          console.log('########finishing game: In loop 1');
           this.team1GamePoints += penalty;
           this.team2GamePoints -= penalty;
           this.updateUserPenalty(penalty, this.players[1].id, true, isSenior, isHonors);
           this.updateUserPenalty(penalty, this.players[3].id, true, isSenior, isHonors);
           this.updateUserPenalty(penalty, this.players[0].id, false, isSenior, isHonors);
           this.updateUserPenalty(penalty, this.players[2].id, false, isSenior, isHonors);
-          this.messages[++this.messageId] = 'Team 2 won';
+          this.messages[++this.messageId] = 'Team 1 won';
       }
 
       this.state = STATES.END;
@@ -423,6 +425,11 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
     };
 
     this.whichTeamWonTheGame = function() {
+       console.log('###################### which team won###################');
+       console.log('team with trump is' + this.teamWithTrump);
+       console.log('this.currentCallValue' + this.currentCallValue);
+        console.log('this.team1Points' + this.team1Points);
+        console.log('this.team2Points' + this.team2Points);
        if(this.teamWithTrump == 0) {
            if(this.team2Points >= this.currentCallValue ) return 0;
            if(this.team1Points > (28 - this.currentCallValue)) return 1;
