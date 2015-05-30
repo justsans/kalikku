@@ -245,13 +245,6 @@ td.tableData {
     max-height: 35px;
 }
 
-.statusIcon {
-    position: absolute;
-    z-index: 10;
-    top: -5px;
-    right: -5px;
-}
-
 
 .logo {
     height: 90px;
