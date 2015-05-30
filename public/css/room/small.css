@@ -21,10 +21,11 @@
 }
 
 .startGameContent {
+    position: absolute;
     width: 280px;
-    z-index: 5;
+    top: 250px;
+    z-index: 15;
 }
-
 
 .roomContainer {
     height: 400px;
@@ -46,8 +47,8 @@
     height: 100px;
     border: solid #000000 1px;
     width: 140px;
-    top:54px;
-    left:70px;
+    top:119px;
+    left:78px;
     background-color: #006600;
 }
 
@@ -71,8 +72,8 @@
 .actionPanel {
     position: absolute;
     left: 0px;
-    top: 290px;
-    width: 250px;
+    top: 380px;
+    width: 260px;
     height: 130px;
     text-align: center;
     padding: 0px;
@@ -105,52 +106,40 @@
 
 .playerslot {
     position: absolute;
-    width: 40px;
-    height: 54px;
-    font-size: 9px;
+    width: 60px;
+    height: 70px;
+    font-size: 8px;
     color: white;
-    padding: 0px;
+    text-align:center;
 }
 
 .playerslot.zero {
-    top:154px;
+    top:224px;
     left:116px;
 }
 
 .playerslot.two {
-    top:0px;
+    top:50px;
     left:116px;
 }
 
 .playerslot.three {
-    top:75px;
+    top:135px;
     left:220px;
 }
 
 .playerslot.one {
-    top: 75px;
-    left: 20px;
+    top: 135px;
+    left: 15px;
 }
 
 .avatar {
-    position:absolute;
     top: 12px;
-    width: 30px;
-    height: 30px;
+    width: 45px;
+    height: 45px;
     left: 0px;
 }
 
-.playerName {
-    position: absolute;
-    top: 0px;
-    width: 30px;
-    left: 0px;
-}
-.teamName {
-    position: absolute;
-    bottom: 0;
-    left: 0px;
-}
 
 .startGameContent{
     font-size: 12px;
@@ -255,7 +244,7 @@
 .rightButtonPanel {
     position: absolute;
     z-index: 10;
-    top: 240px;
+    top: 140px;
     left: 0px;
     width: 70px;
     line-height: 30px;
@@ -265,6 +254,22 @@
     width: 70px;
     top: 75px;
 }
+
+.teamStatPanel {
+    position: absolute;
+    top: 80px;
+    left: 160px;
+    min-width: 105px;
+    max-width: 105px;
+    min-height: 50px;
+    max-height: 50px;
+    font-size: 8px;
+}
+
+.joinButton {
+    margin-top: 10px;
+}
+
 
 
 
