@@ -40,15 +40,15 @@ io.on('updateTable', function (data) {
     $('.trumpDivBody').html('');
     $('.lastRoundCards').html('');
     var roomId = getParameterByName('roomId');
-    $('.team1Points .tableData.gamePoints').html(data.view.team1GamePoints);
-    $('.team1Points .tableData.points').html(data.view.team1Points);
-    $('.team2Points .tableData.gamePoints').html(data.view.team2GamePoints);
+    $('.team1GamePoints').html(data.view.team1GamePoints);
+    $('.team1Points').html(data.view.team1Points);
+    $('.team2GamePoints').html(data.view.team2GamePoints);
     $('.team2Points .tableData.points').html(data.view.team2Points);
     $('.trumpDiv .tableData').html(data.view.trumpDisplayText);
-    $('.lastCall .tableData').html('');
+    $('.lastCall').html('');
 
     if(data.view.currentCallValue && data.view.currentTrumpPlayerName) {
-        $('.lastCall .tableData').html(data.view.currentCallValue + " by " + data.view.currentTrumpPlayerName);
+        $('.lastCall').html(data.view.currentCallValue + " by " + data.view.currentTrumpPlayerName);
     }
     if(data.view.state.id == 7) {
 

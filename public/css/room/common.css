@@ -57,3 +57,25 @@
     width: 50px;
     visibility:hidden;
 }
+
+.teamStatPanel {
+    position: absolute;
+    top: 100px;
+    left: 330px;
+    min-width: 160px;
+    max-width: 160px;
+    min-height: 65px;
+    max-height: 65px;
+    font-size: 10px;
+}
+
+.teamStatPanel .borderBottom {
+    border-bottom: 1px solid #AEBDCC;
+}
+.teamStatPanel .borderRight {
+    border-right: 1px solid #AEBDCC;
+}
+
+.teamStatPanel .tableData {
+    text-align: center;
+}
