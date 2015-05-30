@@ -5,6 +5,7 @@ var Card = function Card (rank, suit) {
 	this.point = calculatePoints(rank);
     this.order = calculateOrder(rank);
     this.displayText = getDisplayRankText(rank) + ' of ' + getDisplaySuitText(suit);
+    this.suitOrder = getSuitOrder(suit);
 
     function calculatePoints(rank) {
         if(rank == 'J') return 3;
@@ -71,6 +72,19 @@ var Card = function Card (rank, suit) {
                 return 'Hearts';
             default:
                 return '';
+        }
+    }
+
+    function getSuitOrder(suit) {
+        switch (suit) {
+            case 'S':
+                return 1;
+            case 'D':
+                return 2;
+            case 'C':
+                return 3;
+            case 'H':
+                return 4;
         }
     }
 }

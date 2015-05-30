@@ -95,9 +95,9 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
     }
 
     function compareCards(card1, card2) {
-        if(card1.suit < card2.suit) {
+        if(card1.suitOrder < card2.suitOrder) {
             return 1;
-        } else if(card1.suit ==  card2.suit) {
+        } else if(card1.suitOrder ==  card2.suitOrder) {
             if(card1.order < card2.order) {
                 return 1;
             }else if(card1.order == card2.order){
@@ -261,7 +261,6 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
             this.playRound += 1;
         } else {
             this.teamWon = teamWon == 0? 2 : 1;
-            console.log('########finishing game: teamWon is:' + teamWon);
             this.finishGame(teamWon);
         }
     }
@@ -426,11 +425,6 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
     };
 
     this.whichTeamWonTheGame = function() {
-       console.log('###################### which team won###################');
-       console.log('team with trump is' + this.teamWithTrump);
-       console.log('this.currentCallValue' + this.currentCallValue);
-        console.log('this.team1Points' + this.team1Points);
-        console.log('this.team2Points' + this.team2Points);
        if(this.teamWithTrump == 0) {
            if(this.team2Points >= this.currentCallValue ) return 0;
            if(this.team1Points > (28 - this.currentCallValue)) return 1;
