@@ -125,8 +125,7 @@ rooms['Utd'] = new Room('Utd', false);
 rooms['Dallas'] = new Room('Dallas', false);
 rooms['India'] = new Room('India', false);
 rooms['Kerala'] = new Room('Kerala', false);
-
-
+rooms['Home'] = new Room('Home', false);
 
 require("./routes/configure")(app, rooms, passport, io, sessionStore);
 var port = process.env.PORT || 5000;
