@@ -20,6 +20,7 @@ var RoomView = function RoomView(room) {
     this.currentTrumpPlayerName = room.currentTrumpPlayerName;
     this.lastRoundCards = room.lastRoundCards;
     this.teamWon = room.teamWon;
+    this.currentTrumpSlot = room.currentTrumpSlot;
 
     if(room.trumpShown && room.trump) {
         this.trumpDisplayText = room.trump.displayText;

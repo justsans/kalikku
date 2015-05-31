@@ -13,20 +13,10 @@
     top: 5px;
 }
 
-.centerTable {
-    position: relative;
-    height: 225px;
-    border: solid #000000 1px;
-    width: 350px;
-    top:80px;
-    left:90px;
-    background-color: #006600;
-}
-
 .playerslot {
     position: absolute;
-    width: 60px;
-    height: 80px;
+    width: 50px;
+    height: 70px;
     font-size: 12px;
     color: white;
     z-index: 10;
@@ -34,33 +24,28 @@
 }
 
 .playerslot.zero {
-    top:310px;
-    left:235px;
+    top:370px;
+    left:342px;
 }
 
 .playerslot.three {
-    top:150px;
-    left:441px;
+    top: 195px;
+    left:550px;
 }
 
 .playerslot.two {
     top: 0px;
-    left:235px;
+    left:342px;
 }
 
 .playerslot.one {
-    top: 150px;
-    left: 26px;
+    top: 195px;
+    left: 125px;
 }
 
 .avatar {
-    width:54px;
-    height:54px;
-}
-.startGameContent{
-    font-size: 12px;
-    width: 510px;
-    height: 33px;
+    width:64px;
+    height:62px;
 }
 
 .messagesDiv {
@@ -100,9 +85,9 @@
 
 .mydeck {
     position: absolute;
-    min-height: 180px;
+    min-height: 160px;
     left: 10px;
-    top: 500px;
+    top: 590px;
     min-width: 685px;
 }
 
@@ -111,8 +96,8 @@
     height: 50px;
     /*border: solid black 1px;*/
     position: absolute;
-    top: 60px;
-    left: 5px;
+    top: 211px;
+    left: 172px;
 }
 
 .slot3 {
@@ -120,8 +105,8 @@
     height: 50px;
     /*border: solid black 1px;*/
     position: absolute;
-    top: 60px;
-    right: 30px;
+    top: 211px;
+    left: 357px;
 }
 
 .slot2 {
@@ -129,8 +114,8 @@
     height: 50px;
     /*border: solid black 1px;*/
     position: absolute;
-    top: 5px;
-    left: 135px;
+    top: 143px;
+    left: 265px;
 }
 
 .slot0 {
@@ -138,8 +123,8 @@
     height: 50px;
     /*border: solid black 1px;*/
     position: absolute;
-    bottom: 55px;
-    left: 135px;
+    top: 270px;
+    left: 265px;
 }
 
 .alert {
@@ -154,11 +139,6 @@
 
 .card {
     width: 65px;
-}
-
-.lastRoundCards .card {
-    width: 35px;
-    margin: 2px;
 }
 
 .hand li
@@ -187,12 +167,11 @@
 
 .actionPanel {
     position: absolute;
-    left: 510px;
-    top: 100px;
-    min-width: 200px;
-    max-width: 200px;
+    left: 250px;
+    top: 220px;
+    min-width: 250px;
+    max-width: 250px;
     min-height: 230px;
-    max-height: 230px;
     text-align: center;
 
 }
@@ -202,7 +181,7 @@
     padding: 5px;
 }
 
-.team2Points td, .team1Points td, .trumpDiv td {
+.team2Points td, .team1Points td {
     border-bottom: 1px solid #AEBDCC;
 }
 

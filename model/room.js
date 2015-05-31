@@ -203,6 +203,7 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
     }
 
     this.finishRoundIfDone = function() {
+        console.log('#########I am in finishRoundIfDone');
         if(this.currentRoundPlays >= 4) {
             this.state = STATES.PLAY;
             this.finishRound();
@@ -236,14 +237,21 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
         var slotWhoWon = this.whichSlotWonTheRound();
         console.log('finishing round');
         var points = 0;
+
         for(card in this.tableCards) {
             points += this.tableCards[card].point;
         }
 
+        console.log('#########before update team1Points: ' +this.team1Points);
+        console.log('#########before update team2Points: ' +this.team2Points);
+        console.log('#########before update points: ' +points);
+
         if(slotWhoWon % 2 == 0) {
             this.team2Points += points;
+            console.log('#########updating team2Points: ' +this.team2Points);
         } else {
             this.team1Points +=  points;
+            console.log('#########updating team1Points: ' +this.team1Points);
         }
 
         var teamWon = this.whichTeamWonTheGame();

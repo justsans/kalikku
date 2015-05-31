@@ -6,8 +6,8 @@
 
 {{? it.view.state.id === 1 }}
 <div class="alert alert-danger startGameContent">
-    All the players have joined the game.
-    <input class="btn btn-primary btn-xs btn-blue" type="button" id="startButton" value="Start Game"/>
+    All the players have joined.
+    <input class="btn btn-primary btn-lg btn-blue" type="button" id="startButton" value="Start Game"/>
 </div>
 {{?}}
 
@@ -26,21 +26,24 @@
                 {{? !it.view.players[2]}}
                 <input class="btn btn-primary btn-sm btn-blue joinButton" type="button"  slot="2" value="Join"/>
                 {{??}}
-                    <span class="winner 2"><img class="winnerIcon 2" src="/images/winner/1.gif"/></span>
-                    <div class="playerSlotHorizontal">
+                    <div class="playerslotContent">
+                        <span class="winner 2"><img class="winnerIcon 2" src="/images/winner/1.gif"/></span>
+                        <div class="playerSlotHorizontal">
 
-                        <span class="playerName">{{=it.view.players[2].displayName}}</span>
+                            <div class="playerName">{{=it.view.players[2].displayName}}</div>
 
-                        <img src="{{=it.view.players[2].picture}}" class="avatar"/>
-                        <span class="teamName">Team 2</span>
+                            <img src="{{=it.view.players[2].picture}}" class="avatar"/>
+                            <span class="teamName">Team 2</span>
+                        </div>
+                        <div class="ejectContainer" style="visibility:hidden">
+                            <input class="btn btn-danger btn-xs ejectButton" type="button"  slot="2" value="Eject"/>
+                        </div>
+
+                        {{? it.view.currentSlot == 2 }}
+                            <img class="statusIcon bottom" src="/images/green_bl.gif"/>
+                        {{?}}
+
                     </div>
-                    <div class="ejectContainer horizontal" style="visibility:hidden">
-                        <input class="btn btn-primary btn-xs btn-blue ejectButton" type="button"  slot="2" value="Eject"/>
-                    </div>
-
-                    {{? it.view.currentSlot == 2 }}
-                        <img class="statusIcon bottom" src="/images/green_bl.gif"/>
-                    {{?}}
                 {{?}}
 
             </div>
@@ -49,8 +52,9 @@
                 {{? !it.view.players[1]}}
                 <input class="btn btn-primary btn-sm btn-blue joinButton" type="button"  slot="1" value="Join"/>
                 {{??}}
+                <div class="playerslotContent">
                     <span class="winner 1"><img class="winnerIcon 1" src="/images/winner/1.gif"/></span>
-                    <span class="playerName">{{=it.view.players[1].displayName}}</span>
+                    <div class="playerName">{{=it.view.players[1].displayName}}</div>
                     <img src="{{=it.view.players[1].picture}}" class="avatar"/>
                     <span class="teamName">Team 1</span>
                     {{? it.view.currentSlot == 1 }}
@@ -58,8 +62,9 @@
                     {{?}}
 
                     <div class="ejectContainer" style="visibility:hidden">
-                        <input class="btn btn-primary btn-xs btn-blue ejectButton" type="button"  slot="1" value="Eject"/>
+                        <input class="btn btn-danger btn-xs ejectButton" type="button"  slot="1" value="Eject"/>
                     </div>
+                </div>
                 {{?}}
             </div>
 
@@ -67,16 +72,18 @@
                 {{? !it.view.players[3]}}
                 <input class="btn btn-primary btn-sm btn-blue joinButton" type="button"  slot="3" value="Join"/>
                 {{??}}
+                <div class="playerslotContent">
                     <span class="winner 1"><img class="winnerIcon 1" src="/images/winner/1.gif"/></span>
-                    <span class="playerName">{{=it.view.players[3].displayName}}</span>
+                    <div class="playerName">{{=it.view.players[3].displayName}}</div>
                     <img src="{{=it.view.players[3].picture}}"  class="avatar"/>
                     <span class="teamName">Team 1</span>
                     {{? it.view.currentSlot == 3 }}
                         <img class="statusIcon right" src="/images/green_bl.gif"/>
                     {{?}}
                     <div class="ejectContainer" style="visibility:hidden">
-                        <input class="btn btn-primary btn-xs btn-blue ejectButton" type="button"  slot="3" value="Eject"/>
+                        <input class="btn btn-danger btn-xs ejectButton" type="button"  slot="3" value="Eject"/>
                     </div>
+                </div>
                 {{?}}
 
             </div>
@@ -85,19 +92,21 @@
                 {{? !it.view.players[0]}}
                 <input class="btn btn-primary btn-sm btn-blue joinButton" type="button"  slot="0" value="Join"/>
                 {{??}}
-                <span class="winner 2"><img class="winnerIcon 2" src="/images/winner/1.gif"/></span>
-                <div class="playerSlotHorizontal">
-                    <span class="playerName">{{=it.view.players[0].displayName}}</span>
-                    <img src="{{=it.view.players[0].picture}}" class="avatar"/>
-                    <span class="teamName">Team 2</span>
-                </div>
-                <div class="ejectContainer horizontal" style="visibility:hidden">
-                    <input class="btn btn-primary btn-xs btn-blue ejectButton" type="button"  slot="0" value="Eject"/>
-                </div>
+                <div class="playerslotContent">
+                    <span class="winner 2"><img class="winnerIcon 2" src="/images/winner/1.gif"/></span>
+                    <div class="playerSlotHorizontal">
+                        <div class="playerName">{{=it.view.players[0].displayName}}</div>
+                        <img src="{{=it.view.players[0].picture}}" class="avatar"/>
+                        <span class="teamName">Team 2</span>
+                    </div>
+                    <div class="ejectContainer" style="visibility:hidden">
+                        <input class="btn btn-danger btn-xs ejectButton" type="button"  slot="0" value="Eject"/>
+                    </div>
 
-                    {{? it.view.currentSlot == 0 }}
-                        <img class="statusIcon top" src="/images/green_bl.gif"/>
-                    {{?}}
+                        {{? it.view.currentSlot == 0 }}
+                            <img class="statusIcon top" src="/images/green_bl.gif"/>
+                        {{?}}
+                </div>
                 {{?}}
 
             </div>

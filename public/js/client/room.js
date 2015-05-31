@@ -35,38 +35,37 @@ $.when(
 
 // Listen for the announce event.
 io.on('updateTable', function (data) {
-    $(".showTrump").hide();
     $("div.roomDiv").html(roomTmpl(data));
-    $('.trumpDivBody').html('');
-    $('.lastRoundCards').html('');
     var roomId = getParameterByName('roomId');
     $('.team1GamePoints').html(data.view.team1GamePoints);
     $('.team1Points').html(data.view.team1Points);
     $('.team2GamePoints').html(data.view.team2GamePoints);
-    $('.team2Points .tableData.points').html(data.view.team2Points);
-    $('.trumpDiv .tableData').html(data.view.trumpDisplayText);
+    $('.team2Points').html(data.view.team2Points);
     $('.lastCall').html('');
 
     if(data.view.currentCallValue && data.view.currentTrumpPlayerName) {
         $('.lastCall').html(data.view.currentCallValue + " by " + data.view.currentTrumpPlayerName);
     }
+    if(data.view.state.id < 3) {
+        $(".trumpDiv").html('');
+    }
+
     if(data.view.state.id == 7) {
-
-
         if (data.view.trumpShown) {
-            $('.trumpDivBody').html("Trump <br\> <img class='card' src='/images/classic-cards/" + data.view.trump + ".png'/>");
+            $(".trumpDiv." + data.view.currentTrumpSlot).html("<img class='card' src='/images/classic-cards/" + data.view.trump + ".png'/>");
         } else {
-            $('.trumpDivBody').html("Trump <br\> <img class='card showTrump' src='/images/classic-cards/b2fv.png'/>");
+            $(".trumpDiv."+ data.view.currentTrumpSlot).html("<img class='card showTrump' src='/images/classic-cards/b2fv.png'/>");
         }
     }
 
     if(data.view.state.id == 7) {
+        $('.lastRoundCards').html('');
         if(data.view.lastRoundCards.length > 0) {
-            $('.lastRoundCards').html("Last Round <br\>");
             for(var i =0 ; i<4; i++) {
                 $('.lastRoundCards').append("<img class='card' src='/images/classic-cards/" + data.view.lastRoundCards[i].rank + data.view.lastRoundCards[i].suit + ".png'/>");
             }
         }
+        $(".actionPanel").css('visibility','hidden');
     }
 
     $("#startButton").click(function () {
@@ -88,7 +87,7 @@ io.on('updateTable', function (data) {
     }
 
     clearTimeout(timeout);
-    timeout = setTimeout(eject, 6000);
+    timeout = setTimeout(eject, 60000);
 
     $('.standupButton').click(function() {
         var userId = $("#userId").attr("value");
@@ -108,7 +107,7 @@ io.on('updateTable', function (data) {
         function hideWinner() {
             $(".winnerIcon." + teamWon).css('visibility', 'hidden');
         }
-        winnerTimeout = setTimeout(hideWinner, 5000);
+        winnerTimeout = setTimeout(hideWinner, 20000);
     }
 
     if(data.view.state.id == 1 && data.view.teamWon >= 0) {
@@ -122,6 +121,7 @@ io.on('updateTable', function (data) {
 
 io.on('updateCallPopup', function(data) {
     $('.callBody').html('');
+    $(".actionPanel").css('visibility','visible');
     console.log("got message in updateCallPopup "+ data.nextAllowedCallValue);
     var roomId = getParameterByName('roomId');
     for (var val = 14; val <= 28; val++) {

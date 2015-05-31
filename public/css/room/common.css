@@ -1,6 +1,5 @@
 .playerslot {
-    border: solid 1px grey;
-    background-color: grey;
+
     /*background-image: url('/images/chair.png');*/
     /*background-size: 60px 70px;*/
 }
@@ -10,9 +9,39 @@
     background-color: grey;
     width: 160px;
 }
+.centerTable {
+    background-image: url('/images/tabletransparent.gif');
+    position: absolute;
+    height: 600px;
+    width: 600px;
+    top: -15px;
+    left:80px;
+    background-repeat: no-repeat;
+    background-size:cover
+}
+
+.playerslotContent {
+    background-color: #CC7A00;
+    width: 70px;
+    height: 95px;
+    color: white;
+    border-radius: 5px;
+    font-size: 11px;
+    border: solid 1px #CC7A00;
+}
+
+.playerName {
+    background-color: #FFA319;
+    width: 100%;
+    border-radius: 5px 5px 0px 0px
+}
 
 .joinButton {
-    margin-top: 20px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 70px;
+    font-size: 15px;
 }
 
 .callButton {
@@ -20,16 +49,28 @@
 }
 
 .startGameContent {
-    margin-top: -35px;
-    z-index: 4;
+    position: absolute;
+    z-index: 15;
+    top: 270px;
+    left: 245px;
+    height: 100px;
+    width: 232px;
 }
 
 .statusIcon {
     position: absolute;
     z-index: 10;
     top: -5px;
-    right: -5px;
-    width: 20px;
+    right: -30px;
+    width: 25px;
+}
+
+.ejectButton {
+    position: absolute;
+    top: 40px;
+    left: 5px;
+    width: 59px;
+    font-size: 13px;
 }
 
 .teamName {
@@ -48,7 +89,7 @@
 .rightButtonPanel {
     position: absolute;
     z-index: 10;
-    top: 450px;
+    top: 170px;
     left: 10px;
     width: 70px;
     line-height: 30px;
@@ -65,7 +106,7 @@
 .teamStatPanel {
     position: absolute;
     top: 100px;
-    left: 330px;
+    left: 130px;
     min-width: 160px;
     max-width: 160px;
     min-height: 65px;
@@ -82,4 +123,45 @@
 
 .teamStatPanel .tableData {
     text-align: center;
+}
+
+.trumpDiv {
+    position: absolute;
+}
+
+.trumpDiv.zero{
+    top: 450px;
+    left: 285px;
+}
+
+.trumpDiv.one{
+    left: 194px;
+    top: 260px;
+}
+
+.trumpDiv.two{
+    top: 180px;
+    left: 285px;
+}
+
+.trumpDiv.three{
+    left: 510px;
+    top: 250px;
+}
+
+.trumpDiv .card {
+    width: 40px;
+}
+
+.lastRoundCardsDiv {
+    position: absolute;
+    top: 100px;
+    left: 540px;
+    width: 180px;
+    height: 100px;
+}
+
+.lastRoundCards .card {
+    width: 35px;
+    margin: 4px;
 }
