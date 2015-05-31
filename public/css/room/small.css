@@ -17,14 +17,15 @@
 
 .gameStatusDiv {
     margin-top: -20px;
-    width: 280px;
+    width: 320px;
 }
 
 .startGameContent {
-    position: absolute;
-    width: 280px;
-    top: 250px;
-    z-index: 15;
+    width: 180px;
+    z-index: 5;
+    top: 200px;
+    left: 60px;
+
 }
 
 .roomContainer {
@@ -41,20 +42,22 @@
     position: relative;
 }
 
-
 .centerTable {
-    height: 300px;
-    width: 350px;
-    top: -50px;
-    left: 0px;
+    background-color: green;
+    height: 280px;
+    width: 300px;
+    top: 30px;
+    left: 15px;
+    border-radius: 150px;
+    z-index: -1;
 }
 
 .mydeck {
     position: absolute;
-    min-height: 100%;
-    top: 50px;
-    right: 0px;
-    width: 50px;
+    height: 120px;
+    top: 400px;
+    left: 0px;
+    width: 200px;
     z-index: 3;
 }
 
@@ -68,15 +71,18 @@
 
 .actionPanel {
     position: absolute;
-    left: 0px;
-    top: 380px;
-    width: 260px;
-    height: 130px;
+    left: 19px;
+    top: 142px;
+    min-width: 310px;
+    max-width: 310px;
+    min-height: 180px;
+    max-height: 180px;
     text-align: center;
-    padding: 0px;
-    margin: 0px;
-    background-color: #2aabd2;
-
+    font-size: 15px;
+    border: solid 7px gray;
+    background-color: #FFF0F5;
+    padding-top: 5px;
+    z-index: 10;
 }
 
 .actionPanel .panel-heading {
@@ -88,46 +94,61 @@
     padding: 2px;
 }
 
-.statPanel {
-    position: absolute;
-    left: 0px;
-    top: 425px;
-    width: 250px;
-    margin-bottom: 5px;
-    background-color: #b5d592;
-}
-
-.statPanel .panel-heading {
-    display: none;
+.playerslotContent {
+    width: 60px;
+    height: 75px;
+    z-index; 5;
 }
 
 .playerslot {
     position: absolute;
-    width: 60px;
-    height: 70px;
-    font-size: 8px;
+    z-index; 5;
+    font-size: 9px;
     color: white;
-    text-align:center;
 }
 
 .playerslot.zero {
-    top:224px;
-    left:116px;
+    top:244px;
+    left:136px;
 }
 
 .playerslot.two {
-    top:50px;
-    left:116px;
+    top:20px;
+    left:136px;
 }
 
 .playerslot.three {
     top:135px;
-    left:220px;
+    left:270px;
 }
 
 .playerslot.one {
     top: 135px;
     left: 15px;
+}
+
+.trumpDiv.zero{
+    top: 344px;
+    left: 190px;
+}
+
+.trumpDiv.one{
+    left: 35px;
+    top: 170px;
+}
+
+.trumpDiv.two{
+    top: 135px;
+    left: 190px;
+}
+
+.trumpDiv.three{
+    left: 264px;
+    top: 170px;
+}
+
+.trumpDiv .card {
+    width: 30px;
 }
 
 .avatar {
@@ -178,26 +199,26 @@
 
 .slot3 {
     position: absolute;
-    top: 30px;
-    left: 2px;
+    top: 115px;
+    left: 195px;
 }
 
 .slot1 {
     position: absolute;
-    top: 30px;
-    right: 2px;
+    top: 115px;
+    left: 80px;
 }
 
 .slot2 {
     position: absolute;
-    top: 2px;
-    left: 50px;
+    top: 75px;
+    left: 140px;
 }
 
 .slot0 {
     position: absolute;
-    bottom: 2px;
-    left: 50px;
+    top: 145px;
+    left: 140px;
 }
 
 .alert {
@@ -231,7 +252,7 @@
 }
 
 .centerTable .card {
-    width: 30px;
+    width: 40px;
 }
 
 .roomDiv {
@@ -241,27 +262,32 @@
 .rightButtonPanel {
     position: absolute;
     z-index: 10;
-    top: 140px;
-    left: 0px;
+    top: 460px;
+    left: 210px;
     width: 70px;
-    line-height: 30px;
 }
 
 .playerButtonPanel {
     width: 70px;
-    top: 75px;
+    top: 400px;
+    left: 210px;
 }
 
 .teamStatPanel {
     position: absolute;
     top: 80px;
-    left: 160px;
+    left: 200px;
     min-width: 105px;
     max-width: 105px;
     min-height: 50px;
     max-height: 50px;
     font-size: 8px;
 }
+
+.lastRoundCardsDiv {
+    display: none;
+}
+
 
 .joinButton {
     margin-top: 10px;

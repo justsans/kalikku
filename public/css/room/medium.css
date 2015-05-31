@@ -297,11 +297,7 @@
     line-height: 30px;
 }
 
-.lastRoundCards {
-    position:absolute;
-    width: 180px;
-    top: 70px;
-}
+
 
 .trumpDivBody {
     width: 180px;
@@ -324,9 +320,11 @@
 }
 
 .lastRoundCards {
-    position: absolute;
-    top: 0px;
+    position:absolute;
+    width: 180px;
+    top: 70px;
 }
+
 
 .lastRoundCards .card {
     width: 30px;
@@ -334,12 +332,6 @@
 
 .lastRoundCardsDiv .panel-heading {
     display: none;
-}
-
-.emptyChair {
-    width: 40px;
-    height: 60px;
-    top: 20px;
 }
 
 
