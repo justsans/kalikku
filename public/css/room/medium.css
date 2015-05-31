@@ -17,11 +17,10 @@
 
 .gameStatusDiv {
     position: absolute;
-    top:  10px;
+    top:  20px;
     width: 290px;
     left: 80px;
 }
-
 
 .roomContainer {
     height: 400px;
@@ -39,21 +38,46 @@
 
 
 .centerTable {
-    position: relative;
-    height: 100px;
-    width: 140px;
-    top:55px;
-    left:75px;
+    background-color: green;
+    height: 200px;
+    width: 300px;
+    top: -40px;
+    left: 130px;
+    border-radius: 100px;
+    z-index: -1;
+}
+
+.joinButton {
+    position: absolute;
+    top: 20px;
+    width: 70px;
+    font-size: 15px;
+    z-index: 15;
+}
+
+.actionPanel {
+    position: absolute;
+    left: 119px;
+    top: 52px;
+    min-width: 310px;
+    max-width: 310px;
+    min-height: 180px;
+    max-height: 180px;
+    text-align: center;
+    font-size: 15px;
+    border: solid 7px gray;
+    background-color: #FFF0F5;
+    padding-top: 5px;
 }
 
 .mydeck {
     position: absolute;
     min-height: 100%;
     top: 50px;
-    left: 470px;
-    width: 100px;
-    min-width: 100px;
-    max-width: 100px;
+    left: 440px;
+    width: 120px;
+    min-width: 110px;
+    max-width: 110px;
     z-index: 3;
 }
 
@@ -65,37 +89,23 @@
     padding: 3px !important;
 }
 
-.actionPanel {
-    position: absolute;
-    left: 270px;
-    top: 120px;
-    width: 195px;
-    height: 166px;
-    text-align: center;
-    padding: 0px;
-    margin: 0px;
-    background-color: #33CCFF;
-
-}
 
 .startGameContent {
-    width: 280px;
+    width: 180px;
     z-index: 5;
+    top: 100px;
+    left: 165px;
+
 }
 
 .playerButtonPanel {
-    left: 10px;
+    left: 0px;
     width: 70px;
-    top: 50px;
+    top: 100px;
 }
 
 .actionPanel .panel-heading {
     display: none;
-}
-
-.actionPanel .card {
-    width: 35px;
-    padding: 2px;
 }
 
 .statPanel {
@@ -116,46 +126,44 @@
     display: none;
 }
 
-.playerslot {
-    position: absolute;
+.playerslotContent {
     width: 60px;
     height: 70px;
+    z-index; 5;
+}
+
+.playerslot {
+    position: absolute;
+    z-index; 5;
     font-size: 9px;
     color: white;
 }
 
 .playerslot.zero {
-    top:165px;
-    left:116px;
+    top: 95px;
+    left: 150px;
 }
 
 .playerslot.two {
-    top:-20px;
-    left:116px;
+    top: -40px;
+    left: 350px;
 }
 
 .playerslot.three {
-    top:75px;
-    left:220px;
+    top: 95px;
+    left: 350px;
 }
 
 .playerslot.one {
-    top: 75px;
-    left: 10px;
+    top: -40px;
+    left: 150px;
 }
 
 .avatar {
-    width:45px;
-    height:45px;
+    width:35px;
+    height:35px;
 }
 
-.startGameContent{
-    position: absolute;
-    font-size: 12px;
-    z-index: 15;
-    top: 30px;
-    left: 80px;
-}
 
 .messagesDiv {
     position: absolute;
@@ -195,26 +203,50 @@
 
 .slot3 {
     position: absolute;
-    top: 30px;
-    left: 2px;
+    top: 120px;
+    left: 164px;
 }
 
 .slot1 {
     position: absolute;
-    top: 30px;
-    right: 2px;
+    top: 58px;
+    left: 102px;
 }
 
 .slot2 {
     position: absolute;
-    top: 2px;
-    left: 50px;
+    top: 58px;
+    left: 164px;
 }
 
 .slot0 {
     position: absolute;
-    bottom: 2px;
-    left: 50px;
+    top: 120px;
+    left: 102px;
+}
+
+.trumpDiv.zero{
+    top: 220px;
+    left: 194px;
+}
+
+.trumpDiv.one{
+    left: 194px;
+    top: 46px;
+}
+
+.trumpDiv.two{
+    top: 46px;
+    left: 294px;
+}
+
+.trumpDiv.three{
+    left: 294px;
+    top: 220px;
+}
+
+.trumpDiv .card {
+    width: 30px;
 }
 
 .alert {
@@ -228,7 +260,7 @@
 
 
 .card {
-    width: 40px;
+    width: 45px;
 }
 
 .hand li
@@ -248,7 +280,7 @@
 }
 
 .centerTable .card {
-    width: 30px;
+    width: 35px;
     color: white;
 }
 
@@ -259,14 +291,10 @@
 .rightButtonPanel {
     position: absolute;
     z-index: 10;
-    top: 250px;
+    top: 50px;
     left: 0px;
     width: 70px;
     line-height: 30px;
-}
-
-.joinButton {
-    margin-top: 10px;
 }
 
 .lastRoundCards {
@@ -282,13 +310,36 @@
 
 .teamStatPanel {
     position: absolute;
-    top: 50px;
-    left: 200px;
-    min-width: 160px;
-    max-width: 160px;
-    min-height: 65px;
-    max-height: 65px;
-    font-size: 10px;
+    top: 270px;
+    left: 210px;
+    width: 140px;
+}
+
+.lastRoundCardsDiv {
+    position: absolute;
+    top: 270px;
+    left: 0px;
+    width: 170px;
+    height: 70px;
+}
+
+.lastRoundCards {
+    position: absolute;
+    top: 0px;
+}
+
+.lastRoundCards .card {
+    width: 30px;
+}
+
+.lastRoundCardsDiv .panel-heading {
+    display: none;
+}
+
+.emptyChair {
+    width: 40px;
+    height: 60px;
+    top: 20px;
 }
 
 

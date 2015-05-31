@@ -84,12 +84,10 @@ module.exports = function (app, rooms, io, sessionStore) {
     }
 
     function updateCurrentPlayerWithCallValues(room) {
-        console.log('updating popup 1');
-        if(room.state == STATES.CALL1 || room.state == STATES.CALL2 || room.state == STATES.CALL3) {
-            console.log('updating popup 2');
+        if(room.isCallState()) {
             var currentSlot = room.currentSlot;
             var roomId = room.roomId + '-' + room.players[currentSlot].id;
-            io.sockets.in(roomId).emit('updateCallPopup', {nextAllowedCallValue: room.nextAllowedCallValue});
+            io.sockets.in(roomId).emit('updateCallPopup', {nextAllowedCallValue: room.nextAllowedCallValue, isCallState: room.isCallState()});
         }
     }
 

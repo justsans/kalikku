@@ -59,12 +59,15 @@ io.on('updateTable', function (data) {
     }
 
     if(data.view.state.id == 7) {
-        $('.lastRoundCards').html('');
+        $('.lastRoundCards').html('Last Round<br/>');
         if(data.view.lastRoundCards.length > 0) {
             for(var i =0 ; i<4; i++) {
                 $('.lastRoundCards').append("<img class='card' src='/images/classic-cards/" + data.view.lastRoundCards[i].rank + data.view.lastRoundCards[i].suit + ".png'/>");
             }
         }
+    }
+
+    if(!data.view.isCallState) {
         $(".actionPanel").css('visibility','hidden');
     }
 
@@ -121,7 +124,10 @@ io.on('updateTable', function (data) {
 
 io.on('updateCallPopup', function(data) {
     $('.callBody').html('');
-    $(".actionPanel").css('visibility','visible');
+    if(data.isCallState) {
+        $(".actionPanel").css('visibility','visible');
+    }
+
     console.log("got message in updateCallPopup "+ data.nextAllowedCallValue);
     var roomId = getParameterByName('roomId');
     for (var val = 14; val <= 28; val++) {

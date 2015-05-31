@@ -43,12 +43,10 @@
 
 
 .centerTable {
-    position: relative;
-    border: solid #000000 1px;
-    height: 100px;
-    width: 140px;
-    top:119px;
-    left:78px;
+    height: 300px;
+    width: 350px;
+    top: -50px;
+    left: 0px;
 }
 
 .mydeck {

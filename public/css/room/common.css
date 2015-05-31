@@ -1,8 +1,3 @@
-.playerslot {
-
-    /*background-image: url('/images/chair.png');*/
-    /*background-size: 60px 70px;*/
-}
 
 .playerName{
     text-align: center;
@@ -10,14 +5,7 @@
     width: 160px;
 }
 .centerTable {
-    background-image: url('/images/tabletransparent.gif');
     position: absolute;
-    height: 600px;
-    width: 600px;
-    top: -15px;
-    left:80px;
-    background-repeat: no-repeat;
-    background-size:cover
 }
 
 .playerslotContent {
@@ -42,10 +30,11 @@
     left: 0;
     width: 70px;
     font-size: 15px;
+    z-index: 15;
 }
 
 .callButton {
-    margin: 2px;
+    margin: 7px;
 }
 
 .startGameContent {
@@ -59,9 +48,8 @@
 
 .statusIcon {
     position: absolute;
-    z-index: 10;
     top: -5px;
-    right: -30px;
+    right: -5px;
     width: 25px;
 }
 
@@ -102,16 +90,18 @@
     width: 50px;
     visibility:hidden;
 }
+.mydeck {
+    background-color: #F0F8FF;
+}
 
 .teamStatPanel {
     position: absolute;
     top: 100px;
     left: 130px;
-    min-width: 160px;
-    max-width: 160px;
-    min-height: 65px;
-    max-height: 65px;
+    width: 170px;
+    height: 65px;
     font-size: 10px;
+    background-color: #F0F8FF;
 }
 
 .teamStatPanel .borderBottom {
@@ -154,11 +144,13 @@
 }
 
 .lastRoundCardsDiv {
+    background-color: #DEB887;
     position: absolute;
     top: 100px;
     left: 540px;
     width: 180px;
-    height: 100px;
+    height: 80px;
+    text-align: center;
 }
 
 .lastRoundCards .card {

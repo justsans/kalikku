@@ -7,13 +7,13 @@
 {{? it.view.state.id === 1 }}
 <div class="alert alert-danger startGameContent">
     All the players have joined.
-    <input class="btn btn-primary btn-lg btn-blue" type="button" id="startButton" value="Start Game"/>
+    <input class="btn btn-primary btn-md btn-blue" type="button" id="startButton" value="Start Game"/>
 </div>
 {{?}}
 
 <div class="playerButtonPanel">
-    <a class="btn btn-warning btn-xs toLobbyButton" href="/">To Lobby</a>
-    <input class="btn btn-warning btn-xs standupButton" type="button"  value="Stand up"/>
+    <a class="btn btn-primary btn-xs toLobbyButton" href="/">To Lobby</a>
+    <input class="btn btn-primary btn-xs standupButton" type="button"  value="Stand up"/>
 </div>
 
 <div class="rightButtonPanel">
@@ -25,6 +25,7 @@
             <div class="playerslot two 2">
                 {{? !it.view.players[2]}}
                 <input class="btn btn-primary btn-sm btn-blue joinButton" type="button"  slot="2" value="Join"/>
+                <img class="emptyChair" src="/images/stool.gif"/>
                 {{??}}
                     <div class="playerslotContent">
                         <span class="winner 2"><img class="winnerIcon 2" src="/images/winner/1.gif"/></span>
@@ -51,6 +52,7 @@
             <div class="playerslot one 1">
                 {{? !it.view.players[1]}}
                 <input class="btn btn-primary btn-sm btn-blue joinButton" type="button"  slot="1" value="Join"/>
+                <img class="emptyChair" src="/images/stool.gif"/>
                 {{??}}
                 <div class="playerslotContent">
                     <span class="winner 1"><img class="winnerIcon 1" src="/images/winner/1.gif"/></span>
@@ -71,6 +73,7 @@
             <div class="playerslot three 3">
                 {{? !it.view.players[3]}}
                 <input class="btn btn-primary btn-sm btn-blue joinButton" type="button"  slot="3" value="Join"/>
+                <img class="emptyChair" src="/images/stool.gif"/>
                 {{??}}
                 <div class="playerslotContent">
                     <span class="winner 1"><img class="winnerIcon 1" src="/images/winner/1.gif"/></span>
@@ -91,6 +94,7 @@
             <div class="playerslot zero 0">
                 {{? !it.view.players[0]}}
                 <input class="btn btn-primary btn-sm btn-blue joinButton" type="button"  slot="0" value="Join"/>
+                <img class="emptyChair" src="/images/stool.gif"/>
                 {{??}}
                 <div class="playerslotContent">
                     <span class="winner 2"><img class="winnerIcon 2" src="/images/winner/1.gif"/></span>

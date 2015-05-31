@@ -12,6 +12,15 @@
     position: relative;
     top: 5px;
 }
+.centerTable {
+    background-image: url('/images/tabletransparent.gif');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 600px;
+    width: 600px;
+    top: -15px;
+    left: 80px;
+}
 
 .playerslot {
     position: absolute;
@@ -213,8 +222,9 @@
     height: 90px;
 }
 
-
-
+.emptyChair {
+    display: none;
+}
 
 
 
