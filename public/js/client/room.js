@@ -58,8 +58,9 @@ io.on('updateTable', function (data) {
         }
     }
 
+    $('.lastRoundCards').html('Last Round<br/>');
     if(data.view.state.id == 7) {
-        $('.lastRoundCards').html('Last Round<br/>');
+
         if(data.view.lastRoundCards.length > 0) {
             for(var i =0 ; i<4; i++) {
                 $('.lastRoundCards').append("<img class='card' src='/images/classic-cards/" + data.view.lastRoundCards[i].rank + data.view.lastRoundCards[i].suit + ".png'/>");
