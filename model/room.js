@@ -30,6 +30,7 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
     this.displayedChatId = -1;
     this.currentRoundPasses = 0;
     this.stateBeforeHold = STATES.READY;
+    this.trumpWasAskedInThisRound = -1;
 
     this.playRound = 1;
     this.currentPlayRoundSuit = '';
@@ -71,6 +72,7 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
         this.currentRoundPasses = 0;
         this.nextAllowedCallValue = 14;
         this.currentTrumpPlayerName = '';
+        this.trumpWasAskedInThisRound = -1;
         this.playerOldCards = [null, null, null, null];
         for(var j=0; j<4;j++) {
             this.players[j].cards = [];
@@ -134,7 +136,6 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
                 }
                 console.log(this.players);
                 numberOfPlayers++;
-                console.log('numberOfPlayers=' + numberOfPlayers, 'stateBeforeHold='+ this.stateBeforeHold);
                 if(numberOfPlayers >= 4) {
                     this.hasAllPlayersJoined = true;
                     this.state = this.stateBeforeHold;
@@ -184,11 +185,9 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
            console.log(rank+ suit +' is valid');
            this.players[this.currentSlot].removeCardByRankAndSuit(rank, suit);
            this.tableCards[this.currentSlot] = new Card(rank, suit);
-
-           console.log('currentRoundPlays = ' + this.currentRoundPlays);
+            this.trumpWasAskedInThisRound = false;
             if(this.currentRoundPlays == 0) {
                 this.currentPlayRoundSuit = suit;
-                console.log('currentPlayRoundSuit = ' + this.currentPlayRoundSuit);
             }
             if(this.currentRoundPlays <= 3) {
                 this.currentRoundPlays++;
@@ -203,7 +202,6 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
     }
 
     this.finishRoundIfDone = function() {
-        console.log('#########I am in finishRoundIfDone');
         if(this.currentRoundPlays >= 4) {
             this.state = STATES.PLAY;
             this.finishRound();
@@ -229,12 +227,14 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
     this.showTrump = function() {
         if(this.state == STATES.PLAY) {
             this.trumpShown = true;
+            this.trumpWasAskedInThisRound = this.currentSlot;
             this.messages[++this.messageId] = this.players[this.currentSlot] + ' requested trump to be shown.';
         }
     }
 
     this.finishRound  = function() {
         var slotWhoWon = this.whichSlotWonTheRound();
+        this.trumpWasAskedInThisRound = -1;
         console.log('finishing round');
         var points = 0;
 
@@ -242,16 +242,10 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
             points += this.tableCards[card].point;
         }
 
-        console.log('#########before update team1Points: ' +this.team1Points);
-        console.log('#########before update team2Points: ' +this.team2Points);
-        console.log('#########before update points: ' +points);
-
         if(slotWhoWon % 2 == 0) {
             this.team2Points += points;
-            console.log('#########updating team2Points: ' +this.team2Points);
         } else {
             this.team1Points +=  points;
-            console.log('#########updating team1Points: ' +this.team1Points);
         }
 
         var teamWon = this.whichTeamWonTheGame();
@@ -317,9 +311,7 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
     this.addChatMessage = function(playerName, chatMessage) {
         var message =  playerName + ": " + chatMessage;
         this.chatId = this.chatId +  1;
-        console.log('chatMessage is :' +  chatMessage + 'playerName=' +playerName + ' chatid= ' + this.chatId);
         this.chats[this.chatId] = message + "\n";
-        console.log('chats==== ' + this.chats);
     }
 
     this.updateUserPenalty = function(penalty, userId, won, isSenior, isHonors) {
@@ -467,7 +459,12 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
         }
 
         if(suit == this.currentPlayRoundSuit) return true;
-        if(this.ifIDoNotHaveTheCurrentSuit(cards)) return true;
+        if(this.ifIDoNotHaveTheCurrentSuit(cards)) {
+            if(this.trumpWasAskedInThisRound && this.ifIHaveTheTrumpSuit(cards) && this.trump.suit != suit) {
+                return false;
+            }
+            return true;
+        }
 
         return false;
     }
@@ -479,8 +476,23 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
         return true;
     }
 
-    this.ifIDoNotHaveTheCurrentSuit = function(cards) {
+    this.ifIHaveTheTrumpSuit = function(cards) {
         for(var card in cards) {
+            if(cards[card].suit == this.trump.suit) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    this.ifIDoNotHaveTheCurrentSuit = function(cards) {
+
+        for(var card in cards) {
+            if(!this.trumpShown &&
+                this.currentPlayRoundSuit == this.currentTrumpSlot &&
+                cards[card].suit == this.trump.suit && cards[card].rank == this.trump.rank) {
+                continue;
+            }
             if(cards[card].suit == this.currentPlayRoundSuit) {
                 return false;
             }
@@ -489,12 +501,10 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
     }
 
     this.call = function(playerId, callValue) {
-        console.log('playerID='+playerId);
         var currentPlayerId = this.players[this.currentSlot].id;
         if(currentPlayerId == playerId && this.isCallState()) {
             //set min call value
             var minCallValue = this.nextAllowedCallValue ;
-            console.log('min call value is: ' + minCallValue);
 
             if(this.state == STATES.CALL1) {
                 if(this.currentRoundCalls > 0) {
@@ -612,7 +622,6 @@ var Room = function Room(roomId, isDefaultAddPlayer) {
 
     this.nextSlotAfterCall =  function () {
         this.currentRoundCalls++;
-        console.log('\nthis.currentRoundCalls  is ' + this.currentRoundCalls);
         console.log(this.currentSlot + 'called ' + this.currentCallValue);
 
         if(this.state == STATES.CALL1) {

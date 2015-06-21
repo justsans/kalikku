@@ -42,8 +42,8 @@ var Player = function Player (playerId, displayName, picture) {
     }
 
     this.hasCard = function(rank, suit) {
-       for(var i=0; i < this.cards.length; i++) {
 
+       for(var i=0; i < this.cards.length; i++) {
            if(this.cards[i].suit == suit && this.cards[i].rank == rank) {
                return true;
            }

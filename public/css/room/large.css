@@ -226,5 +226,12 @@
     display: none;
 }
 
+.statusIcon {
+    position: absolute;
+    top: -5px;
+    right: -25px;
+    width: 25px;
+}
+
 
 
