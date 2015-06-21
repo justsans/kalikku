@@ -56,6 +56,7 @@ angular.module('starter.controllers', ['starter.services', 'socket.services', 'c
   $scope.room = Room.get({roomId: $stateParams.roomId});
       console.log('sending show to beginers');
   console.log('######apiUrl 1 is ' + apiUrl);
+
   socket.emit("/room/show", {'roomId': 'Beginers'});
   socket.on('updateTable', function (data){
     console.log('got message from server', data);

@@ -1,5 +1,5 @@
 {
-  "name": "conference",
+  "name": "trump",
   "app_id": "",
   "gulpStartupTasks": [
     "sass",
@@ -12,11 +12,11 @@
   "proxies": [
         {
           "path": "/socketApi",
-          "proxyUrl": "http://192.168.1.5:5000/socket.io/socket.io.js"
+          "proxyUrl": "http://192.168.1.3:5000/socket.io/socket.io.js"
         },
         {
           "path": "/mobileApi",
-          "proxyUrl": "http://192.168.1.5:5000/mobile/www"
+          "proxyUrl": "http://192.168.1.3:5000/mobile/www"
         }
   ]
 }

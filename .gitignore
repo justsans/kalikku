@@ -1,5 +1,6 @@
 .idea/
 kalikku.iml
 node_modules/
-public/mobile/platforms/
+public/mobile/platforms
 public/mobile/plugins/ios.json
+public/mobile/platforms/android/assets
