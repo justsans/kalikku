@@ -44,10 +44,10 @@
 
 .centerTable {
     background-color: green;
-    height: 230px;
-    width: 230px;
+    height: 220px;
+    width: 220px;
     top: 50px;
-    left: 60px;
+    left: 67px;
     border-radius: 230px;
     z-index: -1;
 }
@@ -290,7 +290,7 @@
 
 
 .joinButton {
-    margin-top: 5px;
+    top: 0px;
 }
 
 
