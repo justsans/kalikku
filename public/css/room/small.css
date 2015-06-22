@@ -52,12 +52,17 @@
     z-index: -1;
 }
 
+.card {
+    width: 52px;
+    margin-bottom: 5px;
+}
+
 .mydeck {
     position: absolute;
-    height: 120px;
-    top: 400px;
+    height: 150px;
+    top: 395px;
     left: 0px;
-    width: 200px;
+    width: 100%;
     z-index: 3;
 }
 
@@ -87,11 +92,6 @@
 
 .actionPanel .panel-heading {
     display: none;
-}
-
-.actionPanel .card {
-    width: 35px;
-    padding: 2px;
 }
 
 .playerslotContent {
@@ -238,10 +238,6 @@
     text-align: center;
 }
 
-
-.card {
-    width: 40px;
-}
 
 .hand li
 {

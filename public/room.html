@@ -40,6 +40,23 @@
             <div class="roomConatiner">
                 <div class="roomDiv" ></div>
 
+
+                <div class="playerButtonPanel hidden-xs">
+                    <a class="btn btn-primary btn-xs toLobbyButton" href="/">To Lobby</a>
+                    <input class="btn btn-primary btn-xs standupButton" type="button"  value="Stand up"/>
+                </div>
+
+                <div class="rightButtonPanel hidden-xs">
+                    <input class="btn btn-danger btn-xs restartGameButton" type="button"  value="Restart Game"/>
+                </div>
+
+                <div class="playerButtonPanelMobile col-12 hidden-lg">
+                    <a class="btn btn-primary btn-sm toLobbyButton" href="/">To Lobby</a>
+                    <input class="btn btn-primary btn-sm standupButton" type="button"  value="Stand up"/>
+                    <input class="btn btn-danger btn-sm restartGameButton" type="button"  value="Restart Game"/>
+                </div>
+
+
                 <div class="teamStatPanel panel panel-info">
                     <div class="statBody">
                         <table class="gameStatTable">
@@ -128,17 +145,6 @@
 
     <script src="/js/lib/doT.min.js"></script>
     <script src="/js/client/navbar.js"></script>
-
-
-    <script type="text/javascript">
-//        var socket = io('http://localhost:5000');
-//        //        alert('i am starting');
-//        socket.on('connect', function() {
-//            socket.on('text', function(text) {
-//                alert(text);
-//            });
-//        });
-    </script>
 
     <script src="/js/client/room.js"></script>
 
