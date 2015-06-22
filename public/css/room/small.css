@@ -44,11 +44,11 @@
 
 .centerTable {
     background-color: green;
-    height: 280px;
-    width: 300px;
-    top: 30px;
-    left: 15px;
-    border-radius: 200px;
+    height: 230px;
+    width: 230px;
+    top: 50px;
+    left: 60px;
+    border-radius: 230px;
     z-index: -1;
 }
 
@@ -108,13 +108,13 @@
 }
 
 .playerslot.zero {
-    top:244px;
-    left:136px;
+    top: 244px;
+    left: 145px;
 }
 
 .playerslot.two {
-    top:20px;
-    left:136px;
+    top: 0px;
+    left: 145px;
 }
 
 .playerslot.three {
@@ -199,26 +199,26 @@
 
 .slot3 {
     position: absolute;
-    top: 115px;
-    left: 195px;
+    top: 95px;
+    left: 155px;
 }
 
 .slot1 {
     position: absolute;
-    top: 115px;
-    left: 80px;
+    top: 95px;
+    left: 30px;
 }
 
 .slot2 {
     position: absolute;
-    top: 75px;
-    left: 140px;
+    top: 35px;
+    left: 95px;
 }
 
 .slot0 {
     position: absolute;
-    top: 145px;
-    left: 140px;
+    top: 135px;
+    left: 95px;
 }
 
 .alert {
