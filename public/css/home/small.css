@@ -6,3 +6,8 @@
 .navbar-brand {
     font-size: 14px;
 }
+
+.btn-lg {
+    padding: 5px;
+    margin: 5px;
+}
