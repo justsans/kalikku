@@ -48,7 +48,7 @@
     width: 300px;
     top: 30px;
     left: 15px;
-    border-radius: 150px;
+    border-radius: 200px;
     z-index: -1;
 }
 
@@ -275,8 +275,8 @@
 
 .teamStatPanel {
     position: absolute;
-    top: 80px;
-    left: 235px;
+    top: 75px;
+    left: 0px;
     min-width: 105px;
     max-width: 105px;
     min-height: 50px;
