@@ -7,7 +7,7 @@
 {{? it.view.state.id === 1 }}
 <div class="alert alert-danger startGameContent">
     All the players have joined.
-    <input class="btn btn-primary btn-md btn-blue" type="button" id="startButton" value="Start Game"/>
+    <input class="btn btn-primary btn-md btn-blue startButton" type="button" id="startButton" value="Start Game"/>
 </div>
 {{?}}
 

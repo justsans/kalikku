@@ -23,7 +23,7 @@
 .startGameContent {
     width: 180px;
     z-index: 5;
-    top: 200px;
+    top: 225px;
     left: 60px;
 
 }
@@ -71,7 +71,7 @@
 
 .actionPanel {
     position: absolute;
-    left: 19px;
+    left: 22px;
     top: 142px;
     min-width: 310px;
     max-width: 310px;
@@ -118,12 +118,12 @@
 }
 
 .playerslot.three {
-    top:135px;
-    left:270px;
+    top:125px;
+    left:275px;
 }
 
 .playerslot.one {
-    top: 135px;
+    top: 125px;
     left: 15px;
 }
 
@@ -161,6 +161,14 @@
 
 .startGameContent{
     font-size: 12px;
+    left: 67px;
+    top: 180px;
+}
+
+.startButton {
+    margin-top: 10px;
+    height: 50px;
+    width: 100px;
 }
 
 .messagesDiv {
@@ -199,13 +207,13 @@
 
 .slot3 {
     position: absolute;
-    top: 95px;
+    top: 85px;
     left: 155px;
 }
 
 .slot1 {
     position: absolute;
-    top: 95px;
+    top: 85px;
     left: 30px;
 }
 
