@@ -17,7 +17,7 @@
 
 .gameStatusDiv {
     margin-top: -20px;
-    width: 320px;
+    width: 100%;
 }
 
 .startGameContent {
@@ -276,7 +276,7 @@
 .teamStatPanel {
     position: absolute;
     top: 80px;
-    left: 200px;
+    left: 235px;
     min-width: 105px;
     max-width: 105px;
     min-height: 50px;
@@ -290,7 +290,7 @@
 
 
 .joinButton {
-    margin-top: 10px;
+    margin-top: 5px;
 }
 
 
