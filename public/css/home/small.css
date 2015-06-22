@@ -1,12 +1,12 @@
 
 .panel {
-    font-size: 54px;
+    font-size: 20px;
 }
 
-.list-group-item {
-    padding: 45px;
+.navbar-brand {
+    font-size: 14px;
 }
 
-.userStatsPanel th{
-    font-size: 24px;
+.profilePanel {
+    margin-right: 15px;
 }

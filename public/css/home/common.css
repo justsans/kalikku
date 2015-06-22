@@ -1,7 +1,6 @@
-.profilePanel .row{
-    height: 25px;
-    padding-left: 10px;
-    padding-right: 10px;
+.profilePanel{
+    padding-right: 0;
+    padding-left: 0;
 }
 
 .table-striped>tbody>tr:nth-of-type(odd) {
