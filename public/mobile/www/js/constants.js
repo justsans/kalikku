@@ -1,2 +1,2 @@
 angular.module('constants',[])
-    .constant('apiUrl', 'http://192.168.1.3:5000');
+    .constant('apiUrl', 'http://kalikku.herokuapp.com:5000');

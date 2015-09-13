@@ -54,19 +54,6 @@ var sessionConfig = {
     store:   sessionStore
 }
 
-
-//var old_auth = io.get('authorization')
-//io.set("authorization", passportSocketIo.authorize( {
-//        passport: passport,
-//        cookieParser: express.cookieParser,
-//        key: 'connect.sid',
-//        secret: configDB.cookie_secret,
-//        store: sessionStore,
-//        success: function(data, accept) {
-//            old_auth(data, accept);
-//        }
-//    }));
-
 io.use(passportSocketIo.authorize({
     cookieParser: cookie_parser,       // the same middleware you registrer in express
     key:          'connect.sid',       // the name of the cookie where express/connect stores its session_id
@@ -79,21 +66,8 @@ io.use(passportSocketIo.authorize({
       data.socket.userid = data.user.id;
       accept();
     }
-    //fail:         onAuthorizeFail     // *optional* callback on fail/error - read more below
 }));
 
-
-//app.io.set('transports', ['websocket', 'xhr-polling', 'jsonp-polling', 'htmlfile', 'flashsocket']);
-//app.io.set('origins', '*:*');
-
-///////////////
-
- //CORS (Cross-Origin Resource Sharing) headers to support Cross-site HTTP requests
-//app.all('*', function(req, res, next) {
-//    res.header("Access-Control-Allow-Origin", "*");
-//    res.header("Access-Control-Allow-Headers", "X-Requested-With");
-//    next();
-//});
 
 app.use(function(req, res, next) {
     res.header('Access-Control-Allow-Credentials', true);
@@ -106,8 +80,6 @@ app.use(function(req, res, next) {
         next();
     }
 });
-//app.use(express.static(__dirname + '/conference/www'));
-
 
 // required for passport
 app.use(session(sessionConfig)); // session secret
@@ -138,4 +110,3 @@ mongoose.connect(configDB.url, function () {
     });
 });
 
-//app.listen( port );

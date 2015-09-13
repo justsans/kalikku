@@ -1,5 +1,3 @@
-var baseUrl = 'http://localhost:5000/';
-
 angular.module('socket.services', ['constants'])
 
 .factory('socket', function socket($rootScope, apiUrl) {

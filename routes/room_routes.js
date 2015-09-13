@@ -390,13 +390,8 @@ module.exports = function (app, rooms, io, sessionStore) {
                 }
             });
 
-
-
-
         }) ;
 
-
     });
-
 
 };
